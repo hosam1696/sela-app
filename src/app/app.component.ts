@@ -4,6 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {HomePage} from "../pages/home/home";
 import {RequestsPage} from "../pages/requests/requests";
+ 
 
 
 @Component({
@@ -12,7 +13,7 @@ import {RequestsPage} from "../pages/requests/requests";
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = "LoginPage";
 
   pages: Array<{title: string, component: any, icon: string}>;
 
@@ -30,9 +31,9 @@ export class MyApp {
       { title: 'Log out', component: 'SignupPage', icon: 'log-in'},
       { title: 'Log out', component: 'WalletPage',icon:'log-out'}
     ];
-
+ 
   }
-
+     
   initializeApp() {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.

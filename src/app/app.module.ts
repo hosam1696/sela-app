@@ -1,16 +1,22 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-
+import { Events } from 'ionic-angular';
+import { IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+ 
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {FormsModule} from "@angular/forms";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient,HttpClientModule} from "@angular/common/http";
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {AppUtilFunctions} from '../providers/utilfuns';
+import {MyVariabels} from'../providers/variables';
+import {UsersProviders} from'../providers/users';
+
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -19,10 +25,13 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+   
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
+    IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp,{
       scrollAssist: false,
       autoFocusAssist: false
@@ -44,6 +53,9 @@ export function HttpLoaderFactory(http: HttpClient) {
   providers: [
     StatusBar,
     SplashScreen,
+    AppUtilFunctions,
+    MyVariabels,
+    UsersProviders,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
