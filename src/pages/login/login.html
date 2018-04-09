@@ -1,0 +1,25 @@
+
+
+
+<ion-content padding-horizontal>
+  <nav class="top-nav">
+    <button ion-button  clear icon-only>
+      <ion-icon name="arrow-back" color="light"></ion-icon>
+    </button>
+  </nav>
+  <form [formGroup]="loginForm" (submit)="submitForm()">
+    <section class="for-hero">
+      <img src="assets/imgs/logo.png" alt="">
+    </section>
+
+    <ion-list>
+      <ion-item no-lines>
+        <ion-input formControlName="username" type="text" placeholder="enter your name"></ion-input>
+      </ion-item>
+      <ion-item no-lines>
+        <ion-input formControlName="password" type="password" placeholder="enter your password"></ion-input>
+      </ion-item>
+    </ion-list>
+    <button ion-button type="button">Log in</button>
+  </form>
+</ion-content>

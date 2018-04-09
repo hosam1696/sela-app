@@ -14,3 +14,87 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+// Global Variables
+$primary: color($colors, primary);
+$light: color($colors, light);
+
+
+// File Variables
+$hero-img-width: 12rem;
+
+%flex-center {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+%align-center {
+  display: flex;
+  align-items: center;
+}
+ion-menu {
+  .menu-inner {
+    background: transparent !important;
+  }
+  ion-content {
+    &.content {
+      background-color: rgba(59, 174, 230, 0.86);
+      color: $light;
+    }
+    .user-section {
+      @extend %flex-center;
+      padding: 1.6rem;
+      .user-img {
+        min-height: $hero-img-width;
+        text-align: center;
+        img {
+          min-height: $hero-img-width;
+          min-width: $hero-img-width;
+          width: $hero-img-width;
+          height: $hero-img-width;
+          border-radius: 50%;
+          background-color: #fff;
+        }
+      }
+      .user-name {
+        text-align: center;
+        h2 {
+
+        }
+      }
+    }
+    ion-list {
+      button {
+        background-color: transparent !important;
+        color: $light !important;
+        ion-label {
+          margin-bottom: 0 !important;
+          @extend %align-center
+        }
+        ion-icon {
+          padding: 0.5rem;
+          width: 4.5rem;
+          height: 4.5rem;
+          line-height: 1.2;
+          text-align: center;
+          border-radius: 50%;
+          border: 1.2px solid #2A7CAD;
+          color: #fff !important;
+          font-size: 2.8rem;
+        }
+        p {
+          color: $light !important;
+          padding: 0 0.8rem;
+          font-size: 1.8rem !important;
+        }
+      }
+    }
+  }
+}
+
+.transparent-bg {
+  background: transparent;
+  .toolbar-background {
+    background: transparent;
+  }
+}
