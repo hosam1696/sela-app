@@ -20,29 +20,29 @@ export class UsersProviders {
   }
    userLogin(userData){
     let data = JSON.stringify(Object.assign(userData));
-    return this.http.post(this.Vari.API_URL+'users.php?action=loginUser', data);
+    return this.http.post<any>(this.Vari.API_URL+'users.php?action=loginUser', data);
   }
   userRegister(userData) {
     let data = JSON.stringify(Object.assign(userData));
-    return this.http.post(this.Vari.API_URL+'users.php?action=newUser',data);
+    return this.http.post<any>(this.Vari.API_URL+'users.php?action=newUser',data);
   }
   userEdite(userData) {
         let data = JSON.stringify(Object.assign(userData));
-    return this.http.post(this.Vari.API_URL+'users.php?action=editUser', data);
+    return this.http.post<any>(this.Vari.API_URL+'users.php?action=editUser', data);
   }
   getPlacesByPerantId(d) {
     //let data = JSON.stringify({uid});
     let data = JSON.stringify(Object.assign(d));
     // console.log('Data entered', data, typeof data);
     // console.log('this.Vari.API_URL', this.Vari.API_URL);
-    return this.http.post(this.Vari.API_URL+'users.php?action=getPlaces', data);
+    return this.http.post<any>(this.Vari.API_URL+'users.php?action=getPlaces', data);
   }
   forgetPassword(d) {
     //let data = JSON.stringify({uid});
     let data = JSON.stringify(Object.assign(d));
     // console.log('Data entered', data, typeof data);
     // console.log('this.Vari.API_URL', this.Vari.API_URL);
-    return this.http.post(this.Vari.API_URL+'users.php?action=forgetPassword', data);
+    return this.http.post<any>(this.Vari.API_URL+'users.php?action=forgetPassword', data);
   }
 
   getUserInfo() {
@@ -58,7 +58,7 @@ export class UsersProviders {
   }
   setdeviceTokeId(Da){
   let data = JSON.stringify(Object.assign(Da));
-    return this.http.post(this.Vari.API_URL+'users.php?action=setDeviceToken', data);
+    return this.http.post<any>(this.Vari.API_URL+'users.php?action=setDeviceToken', data);
   }
   // getToken() {
   //   return this.storage.get('userToken');
@@ -68,62 +68,62 @@ export class UsersProviders {
   // }
    // getProviderById(Da){
  //   let data = JSON.stringify(Object.assign(Da));
- //    return this.http.post(this.Vari.API_URL+'users.php?action=getProviderById', data);
+ //    return this.http.post<any>(this.Vari.API_URL+'users.php?action=getProviderById', data);
  // }
  
  
  getPage(Da) {
         let data = JSON.stringify(Object.assign(Da));
-    return this.http.post(this.Vari.API_URL+'pages.php?action=showPage', data);
+    return this.http.post<any>(this.Vari.API_URL+'pages.php?action=showPage', data);
   }
 
   checkRating(Da){
    let data = JSON.stringify(Object.assign(Da));
-    return this.http.post(this.Vari.API_URL+'users.php?action=checkRating', data);
+    return this.http.post<any>(this.Vari.API_URL+'users.php?action=checkRating', data);
  }
  upDateRating(Da){
   let data = JSON.stringify(Object.assign(Da));
-    return this.http.post(this.Vari.API_URL+'users.php?action=upDateRating', data);
+    return this.http.post<any>(this.Vari.API_URL+'users.php?action=upDateRating', data);
  }
  addRating(Da){
   let data = JSON.stringify(Object.assign(Da));
-    return this.http.post(this.Vari.API_URL+'users.php?action=addRating', data);
+    return this.http.post<any>(this.Vari.API_URL+'users.php?action=addRating', data);
  }
  getRatingAndWorks(Da){
     let data = JSON.stringify(Object.assign(Da));
-    return this.http.post(this.Vari.API_URL+'users.php?action=getRatingAndWorks', data);
+    return this.http.post<any>(this.Vari.API_URL+'users.php?action=getRatingAndWorks', data);
  }
   getPageByPageName(Da){
     let data = JSON.stringify(Object.assign(Da));
-    return this.http.post(this.Vari.API_URL+'pages.php?action=getPageByPageName', data);
+    return this.http.post<any>(this.Vari.API_URL+'pages.php?action=getPageByPageName', data);
  }
   contactMessage(Da){
     let data = JSON.stringify(Object.assign(Da));
-    return this.http.post(this.Vari.API_URL+'mails.php?action=contactUsMessage', data);
+    return this.http.post<any>(this.Vari.API_URL+'mails.php?action=contactUsMessage', data);
  }
    recommendedWorkers(Da){
      console.log('Da',Da);
     let data = JSON.stringify(Object.assign(Da));
-    return this.http.post(this.Vari.API_URL+'mails.php?action=recommendedWorkers', data);
+    return this.http.post<any>(this.Vari.API_URL+'mails.php?action=recommendedWorkers', data);
  }
  
  getSocialMediaLinksAndNotifyNum(Da){
     let data = JSON.stringify(Object.assign(Da));
-    return this.http.post(this.Vari.API_URL+'pages.php?action=getSocialMediaLinksAndNotifyNum', data);
+    return this.http.post<any>(this.Vari.API_URL+'pages.php?action=getSocialMediaLinksAndNotifyNum', data);
  }
  getNotification(Da){
     let data = JSON.stringify(Object.assign(Da));
-    return this.http.post(this.Vari.API_URL+'notifications.php?action=getNotifications', data);
+    return this.http.post<any>(this.Vari.API_URL+'notifications.php?action=getNotifications', data);
  }
   getNotificationDetails(Da){
     let data = JSON.stringify(Object.assign(Da));
-    return this.http.post(this.Vari.API_URL+'notifications.php?action=getNotificationDetails', data);
+    return this.http.post<any>(this.Vari.API_URL+'notifications.php?action=getNotificationDetails', data);
  }
  
   setClickPhone(Da){
     let data = JSON.stringify(Object.assign(Da));
     console.log('data',data)
-    return this.http.post(this.Vari.API_URL+'users.php?action=setClickPhone', data);
+    return this.http.post<any>(this.Vari.API_URL+'users.php?action=setClickPhone', data);
  }
  
  

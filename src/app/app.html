@@ -2,18 +2,19 @@
   <ion-content>
     <section class="user-section">
       <div class="user-img">
-        <img src="" alt="">
+        <img src="assets/imgs/profile-alt.png" alt="">
       </div>
       <div class="user-name">
-        <h2>Customer name</h2>
+        <h2>{{'CustomerName' | translate}}</h2>
       </div>
     </section>
     <ion-list>
       <button clear no-lines menuClose ion-item
               *ngFor="let page of pages"
+              detail-none
               (click)="openPage(page)">
         <ion-icon [name]="page.icon"></ion-icon>
-        <p>{{page.title}}</p>
+        <p>{{page.title | translate }}</p>
       </button>
     </ion-list>
   </ion-content>

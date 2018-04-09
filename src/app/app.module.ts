@@ -19,14 +19,13 @@ import {UsersProviders} from'../providers/users';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
-   
+    HomePage
   ],
   imports: [
     HttpClientModule,
@@ -34,7 +33,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp,{
       scrollAssist: false,
-      autoFocusAssist: false
+      autoFocusAssist: false,
+      backButtonText: ''
     }),
     TranslateModule.forRoot({
       loader: {
