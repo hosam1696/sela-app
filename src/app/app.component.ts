@@ -27,6 +27,7 @@ export class MyApp {
       { title: 'Wallet', component: 'HomePage',icon:'card' },
       { title: 'Cart', component: 'CartPage',icon:'cart'},
       {title: 'Log in', component: 'LoginPage', icon: 'log-in'},
+      { title: 'Log out', component: 'SignupPage', icon: 'log-in'},
       { title: 'Log out', component: 'WalletPage',icon:'log-out'}
     ];
 

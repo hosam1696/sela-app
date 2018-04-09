@@ -3,11 +3,12 @@
 
 <ion-content padding-horizontal>
   <nav class="top-nav">
-    <button ion-button  clear icon-only>
+    <button ion-button  clear icon-only (click)="closePage()">
       <ion-icon name="arrow-back" color="light"></ion-icon>
     </button>
   </nav>
-  <form [formGroup]="loginForm" (submit)="submitForm()">
+  <form [formGroup]="loginForm" (ngSubmit)="submitForm()">
+
     <section class="for-hero">
       <img src="assets/imgs/logo.png" alt="">
     </section>
@@ -20,6 +21,6 @@
         <ion-input formControlName="password" type="password" placeholder="enter your password"></ion-input>
       </ion-item>
     </ion-list>
-    <button ion-button type="button">Log in</button>
+    <button ion-button type="submit">Log in</button>
   </form>
 </ion-content>
