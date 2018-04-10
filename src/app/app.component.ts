@@ -4,7 +4,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {HomePage} from "../pages/home/home";
 import { TranslateService } from '@ngx-translate/core';
- 
+import {ProfilePage} from "../pages/profile/profile";
+
 
 
 @Component({
@@ -35,9 +36,9 @@ export class MyApp {
       { title: 'Signup', component: 'SignupPage', icon: 'log-in'},
       { title: 'Logout', component: 'WalletPage',icon:'log-out'}
     ];
- 
+
   }
-     
+
   initializeApp() {
     this.translateService.setDefaultLang('ar');
     this.translateService.use('ar');
@@ -52,10 +53,12 @@ export class MyApp {
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    if ( page.component == 'HomePage') {
-      this.nav.setRoot(HomePage);
-    } else {
+    if (typeof page == 'string') {
+      this.nav.push(page)
+    } else if (page.component != 'HomePage') {
       this.nav.push(page.component, page.params || {})
+    } else {
+      this.nav.setRoot(HomePage);
     }
   }
 }

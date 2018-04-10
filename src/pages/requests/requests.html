@@ -1,10 +1,83 @@
 <img class="stacked-img-header" src="assets/imgs/logo-head.png" width="86" alt="">
 <ion-header no-border>
   <ion-navbar color="primary" class="header-bg">
+    <button ion-button icon-only clear >
+      <ion-icon class="bill-icon" name="notifications"></ion-icon>
+    </button>
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="openPage('SearchPage')">
+        <ion-icon name="search"></ion-icon>
+      </button>
+      <button ion-button icon-only class="cart-button" (click)="openPage('CartPage')">
+        <ion-icon name="cart">
+          <!--<ion-badge color="secondary">0</ion-badge>-->
+        </ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
-requests
+  <section margin-top text-center >
+    <ion-chip class="page-title">
+      <ion-icon name="basket"></ion-icon>
+      <ion-label>طلباتى</ion-label>
+    </ion-chip>
+  </section>
+
+  <ion-list no-lines>
+    <ion-item no-border no-padding margin-bottom>
+      <p class="header-bg request-num">
+        طلبية ١
+      </p>
+      <div class="request-body">
+        <p>١ برجر + ٢ أرز بسمتى + ٢بيتزا </p>
+        <p class="estimate-time">
+          <ion-icon color="primary" name="timer"></ion-icon>
+          <span>25 دقيقة</span>
+        </p>
+      </div>
+    </ion-item>
+
+    <ion-item no-border no-padding margin-bottom>
+      <p class="header-bg request-num">
+        طلبية ٢
+      </p>
+      <div class="request-body">
+        <p>١ برجر + ٢ أرز بسمتى + ٢بيتزا </p>
+        <p class="estimate-time">
+          <ion-icon color="primary" name="timer"></ion-icon>
+          <span>25 دقيقة</span>
+        </p>
+      </div>
+    </ion-item>
+
+    <ion-item no-border no-padding margin-bottom>
+      <p class="header-bg request-num">
+        طلبية٣
+      </p>
+      <div class="request-body">
+        <p>١ برجر + ٢ أرز بسمتى + ٢بيتزا </p>
+        <p class="estimate-time">
+          <ion-icon color="primary" name="timer"></ion-icon>
+          <span>25 دقيقة</span>
+        </p>
+      </div>
+    </ion-item>
+
+    <ion-item no-border no-padding margin-bottom>
+      <p class="header-bg request-num">
+        طلبية ٤
+      </p>
+      <div class="request-body">
+        <p>١ برجر + ٢ أرز بسمتى + ٢بيتزا </p>
+        <p class="estimate-time">
+          <ion-icon color="primary" name="timer"></ion-icon>
+          <span>25 دقيقة</span>
+        </p>
+      </div>
+    </ion-item>
+  </ion-list>
 </ion-content>

@@ -1,0 +1,43 @@
+page-profile {
+  ion-content {
+    $hero-img-width: 9rem;
+    .user-section {
+      @extend %flex-center;
+      padding: 1.6rem;
+      .user-img {
+        min-height: $hero-img-width;
+        text-align: center;
+        img {
+          min-height: $hero-img-width;
+          min-width: $hero-img-width;
+          width: $hero-img-width;
+          height: $hero-img-width;
+          border-radius: 50%;
+          background-color: #fff;
+        }
+      }
+      .user-name {
+        text-align: center;
+        color: $primary;
+        margin-top: 6px;
+      }
+    }
+    .rating {
+      padding: 0;
+      li {
+        ion-icon {
+          font-size: 1.8rem;
+        }
+      }
+    }
+    ion-grid {
+      ion-row {
+        ion-col {
+          ion-chip {
+            background-color: #fff;
+          }
+        }
+      }
+    }
+  }
+}

@@ -5,12 +5,12 @@
     <button ion-button menuToggle>
       <ion-icon name="md-list"></ion-icon>
     </button>
-    
+
     <button ion-button icon-only clear >
-      <ion-icon name="notifications" color="light"></ion-icon>
+      <ion-icon class="bill-icon" name="notifications"></ion-icon>
     </button>
     <ion-buttons end>
-      <button ion-button icon-only (click)="openPage('searchPage')">
+      <button ion-button icon-only (click)="openPage('SearchPage')">
         <ion-icon name="search"></ion-icon>
       </button>
       <button ion-button icon-only class="cart-button" (click)="openPage('CartPage')">
@@ -22,7 +22,61 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content no-padding >
 
+  <section class="hero">
+    <img class="hero-img" src="" alt="">
+  </section>
+
+  <section class="home-segments">
+    <h1>المطاعم</h1>
+    <ion-segment class="md" [(ngModel)]="restaurant_category" (ionChange)="changeHomeCategory()">
+      <ion-segment-button value="all">الكل</ion-segment-button>
+      <ion-segment-button value="active">المطاعم النشيطة</ion-segment-button>
+      <ion-segment-button value="nearby">مطاعم قريبة</ion-segment-button>
+    </ion-segment>
+  </section>
+
+  <ion-list no-lines margin-horizontal>
+
+    <ion-item margin-bottom (click)="openPage('MapsPage')">
+      <ion-avatar>
+        <img src="" alt="">
+      </ion-avatar>
+      <div class="result-actions">
+        <p>مطعم هانى</p>
+        <div class="est-loc">
+          <ion-icon name="pin" color="primary"></ion-icon>
+          ٥٠ كلم
+        </div>
+      </div>
+    </ion-item>
+    <ion-item margin-bottom (click)="openPage('MapsPage')">
+      <ion-avatar>
+        <img src="" alt="">
+      </ion-avatar>
+      <div class="result-actions">
+        <p>مطعم هانى</p>
+        <div class="est-loc">
+          <ion-icon name="pin" color="primary"></ion-icon>
+          ٥٠ كلم
+        </div>
+      </div>
+    </ion-item>
+
+    <ion-item margin-bottom tappable (click)="openPage('MapsPage')">
+      <ion-avatar>
+        <img src="" alt="">
+      </ion-avatar>
+      <div class="result-actions">
+        <p>مطعم هانى</p>
+        <div class="est-loc">
+          <ion-icon name="pin" color="primary"></ion-icon>
+          ٥٠ كلم
+        </div>
+      </div>
+    </ion-item>
+
+  </ion-list>
 
 </ion-content>

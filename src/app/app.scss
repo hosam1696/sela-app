@@ -19,10 +19,10 @@
 $primary: color($colors, primary);
 $secondary: color($colors, secondary);
 $light: color($colors, light);
-
+$dark: color($colors, dark);
 
 // File Variables
-$hero-img-width: 12rem;
+$hero-img-width: 11rem;
 
 * {
   font-family: 'jf-flat-regular', sans-serif
@@ -86,7 +86,7 @@ ion-menu {
         p {
           color: $light !important;
           padding: 0 0.8rem;
-          font-size: 1.8rem !important;
+          font-size: 1.7rem !important;
         }
       }
     }

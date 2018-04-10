@@ -5,7 +5,7 @@ import { Events } from 'ionic-angular';
 import { IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
- 
+
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -16,7 +16,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {AppUtilFunctions} from '../providers/utilfuns';
 import {MyVariabels} from'../providers/variables';
 import {UsersProviders} from'../providers/users';
-
+import { Geolocation} from '@ionic-native/geolocation';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -56,6 +56,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppUtilFunctions,
     MyVariabels,
     UsersProviders,
+    Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

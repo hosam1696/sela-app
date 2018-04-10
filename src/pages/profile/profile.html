@@ -1,0 +1,55 @@
+<img class="stacked-img-header" src="assets/imgs/logo-head.png" width="86" alt="">
+<ion-header no-border>
+  <ion-navbar color="primary" class="header-bg">
+    <button ion-button icon-only clear >
+      <ion-icon class="bill-icon" name="notifications"></ion-icon>
+    </button>
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="openPage('SearchPage')">
+        <ion-icon name="search"></ion-icon>
+      </button>
+      <button ion-button icon-only class="cart-button" (click)="openPage('CartPage')">
+        <ion-icon name="cart">
+          <!--<ion-badge color="secondary">0</ion-badge>-->
+        </ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <section class="user-section" (click)="openPage('ProfilePage')">
+    <div class="user-img">
+      <img src="assets/imgs/profile-alt.png" alt="">
+    </div>
+    <div class="user-name">
+      <h2>اسم العميل</h2>
+    </div>
+    <p no-margin text-center>
+      <rating readOnly="true" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star" nullable="false"></rating>
+    </p>
+  </section>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-chip (click)="openPage('EditprofilePage')">
+          <ion-icon name="man"></ion-icon>
+          <ion-label>تعديل البيانات</ion-label>
+        </ion-chip>
+      </ion-col>
+
+      <!--show this if the user enters his profile-->
+      <ion-col>
+        <ion-chip>
+          <ion-icon name="log-out"></ion-icon>
+          <ion-label>تسجيل الخروج</ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>

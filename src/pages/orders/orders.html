@@ -18,6 +18,30 @@
   </ion-navbar>
 </ion-header>
 
+
 <ion-content padding>
-settings
+  <section margin-top text-center >
+    <ion-chip class="page-title">
+      <ion-icon name="basket"></ion-icon>
+      <ion-label>طلبية</ion-label>
+    </ion-chip>
+  </section>
+
+  <section class="request-msg" margin-top>
+    <p class="header-bg">نص الطلبية</p>
+    <ion-textarea cols="30" rows="12"></ion-textarea>
+  </section>
+
 </ion-content>
+
+<ion-footer class="page-footer">
+  <button ion-button color="danger" no-margin>
+    <ion-icon name="ios-thunderstorm"></ion-icon>
+    <p>توصيل سريع</p>
+  </button>
+  <button ion-button color="secondary" no-margin>
+    <ion-icon name="md-car"></ion-icon>
+    <p>توصيل عادى</p>
+  </button>
+
+</ion-footer>

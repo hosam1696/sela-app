@@ -1,3 +1,33 @@
 page-requests {
 
+  ion-content {
+    .page-title {
+      background-color: #fff;
+      ion-label {
+        width: 100px;
+      }
+    }
+
+    ion-list  {
+      margin-top: 2rem !important;
+      ion-item {
+        margin-bottom: 1.2rem !important;
+        .item-inner {
+          padding: 0 !important;
+        }
+        ion-label {
+          margin: 0 !important;
+        }
+        .request-num {
+          padding: 8px;
+          color: #fff
+        }
+        .request-body {
+          display: flex;
+          justify-content: space-between;
+          padding: 12px 8px;
+        }
+      }
+    }
+  }
 }
