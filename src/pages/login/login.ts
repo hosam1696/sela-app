@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController, ViewController, NavParams } from 'ionic-angular';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import { MyVariabels } from "../../providers/variables";
 import { UsersProviders } from "../../providers/users";
 import { AppUtilFunctions } from '../../providers/utilfuns';//
 import {HomePage} from '../home/home';
 import {SignupPage} from '../signup/signup';
+
 // import {ForgetPassPage} from '../ForgetPass/ForgetPass';
 
 
@@ -24,44 +25,48 @@ import {SignupPage} from '../signup/signup';
   templateUrl: 'login.html',
 })
 export class LoginPage {
-  loginForm:FormGroup;
+    loginForm:FormGroup;
     loader:boolean=false;
- 
+    openAsPage; boolean = false;
     constructor(
+       
         public appUtils: AppUtilFunctions,
         public navCtrl: NavController,
         private formBuilder: FormBuilder ,
         public Vari: MyVariabels,
         public usersproviders: UsersProviders,
-
-
+        public viewCtrl: ViewController,
+        navParams: NavParams
     ) {
      this.loginForm =this.formBuilder.group({
-         user_name:['', Validators.required],
+         mobile:['', Validators.required],
          password:['', Validators.required],  
-           });
+        });
+        
+        this.openAsPage = navParams.get('openAsPage')
 
     }
 
     ionViewDidEnter() {
     }
 
-    ionViewDidLoad() {
+    closePage() {
+        this.viewCtrl.dismiss();
     }
 
     goSignup() {
         this.navCtrl.push("SignupPage");
     }
 
-    // goForgetPass() {
-    //     this.navCtrl.push(ForgetPass)
-    // }
+    toForgotPass() {
+        this.navCtrl.push('ForgotpassPage')
+    }
     goHomePage() {
-        this.navCtrl.push(HomePage)
+        this.navCtrl.push('HomePage')
     }
      onSubmit(){ 
-        if (this.loginForm.controls.user_name.hasError('required')) {
-              this.appUtils.AppToast("الرجاء إدخال لسم المستخدم");
+        if (this.loginForm.controls.mobile.hasError('required')) {
+              this.appUtils.AppToast("الرجاء إدخال رقم الموبابل");
             } 
         else if (this.loginForm.controls.password.hasError('required')) {
               this.appUtils.AppToast("الرجاء إدخال  كلمة المرور");
@@ -89,7 +94,7 @@ export class LoginPage {
                                 this.loader = false;
                              }
                             else if (res.errors.notRegistered) {
-                                this.appUtils.AppToast("عفوا اسم المستخدم غير صحيح");
+                                this.appUtils.AppToast("عفوا رقم الموبايل غير موجود");
                                 this.loader = false;
                              }
 
@@ -100,4 +105,6 @@ export class LoginPage {
             // console.log('Device registered', registration, registration.registrationId, this.platform.is('android') ? 'android' : 'ios');
         }  
       }//end submit
+
+
 }

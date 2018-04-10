@@ -5,7 +5,11 @@ import { Events } from 'ionic-angular';
 import { IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
- 
+
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import {FilePath} from '@ionic-native/file-path';
+import { Camera } from '@ionic-native/camera';
+import { File } from '@ionic-native/file';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -19,14 +23,13 @@ import {UsersProviders} from'../providers/users';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
-   
+    HomePage
   ],
   imports: [
     HttpClientModule,
@@ -34,7 +37,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp,{
       scrollAssist: false,
-      autoFocusAssist: false
+      autoFocusAssist: false,
+      backButtonText: ''
     }),
     TranslateModule.forRoot({
       loader: {
@@ -51,7 +55,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     HomePage
   ],
   providers: [
+    File,
+    FileTransfer,
+    FilePath,
     StatusBar,
+    Camera,
     SplashScreen,
     AppUtilFunctions,
     MyVariabels,

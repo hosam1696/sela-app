@@ -17,12 +17,16 @@
 
 // Global Variables
 $primary: color($colors, primary);
+$secondary: color($colors, secondary);
 $light: color($colors, light);
 
 
 // File Variables
 $hero-img-width: 12rem;
 
+* {
+  font-family: 'jf-flat-regular', sans-serif
+}
 %flex-center {
   display: flex;
   justify-content: center;
@@ -58,9 +62,6 @@ ion-menu {
       }
       .user-name {
         text-align: center;
-        h2 {
-
-        }
       }
     }
     ion-list {
@@ -92,9 +93,37 @@ ion-menu {
   }
 }
 
+
+ion-content {
+  &.content  {
+    background-color: #F5F5F5;
+  }
+}
+
+ion-header {
+  ion-navbar {
+    border-bottom: 2px solid $secondary;
+  }
+}
+
 .transparent-bg {
   background: transparent;
   .toolbar-background {
     background: transparent;
   }
+}
+.toolbar-ios {
+  min-height: 56px !important;
+
+}
+
+.stacked-img-header {
+      position: absolute;
+      top: 6px;
+      left: calc(50% - 40px);
+      z-index: 9999;
+      width: 85px
+}
+.header-bg {
+  background: linear-gradient(to right, #3BBCF0, #3BBCF0) !important;
 }
