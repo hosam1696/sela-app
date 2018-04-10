@@ -24,6 +24,7 @@ page-profile {
     }
     .rating {
       padding: 0;
+      margin: 0;
       li {
         ion-icon {
           font-size: 1.8rem;
@@ -34,7 +35,39 @@ page-profile {
       ion-row {
         ion-col {
           ion-chip {
-            background-color: #fff;
+            background-color: #fff !important;
+            color: #A5A5A5;
+            border: 1px solid $primary;
+            ion-icon {
+              transform: translate(1px, -1px);
+            }
+          }
+        }
+      }
+    }
+
+    .profile-data {
+      margin: 2.2rem auto;
+      form {
+        .form-group {
+          display: flex;
+          background: #fff;
+          border-radius: 10px;
+          color: #696969;
+          padding: 6px;
+          margin-bottom: 10px;
+          label {
+            width: 35%;
+            position: relative;
+            &:after {
+              content: ':';
+              position: absolute;
+              left: 8px;
+              top: 0;
+            }
+          }
+          p {
+            margin: 0
           }
         }
       }
