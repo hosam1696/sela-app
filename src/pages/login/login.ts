@@ -6,6 +6,7 @@ import { UsersProviders } from "../../providers/users";
 import { AppUtilFunctions } from '../../providers/utilfuns';//
 import {HomePage} from '../home/home';
 import {SignupPage} from '../signup/signup';
+
 // import {ForgetPassPage} from '../ForgetPass/ForgetPass';
 
 
@@ -24,10 +25,11 @@ import {SignupPage} from '../signup/signup';
   templateUrl: 'login.html',
 })
 export class LoginPage {
-  loginForm:FormGroup;
+    loginForm:FormGroup;
     loader:boolean=false;
     openAsPage; boolean = false;
     constructor(
+       
         public appUtils: AppUtilFunctions,
         public navCtrl: NavController,
         private formBuilder: FormBuilder ,
@@ -37,7 +39,7 @@ export class LoginPage {
         navParams: NavParams
     ) {
      this.loginForm =this.formBuilder.group({
-         user_name:['', Validators.required],
+         mobile:['', Validators.required],
          password:['', Validators.required],  
         });
         
@@ -63,8 +65,8 @@ export class LoginPage {
         this.navCtrl.push('HomePage')
     }
      onSubmit(){ 
-        if (this.loginForm.controls.user_name.hasError('required')) {
-              this.appUtils.AppToast("الرجاء إدخال اسم المستخدم");
+        if (this.loginForm.controls.mobile.hasError('required')) {
+              this.appUtils.AppToast("الرجاء إدخال رقم الموبابل");
             } 
         else if (this.loginForm.controls.password.hasError('required')) {
               this.appUtils.AppToast("الرجاء إدخال  كلمة المرور");
@@ -92,7 +94,7 @@ export class LoginPage {
                                 this.loader = false;
                              }
                             else if (res.errors.notRegistered) {
-                                this.appUtils.AppToast("عفوا اسم المستخدم غير صحيح");
+                                this.appUtils.AppToast("عفوا رقم الموبايل غير موجود");
                                 this.loader = false;
                              }
 
@@ -103,4 +105,6 @@ export class LoginPage {
             // console.log('Device registered', registration, registration.registrationId, this.platform.is('android') ? 'android' : 'ios');
         }  
       }//end submit
+
+
 }

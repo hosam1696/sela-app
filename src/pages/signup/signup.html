@@ -33,33 +33,34 @@
         </div>
       </ion-col>
       <ion-col>
-        <div class="form-group upload-image">
-          <ion-icon name="image"></ion-icon>
+        <div class="form-group upload-image" >
+          <ion-icon name="image" (click)="pickImage()"></ion-icon>
           <p>رفع صورة</p>
         </div>
       </ion-col>
       </ion-row>
     </ion-grid>
+
+    <div class="form-group">
+      <input type="number" placeholder="رقم الجوال" formControlName="mobile">
+    </div>
+    <div class="form-group">
+      <input type="email" email placeholder="البريد الالكترونى" formControlName="e_mail">
+    </div>
+
+    <div class="form-group">
+      <input type="text" placeholder="العنوان" formControlName="address">
+    </div>
     <div class="form-group">
       <input type="password" placeholder="كلمة المرور" formControlName="password">
     </div>
     <div class="form-group">
       <input type="password" placeholder=" تأكيد كلمة المرور" formControlName="confirm_password">
     </div>
-    <div class="form-group">
-      <input type="text" placeholder="رقم الجوال" formControlName="mobile">
-    </div>
-    <div class="form-group">
-      <input type="email" email placeholder="البريد الالكترونى" formControlName="e_mail">
-    </div>
-    
-    <div class="form-group">
-      <input type="text" placeholder="العنوان" formControlName="address">
-    </div>
- 
+
     <div class="terms-action">
-      <ion-checkbox id="terms-status"></ion-checkbox>
-      <label for="terms-status">أوافق على الشروط والأحكام</label>
+      <ion-checkbox formControlName="agreeCondition" ></ion-checkbox>
+      <span>أوافق على الشروط والأحكام</span>
     </div>
 
     <div class="form-submit" text-center>
