@@ -6,8 +6,8 @@
       <ion-icon name="md-list"></ion-icon>
     </button>
 
-    <button ion-button icon-only clear >
-      <ion-icon class="bill-icon" name="notifications"></ion-icon>
+    <button ion-button icon-only clear (click)="presentPopover($event)" >
+      <ion-icon class="bill-icon" name="notifications" ></ion-icon>
     </button>
     <ion-buttons end>
       <button ion-button icon-only (click)="openPage('SearchPage')">

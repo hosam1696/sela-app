@@ -1,4 +1,5 @@
 page-home {
+
     ion-header {
         ion-navbar {
             .bill-icon {
@@ -16,6 +17,7 @@ page-home {
         min-height: 100%;
         min-width: 100%;
         background-color: #ccc;
+
       }
     }
     .home-segments {
@@ -76,3 +78,10 @@ page-home {
     }
   }
 }
+ .popover-viewport{   
+            top: 57px;
+            left: 108px;
+            transform-origin: right top 0px;
+            transform: scale(1);
+            opacity: 0.8!important;
+            }
