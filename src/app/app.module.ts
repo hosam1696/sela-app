@@ -4,7 +4,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-
+import { Push } from '@ionic-native/push';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import {FilePath} from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
@@ -58,6 +58,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     FileTransfer,
     FilePath,
     StatusBar,
+    Push,
     Camera,
     SplashScreen,
     AppUtilFunctions,

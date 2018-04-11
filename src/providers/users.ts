@@ -45,17 +45,7 @@ export class UsersProviders {
     return this.http.post<any>(this.Vari.API_URL+'users.php?action=forgetPassword', data);
   }
 
-  getUserInfo() {
-    if (localStorage.getItem('localUserInfo')) {
-     
-     return JSON.parse(localStorage.getItem('localUserInfo'));
-
-    }
-    else{
-      return false;
-    }
-    
-  }
+ 
   setdeviceTokeId(Da){
   let data = JSON.stringify(Object.assign(Da));
     return this.http.post<any>(this.Vari.API_URL+'users.php?action=setDeviceToken', data);

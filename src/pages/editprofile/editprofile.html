@@ -11,8 +11,65 @@
   </ion-navbar>
 
 </ion-header>
+ 
+<ion-content >
+    <div class="main-content">
 
+        <div class="inner-content">
+            <ion-list class="user-data" *ngIf="userInfo">
+               <form novalidate [formGroup]="editInfo" (ngSubmit)="onSubmit(editInfo)" >
+					    <ion-grid no-padding>
+					      <ion-row>
+					      <ion-col>
+					        <div class="form-group">
+					          <input type="text" placeholder="الاسم الأول" formControlName="first_name">
+					        </div>
+					        <div class="form-group">
+					          <input type="text" placeholder="الاسم الأخير" formControlName="last_name">
+					        </div>
+					      </ion-col>
+					      <ion-col>
+					        <div class="form-group upload-image" >
+					          <ion-icon name="image" (click)="pickImage()"></ion-icon>
+					          <p>رفع صورة</p>
+					        </div>
+					      </ion-col>
+					      </ion-row>
+					    </ion-grid>
 
-<ion-content padding>
+					    <div class="form-group">
+					      <input   type="number" placeholder="رقم الجوال" formControlName="mobile">
+					    </div>
+					    <div class="form-group">
+					      <input   type="email" email placeholder="البريد الالكترونى" formControlName="e_mail">
+					    </div>
 
+					    <div class="form-group">
+					      <input type="text" placeholder="العنوان" formControlName="address">
+					    </div> 
+					   
+					    <div class="form-group">
+					      <input type="password" placeholder="كلمة المرور القديمة" formControlName="oldPassword">
+					    </div>
+					     <ion-list-header>
+                        اﺗﺮﻙ كلمتا اﻟﻤﺮﻭﺭ ﻓﺎاﺭﻏﺔ اﻥ ﻟﻢ ﺗﺮﺩ ﺗﻌﺪﻳﻠﻬﺎ
+                       </ion-list-header>
+					    <div class="form-group">
+					      <input type="password" placeholder="كلمة المرور" formControlName="password">
+					    </div>
+					    <div class="form-group">
+					      <input type="password" placeholder=" تأكيد كلمة المرور" formControlName="confirm_password">
+					    </div>
+					    <div class="form-submit" text-center>
+					      <button ion-button color="secondary" type="submit">تأكيد البيانات</button>
+					    </div>
+                   
+ 
+                </form>
+            </ion-list>  
+        </div>
+
+    </div>
+     <ion-spinner *ngIf="loader" class="Myspinner"  name="bubbles"></ion-spinner>
+       
 </ion-content>

@@ -6,6 +6,8 @@ import { UsersProviders } from "../../providers/users";
 import { AppUtilFunctions } from '../../providers/utilfuns';//
 import {HomePage} from '../home/home';
 import {SignupPage} from '../signup/signup';
+import { Storage } from '@ionic/storage';
+
 
 // import {ForgetPassPage} from '../ForgetPass/ForgetPass';
 
@@ -29,7 +31,7 @@ export class LoginPage {
     loader:boolean=false;
     openAsPage; boolean = false;
     constructor(
-       
+        private storage: Storage,
         public appUtils: AppUtilFunctions,
         public navCtrl: NavController,
         private formBuilder: FormBuilder ,
@@ -82,6 +84,7 @@ export class LoginPage {
                     if(res.data) 
                          {
                         console.log('this.userInfoLogin',res.data)
+                        this.storage.set('userInfo',res.data);
                         // localStorage.removeItem('localUserInfo');
                         // localStorage.setItem('localUserInfo', JSON.stringify(res.data))
                          this.appUtils.AppToast("ﺗﻢ اﻟﺪﺧﻮﻝ ﺑﻨﺠﺎﺡ");
@@ -102,6 +105,8 @@ export class LoginPage {
                   
             
               });
+          
+        
             // console.log('Device registered', registration, registration.registrationId, this.platform.is('android') ? 'android' : 'ios');
         }  
       }//end submit

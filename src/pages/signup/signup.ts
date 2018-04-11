@@ -43,8 +43,8 @@ export class SignupPage {
       'password': ['', Validators.required],
 
       'confirm_password': ['', Validators.required],
-         e_mail: ['', Validators.compose([Validators.required, Validators.pattern(this.Vari.EMAIL_REGEXP)])],
-         mobile:['' ,Validators.compose([Validators.required, Validators.pattern(this.Vari.NUMBER_REGXP)])],
+      'e_mail': ['', Validators.compose([Validators.required, Validators.pattern(this.Vari.EMAIL_REGEXP)])],
+      'mobile':['' ,Validators.compose([Validators.required, Validators.pattern(this.Vari.NUMBER_REGXP)])],
       'address': ['', Validators.required],
       'agreeCondition': [false, Validators.required]
     })

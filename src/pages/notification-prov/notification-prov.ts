@@ -19,7 +19,7 @@ export class NotificationProvPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad NotificationProvPage');
+     
   }
 
 }
