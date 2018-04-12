@@ -1,16 +1,15 @@
-
-  <img class="stacked-img-header" src="assets/imgs/logo-head.png" width="86" alt="">
+<img class="stacked-img-header" src="assets/imgs/logo-head.png" width="86" alt="">
 <ion-header no-border>
   <ion-navbar color="primary" class="header-bg">
     <button ion-button menuToggle>
       <ion-icon name="md-list"></ion-icon>
     </button>
 
-    <button ion-button icon-only clear (click)="presentPopover($event)" >
-      <ion-icon class="bill-icon" name="notifications" ></ion-icon>
+    <button ion-button icon-only clear (click)="presentPopover($event)">
+      <ion-icon class="bill-icon" name="notifications"></ion-icon>
     </button>
     <ion-buttons end>
-      <button ion-button icon-only (click)="openPage('SearchPage')">
+      <button ion-button icon-only (click)="openPage('MapsPage')">
         <ion-icon name="search"></ion-icon>
       </button>
       <button ion-button icon-only class="cart-button" (click)="openPage('CartPage')">
@@ -22,61 +21,157 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content no-padding >
+<ion-content class="md" no-padding>
 
   <section class="hero">
-    <img class="hero-img" src="" alt="">
+    <img class="hero-img" src="assets/imgs/hero-img.png" alt="">
   </section>
 
   <section class="home-segments">
     <h1>المطاعم</h1>
-    <ion-segment class="md" [(ngModel)]="restaurant_category" (ionChange)="changeHomeCategory()">
-      <ion-segment-button value="all">الكل</ion-segment-button>
-      <ion-segment-button value="active">المطاعم النشيطة</ion-segment-button>
-      <ion-segment-button value="nearby">مطاعم قريبة</ion-segment-button>
-    </ion-segment>
+
+    <div class="cat-segments">
+      <button no-margin ion-button clear (click)="changeHomeCategory('all')" [class.selected]="restaurant_category == 'all'">
+        الكل
+      </button>
+      <button no-margin ion-button clear (click)="changeHomeCategory('active')" [class.selected]="restaurant_category == 'active'"> المطاعم النشيطة
+      </button>
+      <button no-margin ion-button clear (click)="changeHomeCategory('nearby')" [class.selected]="restaurant_category == 'nearby'"> المطاعم القريبة
+      </button>
+
+    </div>
   </section>
 
-  <ion-list no-lines margin-horizontal>
+  <ion-slides dir="rtl">
+    <ion-slide>
+      <ion-list no-lines margin-horizontal>
+        <ion-item margin-bottom (click)="openPage('MapsPage')">
+          <ion-avatar>
+            <img src="assets/imgs/rest-alt.png" alt="">
+          </ion-avatar>
+          <div class="result-actions">
+            <p>مطعم هانى</p>
+            <div class="est-loc">
+              <ion-icon name="pin" color="primary"></ion-icon>
+              ٥٠ كلم
+            </div>
+          </div>
+        </ion-item>
+        <ion-item margin-bottom (click)="openPage('MapsPage')">
+          <ion-avatar>
+            <img src="assets/imgs/rest-alt.png" alt="">
+          </ion-avatar>
+          <div class="result-actions">
+            <p>مطعم هانى</p>
+            <div class="est-loc">
+              <ion-icon name="pin" color="primary"></ion-icon>
+              ٥٠ كلم
+            </div>
+          </div>
+        </ion-item>
 
-    <ion-item margin-bottom (click)="openPage('MapsPage')">
-      <ion-avatar>
-        <img src="" alt="">
-      </ion-avatar>
-      <div class="result-actions">
-        <p>مطعم هانى</p>
-        <div class="est-loc">
-          <ion-icon name="pin" color="primary"></ion-icon>
-          ٥٠ كلم
-        </div>
-      </div>
-    </ion-item>
-    <ion-item margin-bottom (click)="openPage('MapsPage')">
-      <ion-avatar>
-        <img src="" alt="">
-      </ion-avatar>
-      <div class="result-actions">
-        <p>مطعم هانى</p>
-        <div class="est-loc">
-          <ion-icon name="pin" color="primary"></ion-icon>
-          ٥٠ كلم
-        </div>
-      </div>
-    </ion-item>
+        <ion-item margin-bottom tappable (click)="openPage('MapsPage')">
+          <ion-avatar>
+            <img src="assets/imgs/rest-alt.png" alt="">
+          </ion-avatar>
+          <div class="result-actions">
+            <p>مطعم هانى</p>
+            <div class="est-loc">
+              <ion-icon name="pin" color="primary"></ion-icon>
+              ٥٠ كلم
+            </div>
+          </div>
+        </ion-item>
+      </ion-list>
+    </ion-slide>
 
-    <ion-item margin-bottom tappable (click)="openPage('MapsPage')">
-      <ion-avatar>
-        <img src="" alt="">
-      </ion-avatar>
-      <div class="result-actions">
-        <p>مطعم هانى</p>
-        <div class="est-loc">
-          <ion-icon name="pin" color="primary"></ion-icon>
-          ٥٠ كلم
-        </div>
-      </div>
-    </ion-item>
+    <ion-slide>
+      <ion-list no-lines margin-horizontal>
+        <ion-item margin-bottom (click)="openPage('MapsPage')">
+          <ion-avatar>
+            <img src="assets/imgs/rest-alt.png" alt="">
+          </ion-avatar>
+          <div class="result-actions">
+            <p>مطعم هانى</p>
+            <div class="est-loc">
+              <ion-icon name="pin" color="primary"></ion-icon>
+              ٥٠ كلم
+            </div>
+          </div>
+        </ion-item>
+        <ion-item margin-bottom (click)="openPage('MapsPage')">
+          <ion-avatar>
+            <img src="assets/imgs/rest-alt.png" alt="">
+          </ion-avatar>
+          <div class="result-actions">
+            <p>مطعم هانى</p>
+            <div class="est-loc">
+              <ion-icon name="pin" color="primary"></ion-icon>
+              ٥٠ كلم
+            </div>
+          </div>
+        </ion-item>
 
-  </ion-list>
+        <ion-item margin-bottom tappable (click)="openPage('MapsPage')">
+          <ion-avatar>
+            <img src="assets/imgs/rest-alt.png" alt="">
+          </ion-avatar>
+          <div class="result-actions">
+            <p>مطعم هانى</p>
+            <div class="est-loc">
+              <ion-icon name="pin" color="primary"></ion-icon>
+              ٥٠ كلم
+            </div>
+          </div>
+        </ion-item>
+      </ion-list>
+    </ion-slide>
+
+
+    <ion-slide>
+      <ion-list no-lines margin-horizontal>
+        <ion-item margin-bottom (click)="openPage('MapsPage')">
+          <ion-avatar>
+            <img src="assets/imgs/rest-alt.png" alt="">
+          </ion-avatar>
+          <div class="result-actions">
+            <p>مطعم هانى</p>
+            <div class="est-loc">
+              <ion-icon name="pin" color="primary"></ion-icon>
+              ٥٠ كلم
+            </div>
+          </div>
+        </ion-item>
+        <ion-item margin-bottom (click)="openPage('MapsPage')">
+          <ion-avatar>
+            <img src="assets/imgs/rest-alt.png" alt="">
+          </ion-avatar>
+          <div class="result-actions">
+            <p>مطعم هانى</p>
+            <div class="est-loc">
+              <ion-icon name="pin" color="primary"></ion-icon>
+              ٥٠ كلم
+            </div>
+          </div>
+        </ion-item>
+
+        <ion-item margin-bottom tappable (click)="openPage('MapsPage')">
+          <ion-avatar>
+            <img src="assets/imgs/rest-alt.png" alt="">
+          </ion-avatar>
+          <div class="result-actions">
+            <p>مطعم هانى</p>
+            <div class="est-loc">
+              <ion-icon name="pin" color="primary"></ion-icon>
+              ٥٠ كلم
+            </div>
+          </div>
+        </ion-item>
+      </ion-list>
+    </ion-slide>
+
+  </ion-slides>
+
+
 
 </ion-content>

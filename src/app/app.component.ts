@@ -14,7 +14,7 @@ import {ProfilePage} from "../pages/profile/profile";
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;//;
+  rootPage: any = 'HomePage';
 
   pages: Array<{title: string, component: any, icon: string, params?:any}>;
 
@@ -55,10 +55,8 @@ export class MyApp {
     // we wouldn't want the back button to show in this scenario
     if (typeof page == 'string') {
       this.nav.push(page)
-    } else if (page.component != 'HomePage') {
-      this.nav.push(page.component, page.params || {})
     } else {
-      this.nav.setRoot(HomePage);
+      this.nav.push(page.component, page.params || {})
     }
   }
 }

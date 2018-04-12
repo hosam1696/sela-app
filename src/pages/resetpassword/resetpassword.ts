@@ -4,16 +4,14 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-forgotpass',
-  templateUrl: 'forgotpass.html',
+  selector: 'page-resetpassword',
+  templateUrl: 'resetpassword.html',
 })
-export class ForgotpassPage {
+export class ResetpasswordPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ForgotpassPage');
-  }
+  
 
 }

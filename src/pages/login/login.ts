@@ -4,22 +4,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import { MyVariabels } from "../../providers/variables";
 import { UsersProviders } from "../../providers/users";
 import { AppUtilFunctions } from '../../providers/utilfuns';//
-import {HomePage} from '../home/home';
-import {SignupPage} from '../signup/signup';
 import { Storage } from '@ionic/storage';
 
-
-// import {ForgetPassPage} from '../ForgetPass/ForgetPass';
-
-
-// import {Signup} from '../signup/signup';
-// import {ForgetPass} from '../forget-pass/forget-pass';
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -61,7 +47,7 @@ export class LoginPage {
     }
 
     toForgotPass() {
-        this.navCtrl.push('ForgotpassPage')
+        this.navCtrl.push('ResetpasswordPage')
     }
     goHomePage() {
         this.navCtrl.push('HomePage')
@@ -88,7 +74,7 @@ export class LoginPage {
                         // localStorage.removeItem('localUserInfo');
                         // localStorage.setItem('localUserInfo', JSON.stringify(res.data))
                          this.appUtils.AppToast("ﺗﻢ اﻟﺪﺧﻮﻝ ﺑﻨﺠﺎﺡ");
-                        this.navCtrl.setRoot(HomePage);
+                        this.navCtrl.setRoot('HomePage');
                         this.loader = false;
                          }
                     else {

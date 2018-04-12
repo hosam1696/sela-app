@@ -39,6 +39,12 @@ page-orders {
           right: 1.3rem;
           z-index: 5;
         }
+        &.button-md {
+          &:before,
+          &:after {
+            top: 0 !important
+          }
+        }
         &:last-of-type {
           &:before, &:after {
             background: linear-gradient(to right, #3BBBEF, #2D78A8);
@@ -47,7 +53,7 @@ page-orders {
         &:before, &:after {
           content: '';
           position: absolute;
-          top: 0;
+          top: 4px;
           right: -40px;
           width: 60px;
           height: 60px;

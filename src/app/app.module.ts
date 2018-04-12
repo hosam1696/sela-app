@@ -3,7 +3,6 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
 import { Push } from '@ionic-native/push';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import {FilePath} from '@ionic-native/file-path';
@@ -20,6 +19,7 @@ import {AppUtilFunctions} from '../providers/utilfuns';
 import {MyVariabels} from'../providers/variables';
 import {UsersProviders} from'../providers/users';
 import { Geolocation} from '@ionic-native/geolocation';
+import { AppAPI } from '../providers/api';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -27,8 +27,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 @NgModule({
   declarations: [
-    MyApp,
-    HomePage
+    MyApp
   ],
   imports: [
     HttpClientModule,
@@ -50,8 +49,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
-    HomePage
+    MyApp
   ],
   providers: [
     File,
@@ -65,6 +63,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MyVariabels,
     UsersProviders,
     Geolocation,
+    AppAPI,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

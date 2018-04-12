@@ -1,7 +1,7 @@
 <ion-content padding-horizontal>
   <nav class="top-nav" *ngIf='openAsPage'>
     <button ion-button  clear icon-only (click)="closePage()">
-      <ion-icon name="arrow-forward"></ion-icon>
+      <ion-icon name="arrow-forward" color="light"></ion-icon>
     </button>
   </nav>
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
@@ -22,10 +22,10 @@
 
 
    <div class="outform-actions">
-       <button ion-button no-padding clear color="dark" (click)="toForgotPass()">
+       <button type="button" ion-button no-padding clear color="dark" (click)="toForgotPass()">
         هل نسيت كلمة المرور؟
        </button>
-       <button ion-button no-padding clear color="light" (click)="goSignup()">
+       <button type="button" ion-button no-padding clear color="light" (click)="goSignup()">
            تسجيل جديد
        </button>
    </div>

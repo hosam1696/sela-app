@@ -1,44 +1,49 @@
-import { Component } from '@angular/core';
-import { NavController,PopoverController , AlertController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { NavController, PopoverController, Slides, AlertController, IonicPage } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-import {Push, PushObject, PushOptions} from '@ionic-native/push';
-import {AppUtilFunctions} from '../../providers/utilfuns';//
-import {UsersProviders} from "../../providers/users";
+import { Push, PushObject, PushOptions } from '@ionic-native/push';
+import { AppUtilFunctions } from '../../providers/utilfuns';//
+import { UsersProviders } from "../../providers/users";
+import { ResturantCategories } from '../../providers/types/enums';
 
+
+@IonicPage()
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+    selector: 'page-home',
+    templateUrl: 'home.html'
 })
 export class HomePage {
-  restaurant_category: string = 'all';
-  constructor(public navCtrl: NavController,
-              public popoverCtrl: PopoverController,
-              private storage: Storage,
-              public appUtils: AppUtilFunctions,
-              public uservicesProviders: UsersProviders,
-              public alertCtrl: AlertController,
-              public p: Push,
-              
-              ) {
-  }
-  openPage(page:string) {
-    this.navCtrl.push(page);
-  }
- presentPopover(myEvent) {
-   console.log('asdasdds')
-    let popover = this.popoverCtrl.create('NotificationProvPage');
-    popover.present({
+    @ViewChild(Slides) homeSlides: Slides;
+    restaurant_category: string = 'all';
+    constructor(public navCtrl: NavController,
+        public popoverCtrl: PopoverController,
+        private storage: Storage,
+        public appUtils: AppUtilFunctions,
+        public uservicesProviders: UsersProviders,
+        public alertCtrl: AlertController,
+        public p: Push,
 
-      ev: myEvent
-    });
-  }
+    ) {
+    }
+    openPage(page: string) {
+        this.navCtrl.push(page);
+    }
+    presentPopover(myEvent) {
+        console.log('asdasdds')
+        let popover = this.popoverCtrl.create('NotificationProvPage');
+        popover.present({
 
-  changeHomeCategory() {
-    console.log(this.restaurant_category);
+            ev: myEvent
+        });
+    }
 
-    // this.getCategory(this.restaurant_category)
-  }
- ionViewWillEnter() {
+    public changeHomeCategory(category: string): void {
+        console.log(this.restaurant_category);
+        this.restaurant_category = category;
+        this.changeSlide(ResturantCategories[category])
+        // this.getCategory(this.restaurant_category)
+    }
+    ionViewWillEnter() {
         let pushOptios: PushOptions = {
             android: {
                 senderID: '424015453780'
@@ -71,12 +76,12 @@ export class HomePage {
             //this.navCtrl.push(NotificationsDetails);      
         });
         push.on('notification').subscribe((notification: any) => {
-            console.log('notification',JSON.stringify(notification));
+            console.log('notification', JSON.stringify(notification));
 
             if (!notification.additionalData.foreground) {
                 // this.navCtrl.push(NotificationsDetails, {id:notification.additionalData.id})
                 // this.appUtils.AppToast(notification.additionalData.id); 
-               
+
             }
             else {
                 // this.appUtils.AppToast( notification.foreground);  
@@ -88,7 +93,7 @@ export class HomePage {
                         {
                             text: 'اﻋﺮﺽ اﻻﺷﻌﺎﺭ',
                             handler: () => {
-                                     // this.navCtrl.push(NotificationsDetails, {id:notification.additionalData.id})
+                                // this.navCtrl.push(NotificationsDetails, {id:notification.additionalData.id})
                             }
                         },
                         {
@@ -103,12 +108,10 @@ export class HomePage {
 
         });
 
-
-
     }
-  // getcategories(category:string) {
-  //
-  // }
 
+    public changeSlide(slideNum: number): void {
+        this.homeSlides.slideTo(slideNum)
+    }
 
 }
