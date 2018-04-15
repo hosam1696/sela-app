@@ -11,12 +11,6 @@ import { FileTransfer, FileUploadOptions, FileTransferObject, } from '@ionic-nat
 import { File } from '@ionic-native/file';
 import { Storage } from '@ionic/storage';
      
-/**
- * Generated class for the EditprofilePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -45,7 +39,9 @@ export class EditprofilePage {
               ) {
           this.storage.get('userInfo')
               .then((val) => {
-             this.userInfo = val;
+                this.userInfo = val;
+                console.info('user info', this.userInfo);
+                
              this.getUserToEdit(this.userInfo);
        
             

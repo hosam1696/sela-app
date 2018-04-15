@@ -67,7 +67,7 @@ page-signup {
             width: 47%;
           }
           &.selected {
-            background-color: $primary;
+            background: linear-gradient(to right, #3BBCF0, #3BBCF0);
             p {
               color: $light !important;
             }
