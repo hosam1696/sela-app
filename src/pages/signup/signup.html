@@ -25,7 +25,7 @@
     <ion-grid no-padding>
       <ion-row>
       <ion-col>
-        <div class="form-group">
+        <div class="form-group" [class.invalid]="signupForm.controls['first_name'].invalid&&(signupForm.controls['first_name'].touched||signupForm.controls['first_name'].dirty)">
           <input type="text" placeholder="الاسم الأول" formControlName="first_name">
         </div>
         <div class="form-group">
@@ -41,8 +41,9 @@
       </ion-row>
     </ion-grid>
 
-    <div class="form-group">
-      <input type="number" placeholder="رقم الجوال" formControlName="mobile">
+    <div class="form-group phone-number" >
+      <span>+966</span>
+      <input type="tel" [textMask]="{mask: formMasks.mobile}" placeholder="رقم الجوال 9 ارقام" formControlName="mobile">
     </div>
     <div class="form-group">
       <input type="email" email placeholder="البريد الالكترونى" formControlName="e_mail">

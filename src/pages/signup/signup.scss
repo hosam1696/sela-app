@@ -24,6 +24,17 @@ page-signup {
         border-bottom: 2px solid $primary;
         margin-bottom: $form-margin;
         background-color: #fff;
+        &.invalid {
+          border-bottom-color: $danger;
+        }
+        &.phone-number {
+          direction: ltr;
+          display: flex;
+          align-items: center;
+          input {
+            padding: 0 10px;
+          }
+        }
         &.upload-image {
           padding: 0;
           height: calc(100% - 10px);

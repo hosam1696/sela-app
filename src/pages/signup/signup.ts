@@ -19,7 +19,10 @@ export class SignupPage {
   cameraError: any;
   uploadLoader:boolean=false;
   signupForm: FormGroup;
-  usertypeInput:HTMLInputElement;
+  usertypeInput: HTMLInputElement;
+  formMasks: any = {
+    mobile: [/\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/]
+  };
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public formBuilder: FormBuilder,
@@ -44,7 +47,7 @@ export class SignupPage {
 
       'confirm_password': ['', Validators.required],
       'e_mail': ['', Validators.compose([Validators.required, Validators.pattern(this.Vari.EMAIL_REGEXP)])],
-      'mobile':['' ,Validators.compose([Validators.required, Validators.pattern(this.Vari.NUMBER_REGXP)])],
+      'mobile':['' ,Validators.compose([Validators.required, Validators.pattern(this.Vari.NUMBER_REGXP), Validators.minLength(9), Validators.maxLength(9)])],
       'address': ['', Validators.required],
       'agreeCondition': [false, Validators.required]
     })
