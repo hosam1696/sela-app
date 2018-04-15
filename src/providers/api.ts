@@ -1,22 +1,22 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
-
+type mylimit = 'x' | 'y'
 @Injectable()
 
 export class AppAPI {
-    public API_URL: string = 'http://selah.methaq.net.sa/selah/api/';
-    public URL: string = 'http://selah.methaq.net.sa/selah/';
-
+    public API_URL: string = 'http://selah.methaq.net.sa/api/';
+    public URL: string = 'http://selah.methaq.net.sa/';
     constructor(public http: HttpClient) {
     }
 
-    get(endpoint: string, params?: any,withoutUrl = false) {
+    get(endpoint: string, params?: any) {
         let httpParams: HttpParams = new HttpParams({});
         if (params) {
             for (let param in params) {
                 httpParams = httpParams.set(param, params[param])
             }
         }
+
         return this.http.get<any>(this.API_URL + endpoint, {params: httpParams})
     }
 

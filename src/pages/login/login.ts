@@ -27,15 +27,12 @@ export class LoginPage {
         navParams: NavParams
     ) {
      this.loginForm =this.formBuilder.group({
-         mobile:['', Validators.required],
-         password:['', Validators.required],  
+         phone:['', Validators.required],
+         password:['', Validators.required],
         });
-        
+
         this.openAsPage = navParams.get('openAsPage')
 
-    }
-
-    ionViewDidEnter() {
     }
 
     closePage() {
@@ -52,50 +49,63 @@ export class LoginPage {
     goHomePage() {
         this.navCtrl.push('HomePage')
     }
-     onSubmit(){ 
-        if (this.loginForm.controls.mobile.hasError('required')) {
-              this.appUtils.AppToast("الرجاء إدخال رقم الموبابل");
-            } 
-        else if (this.loginForm.controls.password.hasError('required')) {
-              this.appUtils.AppToast("الرجاء إدخال  كلمة المرور");
-            }
-        else {  
+     onSubmit(){
+       if (this.loginForm.controls.phone.hasError('required')) {
+         this.appUtils.AppToast("الرجاء إدخال رقم الموبابل");
+       }
+       else if (this.loginForm.controls.password.hasError('required')) {
+         this.appUtils.AppToast("الرجاء إدخال  كلمة المرور");
+       }
+       else {
 
-            //this.appUtils.AppToast();
-                 ///send data
-          this.loader = true;
-          // console.log('you have entered ', this.emailOrMobile, this.password);
-          this.usersproviders.userLogin(this.loginForm.value)
-            .subscribe((res) => {         
-                    if(res.data) 
-                         {
-                        console.log('this.userInfoLogin',res.data)
-                        this.storage.set('userInfo',res.data);
-                        // localStorage.removeItem('localUserInfo');
-                        // localStorage.setItem('localUserInfo', JSON.stringify(res.data))
-                         this.appUtils.AppToast("ﺗﻢ اﻟﺪﺧﻮﻝ ﺑﻨﺠﺎﺡ");
-                        this.navCtrl.setRoot('HomePage');
-                        this.loader = false;
-                         }
-                    else {
-                            if (res.errors.match) {
-                                this.appUtils.AppToast("ﻛﻠﻤﺔ اﻟﻤﺮﻭﺭ ﺧﺎﻃﺌﺔ ﺣﺎﻭﻝ ﻣﺮﺓ ﺃﺧﺮﻯ");
-                                this.loader = false;
-                             }
-                            else if (res.errors.notRegistered) {
-                                this.appUtils.AppToast("عفوا رقم الموبايل غير موجود");
-                                this.loader = false;
-                             }
+         //this.appUtils.AppToast();
+         ///send data
+         this.loader = true;
+         // console.log('you have entered ', this.emailOrMobile, this.password);
+         this.usersproviders.userLogin(this.loginForm.value)
+           .subscribe((res) => {
 
-                          }
-                  
-            
-              });
-          
-        
-            // console.log('Device registered', registration, registration.registrationId, this.platform.is('android') ? 'android' : 'ios');
-        }  
-      }//end submit
+             if (res.error) {
+               this.appUtils.AppToast('البيانات غير متطابقة')
+             } else {
+               console.log(res);
+               this.appUtils.AppToast('تم الدخول بنجاح');
+               this.usersproviders.getUserData(res.token)
+                 .subscribe(data=>{
+                   console.log(data);
+                   if (data.user) {
+                     this.navCtrl.setRoot('HomePage')
+                   }
+                 })
+             }
+             // if (res.data) {
+             //   console.log('this.userInfoLogin', res.data)
+             //   this.storage.set('userInfo', res.data);
+             //   // localStorage.removeItem('localUserInfo');
+             //   // localStorage.setItem('localUserInfo', JSON.stringify(res.data))
+             //   this.appUtils.AppToast("ﺗﻢ اﻟﺪﺧﻮﻝ ﺑﻨﺠﺎﺡ");
+             //   this.navCtrl.setRoot('HomePage');
+             //   this.loader = false;
+             // }
+             // else {
+             //   if (res.errors.match) {
+             //     this.appUtils.AppToast("ﻛﻠﻤﺔ اﻟﻤﺮﻭﺭ ﺧﺎﻃﺌﺔ ﺣﺎﻭﻝ ﻣﺮﺓ ﺃﺧﺮﻯ");
+             //     this.loader = false;
+             //   }
+             //   else if (res.errors.notRegistered) {
+             //     this.appUtils.AppToast("عفوا رقم الموبايل غير موجود");
+             //     this.loader = false;
+             //   }
+             //
+             // }
+
+
+           });
+
+
+         // console.log('Device registered', registration, registration.registrationId, this.platform.is('android') ? 'android' : 'ios');
+       }
+     }//end submit
 
 
 }

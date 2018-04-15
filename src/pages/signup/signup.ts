@@ -39,17 +39,18 @@ export class SignupPage {
 
               ) {
     this.signupForm = this.formBuilder.group({
-      'type_of_user': [1, Validators.required],
+      'role': ['user', Validators.required],
       'first_name': ['', Validators.required],
       'last_name': ['', Validators.required],
       'avatar': [''],
       'password': ['', Validators.required],
-
       'confirm_password': ['', Validators.required],
-      'e_mail': ['', Validators.compose([Validators.required, Validators.pattern(this.Vari.EMAIL_REGEXP)])],
-      'mobile':['' ,Validators.compose([Validators.required, Validators.pattern(this.Vari.NUMBER_REGXP), Validators.minLength(9), Validators.maxLength(9)])],
+      'email': ['', [Validators.required, Validators.pattern(this.Vari.EMAIL_REGEXP)]],
+      'phone':['' ,[Validators.required, Validators.pattern(this.Vari.NUMBER_REGXP), Validators.minLength(9), Validators.maxLength(9)]],
       'address': ['', Validators.required],
-      'agreeCondition': [false, Validators.required]
+      'agreeCondition': [false, Validators.required],
+      'vehicle': [''],
+      'c_code': ['966']
     })
   }
 
@@ -58,28 +59,23 @@ export class SignupPage {
          console.log(' this.signupForm.value ', this.signupForm.value);
          if (this.signupForm.controls.first_name.hasError('required')) {
           this.appUtils.AppToast("يرجى إدخال الاسم الاول");
-         } 
+         }
         else if (this.signupForm.controls.last_name.hasError('required')) {
           this.appUtils.AppToast("يرجى إدخال الاسم الاخير");
-         } 
-        else if (this.signupForm.controls.mobile.hasError('required')) {
+         }
+        else if (this.signupForm.controls.phone.hasError('required')) {
               this.appUtils.AppToast("ﻳﺮﺟﻰ ﺇﺩﺧﺎﻝ ﺭﻗﻢ اﻟﻤﻮﺑﺎﻳﻞ");
             }
-        else if (this.signupForm.controls.mobile.hasError('pattern')) {
-              this.appUtils.AppToast("ﻳﺮﺟﻰ ﺇﺩﺧﺎﻝ ﺭﻗﻢ اﻟﻤﻮﺑﺎﻳﻞ ﺑﺸﻜﻞ ﺻﺤﻴﺢ");
-            }
-        else if (this.signupForm.controls.e_mail.hasError('required')) {
+
+        else if (this.signupForm.controls.email.hasError('required')) {
               this.appUtils.AppToast("ﻳﺮﺟﻰ ﺇﺩﺧﺎﻝ اﻟﺒﺮﻳﺪ اﻹﻟﻜﺘﺮﻭﻧﻲ");
             }
-        else if (this.signupForm.controls.e_mail.hasError('pattern')) {
+        else if (this.signupForm.controls.email.hasError('pattern')) {
               this.appUtils.AppToast("ﻳﺮﺟﻰ ﺇﺩﺧﺎﻝ اﻟﺒﺮﻳﺪ اﻹﻟﻜﺘﺮﻭﻧﻲ ﺑﺸﻜﻞ ﺻﺤﻴﺢ");
             }
         else if (this.signupForm.controls.address.hasError('required')) {
           this.appUtils.AppToast("يرجى إدخال العنوان  ");
-         } 
-        // else if (this.signupForm.controls.gender.hasError('required')) {
-        //         this.appUtils.AppToast("ﻳﺮﺟﻰ اﺧﺘﻴﺎ اﻟﺠﻨﺲ");
-        //     }
+         }
         else if (this.signupForm.controls.password.hasError('required')) {
               this.appUtils.AppToast("ﻳﺮﺟﻰ ﺇﺩﺧﺎﻝ ﻛﻠﻤﺔ اﻟﻤﺮﻭﺭ");
             }
@@ -91,31 +87,34 @@ export class SignupPage {
             }
         else if (this.signupForm.controls.agreeCondition.value==false) {
           this.appUtils.AppToast("يرجى الموافقة على الشروط والاحكام");
-         } 
+         }
 
-        else { 
+        else {
           this.loader = true;
-         
+          delete this.signupForm.value.agreeCondition;
+          delete this.signupForm.value.confirm_password;
+          this.signupForm.get('phone').setValue(this.signupForm.get('phone').value.replace(/\s/g,''));
           this.usersproviders.userRegister(this.signupForm.value)
             .subscribe((res) => {
-                if (res.data) {  
-                  // localStorage.removeItem('localUserInfo');
-                  // localStorage.setItem('localUserInfo',JSON.stringify(res.data))
-                  this.appUtils.AppToast("ﺗﻢ ﺗﺴﺠﻴﻞ اﻟﺤﺴﺎﺏ ﺑﻨﺠﺎﺡ");  
-                  this.navCtrl.push(HomePage)   
-                 }
-                else{
-                      if(res.errors.e_mail){
-                       this.appUtils.AppToast("ﻋﺬﺭا اﻟﺒﺮﻳﺪ اﻻﻟﻜﺘﺮﻭﻧﻲ اﻟﺬﻱ اﺩﺧﻠﺘﻪ ﻣﺴﺘﺨﺪﻡ ﻣﻦ ﻗﺒﻞ ﺷﺨﺺ اﺧﺮ");  
-                       this.loader = false;  
-                        }
-                      else{
-                      
-                       this.appUtils.AppToast("ﻋﺬﺭا اﻟﻤﻮﺑﺎﻳﻞ اﻟﺬﻱ اﺩﺧﻠﺘﻪ ﻣﺴﺘﺨﺪﻡ ﻣﻦ ﻗﺒﻞ ﺷﺨﺺ اﺧﺮ");  
-                       this.loader = false;
-                       }
-                 
-                }
+              console.log(res);
+                // if (res.data) {
+                //   // localStorage.removeItem('localUserInfo');
+                //   // localStorage.setItem('localUserInfo',JSON.stringify(res.data))
+                //   this.appUtils.AppToast("ﺗﻢ ﺗﺴﺠﻴﻞ اﻟﺤﺴﺎﺏ ﺑﻨﺠﺎﺡ");
+                //   this.navCtrl.push(HomePage)
+                //  }
+                // else{
+                //       if(res.errors.e_mail){
+                //        this.appUtils.AppToast("ﻋﺬﺭا اﻟﺒﺮﻳﺪ اﻻﻟﻜﺘﺮﻭﻧﻲ اﻟﺬﻱ اﺩﺧﻠﺘﻪ ﻣﺴﺘﺨﺪﻡ ﻣﻦ ﻗﺒﻞ ﺷﺨﺺ اﺧﺮ");
+                //        this.loader = false;
+                //         }
+                //       else{
+                //
+                //        this.appUtils.AppToast("ﻋﺬﺭا اﻟﻤﻮﺑﺎﻳﻞ اﻟﺬﻱ اﺩﺧﻠﺘﻪ ﻣﺴﺘﺨﺪﻡ ﻣﻦ ﻗﺒﻞ ﺷﺨﺺ اﺧﺮ");
+                //        this.loader = false;
+                //        }
+                //
+                // }
               },err => {
                 this.loader = false;
                 // this.isOnline = false;
@@ -126,17 +125,17 @@ export class SignupPage {
             },() => {
                 this.loader = false;
             });
- 
+
          }
       }//end submit
-  
+
 
   changeUserType(event) {
     this.signupForm.get('type_of_user').setValue( this.usertypeInput.value)
   }
 
    public pickImage() { // cameraImage defines we select to change (avatar | cover) image
-   	 
+
     let actionSheetCtrl = this.actionCtrl.create({
       title: 'اختر من',
       buttons: [
@@ -157,7 +156,7 @@ export class SignupPage {
 
             /*   open camera photo Library */
             this.openCamera('PHOTOLIBRARY' );
-         
+
           }
         },
         {
@@ -194,7 +193,7 @@ private openCamera(type: string = 'CAMERA' ) {
     this.camera.getPicture(cameraOptions).then(imageData => {
 
       /* If data
-      
+
       let base64Image = 'data:image/jpeg;base64,' + imageData;
       let compressed = LZString.compressToUTF16(base64Image);
       console.log(compressed);
@@ -252,21 +251,21 @@ private openCamera(type: string = 'CAMERA' ) {
     file = (file.indexOf('?') != -1)?file.split('?')[0]:file;
 
     const fto: FileTransferObject = this.transfer.create();
- 
+
     let fileName = file.substr(file.lastIndexOf('/') + 1);
-    
+
     let uploadOptions: FileUploadOptions = {
       fileKey: 'file',
       fileName: fileName,
       chunkedMode: false,
       mimeType: "image/" + type,
-      
+
     };
 
     let serverFile = this.Vari.API_URL + "uploadImage.php?uploadFolder=templates/default/uploads/avatars";
 
     this.uploadLoader =true;
- 
+
 
     fto.upload(encodeURI(file), encodeURI(serverFile), uploadOptions, true)
       .then((res) => {
@@ -289,12 +288,12 @@ private openCamera(type: string = 'CAMERA' ) {
           this.showToast(JSON.parse(err.body).success)
           if (JSON.parse(err.body).name) {
             // this.userLocal[cameraImage] = JSON.parse(err.body).name;
-            
+
             // localStorage.setItem('userLocalData', JSON.stringify(this.userLocal));
           }else {
             this.showToast(JSON.parse(err.body).errorInfo)
           }
-          
+
         }
       });
 
@@ -307,5 +306,5 @@ private openCamera(type: string = 'CAMERA' ) {
     });
     toast.present();
   }
- 
+
 }

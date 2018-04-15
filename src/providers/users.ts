@@ -13,15 +13,20 @@ export class UsersProviders {
   ) {
   }
    userLogin(userData){
-    return this.api.post('users.php?action=loginUser', userData);
+    return this.api.post('login', userData);
   }
   userRegister(userData) {
-    
-    return this.api.post('users.php?action=newUser', userData);
+
+    return this.api.post('register', userData);
   }
   userEdite(userData) {
-    return this.api.post('users.php?action=editUser', userData);
+    return this.api.post('edituser', userData);
   }
+
+  getUserData(token: string) {
+    return this.api.get('user', {token})
+  }
+
   getPlacesByPerantId(d) {
     //let data = JSON.stringify({uid});
     let data = JSON.stringify(Object.assign(d));
@@ -37,7 +42,7 @@ export class UsersProviders {
     return this.api.post('users.php?action=forgetPassword', data);
   }
 
- 
+
   setdeviceTokeId(Da){
   let data = JSON.stringify(Object.assign(Da));
     return this.api.post('users.php?action=setDeviceToken', data);
@@ -52,7 +57,7 @@ export class UsersProviders {
  //   let data = JSON.stringify(Object.assign(Da));
  //    return this.api.post('users.php?action=getProviderById', data);
  // }
- 
+
 }
 
 

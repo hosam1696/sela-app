@@ -48,7 +48,7 @@ page-profile {
 
     .profile-data {
       margin: 2.2rem auto;
-      form {
+      .user-details, .user-edit-details {
         .form-group {
           display: flex;
           background: #fff;
@@ -56,6 +56,18 @@ page-profile {
           color: #696969;
           padding: 6px;
           margin-bottom: 10px;
+          &.mobile-group {
+            align-items: center;
+            height: 29px;
+            input {
+              direction: ltr !important;
+              padding-left:6px;
+            }
+            span {
+              order:3;
+              direction: ltr;
+            }
+          }
           label {
             width: 35%;
             position: relative;
@@ -64,6 +76,11 @@ page-profile {
               position: absolute;
               left: 8px;
               top: 0;
+            }
+          }
+          ion-input {
+            input {
+              margin: 0 !important;
             }
           }
           p {

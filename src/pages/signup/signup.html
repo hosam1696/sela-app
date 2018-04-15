@@ -7,19 +7,19 @@
 <ion-content padding>
   <form [formGroup]="signupForm" (ngSubmit)="submitForm()">
     <div class="form-user-type">
-      <div class="user" [class.selected]="signupForm.getRawValue()['type_of_user'] == 2">
+      <div class="user" [class.selected]="signupForm.getRawValue()['role'] == 'branch'">
         <label for="type1" >
           <ion-icon name="md-car"></ion-icon>
           <p>تسجيل مندوب</p>
         </label>
-        <input type="radio" id="type1" value="2" formControlName="type_of_user" >
+        <input type="radio" id="type1" value="branch" formControlName="role" >
       </div>
-      <div class="user" [class.selected]="signupForm.getRawValue()['type_of_user'] == 1">
+      <div class="user" [class.selected]="signupForm.getRawValue()['role'] == 'user'">
         <label for="type2" >
             <ion-icon name="man"></ion-icon>
             <p>تسجيل عادى</p>
         </label>
-        <input type="radio" id="type2" value="1" formControlName="type_of_user" >
+        <input type="radio" id="type2" value="user" formControlName="role" >
       </div>
     </div>
     <ion-grid no-padding>
@@ -43,10 +43,10 @@
 
     <div class="form-group phone-number" >
       <span>+966</span>
-      <input type="tel" [textMask]="{mask: formMasks.mobile}" placeholder="رقم الجوال 9 ارقام" formControlName="mobile">
+      <input type="tel" [textMask]="{mask: formMasks.mobile}" placeholder="رقم الجوال 9 ارقام" formControlName="phone">
     </div>
     <div class="form-group">
-      <input type="email" email placeholder="البريد الالكترونى" formControlName="e_mail">
+      <input type="email" email placeholder="البريد الالكترونى" formControlName="email">
     </div>
 
     <div class="form-group">

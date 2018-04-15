@@ -34,6 +34,10 @@ page-signup {
           input {
             padding: 0 10px;
           }
+          //static country code for now
+          span {
+            font-size: 1.4rem;
+          }
         }
         &.upload-image {
           padding: 0;

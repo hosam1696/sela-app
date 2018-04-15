@@ -36,7 +36,7 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-chip (click)="openPage('EditprofilePage')">
+        <ion-chip (click)="changePageMode()">
           <ion-icon name="man"></ion-icon>
           <ion-label>تعديل البيانات</ion-label>
         </ion-chip>
@@ -55,40 +55,99 @@
 
 
   <section class="profile-data">
-      <form>
-        <div class="form-group">
-          <label for="username">
-            اسم المستخدم
-          </label>
-          <p>
-            اسم العميل
-          </p>
-        </div>
-        <div class="form-group">
-          <label for="username">
-             البريد الالكترونى
-          </label>
-          <p>
-            methaaq@itech.com
-          </p>
-        </div>
-        <div class="form-group">
-          <label for="username">
-            رقم الهاتف
-          </label>
-          <p>
-           ٠١٢٠١٩١٤٩١٨
-          </p>
-        </div>
-        <div class="form-group">
-          <label for="username">
-            العنوان
-          </label>
-          <p>
+    <!--  edit user details -->
+    <form class="user-edit-details"
+          [formGroup]="profileEditForm"
+          *ngIf="pageMode.editMode;else viewMode"
+          (ngSubmit)="submitForm()">
+      <div class="form-group">
+        <label >
+          الاسم الأول
+        </label>
+        <ion-input dir="rtl" type="text"></ion-input>
+      </div>
+      <div class="form-group">
+        <label >
+          الاسم الأخير
+        </label>
+        <ion-input dir="rtl" type="text"></ion-input>
+      </div>
+      <div class="form-group">
+        <label >
+          البريد الالكترونى
+        </label>
+        <ion-input type="email" dir="rtl"></ion-input>
+      </div>
+      <div class="form-group mobile-group">
+        <label >
+          رقم الهاتف
+        </label>
+        <span>+966</span>
+        <input  type="tel" [textMask]="{mask: formMasks.mobile}" placeholder="رقم الجوال 9 ارقام">
+      </div>
+      <div class="form-group mobile-group">
+        <label >
+          العنوان
+        </label>
+        <p>
           الزقازيق - الشرقية
-          </p>
+        </p>
+      </div>
+
+
+    </form>
+
+
+      <!-- showing user details -->
+      <ng-template #viewMode>
+        <div class="user-details">
+          <div class="form-group">
+            <label >
+              الاسم الأول
+            </label>
+            <p>
+              اسم العميل
+            </p>
+          </div>
+          <div class="form-group">
+            <label >
+              الأسم الأخير
+            </label>
+            <p>
+              اسم العميل
+            </p>
+          </div>
+          <div class="form-group">
+            <label >
+              البريد الالكترونى
+            </label>
+            <p>
+              methaaq@itech.com
+            </p>
+          </div>
+          <div class="form-group">
+            <label >
+              رقم الهاتف
+            </label>
+            <p>
+              ٠١٢٠١٩١٤٩١٨
+            </p>
+          </div>
+          <div class="form-group">
+            <label >
+              العنوان
+            </label>
+            <p>
+              الزقازيق - الشرقية
+            </p>
+          </div>
         </div>
-      </form>
+      </ng-template>
+
   </section>
 
 </ion-content>
+
+<ion-footer [hidden]="!pageMode.editMode">
+  <button ion-button no-margin no-margin full type="submit">{{pageMode.editText|translate}}</button>
+</ion-footer>
