@@ -27,36 +27,21 @@ export class UsersProviders {
     return this.api.get('user', {token})
   }
 
-  getPlacesByPerantId(d) {
-    //let data = JSON.stringify({uid});
-    let data = JSON.stringify(Object.assign(d));
-    // console.log('Data entered', data, typeof data);
-    // console.log('this.Vari.API_URL', this.Vari.API_URL);
-    return this.api.post('users.php?action=getPlaces', data);
-  }
-  forgetPassword(d) {
-    //let data = JSON.stringify({uid});
-    let data = JSON.stringify(Object.assign(d));
-    // console.log('Data entered', data, typeof data);
-    // console.log('this.Vari.API_URL', this.Vari.API_URL);
-    return this.api.post('users.php?action=forgetPassword', data);
+  resetPassword(resetobj:any) {
+    return this.api.get('resetPassword', resetobj)
   }
 
+  updateUserInfo(userData:any) {
+    let id = userData.id;
+    delete userData.id;
+    return this.api.post('editUser/'+id, userData)
+  }
 
   setdeviceTokeId(Da){
   let data = JSON.stringify(Object.assign(Da));
     return this.api.post('users.php?action=setDeviceToken', data);
   }
-  // getToken() {
-  //   return this.storage.get('userToken');
-  // }
-  // isUserLogin() {
-  //   return this.storage.get('isLogin');
-  // }
-   // getProviderById(Da){
- //   let data = JSON.stringify(Object.assign(Da));
- //    return this.api.post('users.php?action=getProviderById', data);
- // }
+
 
 }
 

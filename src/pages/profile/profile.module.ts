@@ -4,6 +4,8 @@ import { ProfilePage } from './profile';
 import { Ionic2RatingModule} from "ionic2-rating";
 import {TextMaskModule} from "angular2-text-mask";
 import {TranslateModule} from "@ngx-translate/core";
+import {AppstorageProvider} from "../../providers/appstorage/appstorage";
+import {UsersProviders} from "../../providers/users";
 
 @NgModule({
   declarations: [
@@ -15,5 +17,9 @@ import {TranslateModule} from "@ngx-translate/core";
     TextMaskModule,
     TranslateModule.forChild()
   ],
+  providers: [
+    AppstorageProvider,
+    UsersProviders
+  ]
 })
 export class ProfilePageModule {}

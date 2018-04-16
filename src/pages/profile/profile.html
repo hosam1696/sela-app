@@ -6,7 +6,7 @@
     </button>
 
     <ion-buttons end>
-      <button ion-button icon-only (click)="openPage('SearchPage')">
+      <button ion-button icon-only (click)="openPage('MapsPage')">
         <ion-icon name="search"></ion-icon>
       </button>
       <button ion-button icon-only class="cart-button" (click)="openPage('CartPage')">
@@ -24,12 +24,15 @@
   <section class="user-section" (click)="openPage('ProfilePage')">
     <div class="user-img">
       <img src="assets/imgs/profile-alt.png" alt="">
+      <button ion-button icon-only mini round (click)="changeImage()">
+        <ion-icon name="add"></ion-icon>
+      </button>
     </div>
     <div class="user-name">
-      <h2>اسم العميل</h2>
+      <h2>{{localUser&&localUser.name}}</h2>
     </div>
     <p no-margin text-center>
-      <rating readOnly="true" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star" nullable="false"></rating>
+      <rating [(ngModel)]="defaultRating" readOnly="true" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star" nullable="false"></rating>
     </p>
   </section>
 
@@ -44,7 +47,7 @@
 
       <!--show this if the user enters his profile-->
       <ion-col>
-        <ion-chip>
+        <ion-chip (click)="logout()">
           <ion-icon name="log-out"></ion-icon>
           <ion-label>تسجيل الخروج</ion-label>
         </ion-chip>
@@ -54,47 +57,48 @@
   </ion-grid>
 
 
-  <section class="profile-data">
+  <section class="profile-data" *ngIf="localUser">
     <!--  edit user details -->
     <form class="user-edit-details"
           [formGroup]="profileEditForm"
-          *ngIf="pageMode.editMode;else viewMode"
-          (ngSubmit)="submitForm()">
+          *ngIf="pageMode.editMode;else viewMode">
       <div class="form-group">
         <label >
           الاسم الأول
         </label>
-        <ion-input dir="rtl" type="text"></ion-input>
+        <ion-input dir="rtl" type="text" formControlName="first_name"></ion-input>
       </div>
       <div class="form-group">
         <label >
           الاسم الأخير
         </label>
-        <ion-input dir="rtl" type="text"></ion-input>
+        <ion-input dir="rtl" type="text" formControlName="last_name"></ion-input>
       </div>
       <div class="form-group">
         <label >
           البريد الالكترونى
         </label>
-        <ion-input type="email" dir="rtl"></ion-input>
+        <ion-input type="email" dir="rtl" formControlName="email" autocomplete="true" name="form_email"></ion-input>
       </div>
       <div class="form-group mobile-group">
         <label >
           رقم الهاتف
         </label>
         <span>+966</span>
-        <input  type="tel" [textMask]="{mask: formMasks.mobile}" placeholder="رقم الجوال 9 ارقام">
+        <input  type="tel" [textMask]="{mask: formMasks.mobile}" placeholder="رقم الجوال 9 ارقام" formControlName="phone" autocomplete="true" name="form_phone">
       </div>
-      <div class="form-group mobile-group">
+      <div class="form-group" [hidden]="localUser.role === 'user'">
+        <label >
+          المركبة
+        </label>
+        <ion-input type="text" dir="rtl" formControlName="vehicle" autocomplete="true" name="form_vehicle"></ion-input>
+      </div>
+      <div class="form-group">
         <label >
           العنوان
         </label>
-        <p>
-          الزقازيق - الشرقية
-        </p>
+        <ion-input type="text" dir="rtl" formControlName="address" autocomplete="true" name="form_address"></ion-input>
       </div>
-
-
     </form>
 
 
@@ -105,41 +109,33 @@
             <label >
               الاسم الأول
             </label>
-            <p>
-              اسم العميل
-            </p>
+            <p>{{localUser.first_name}}</p>
           </div>
           <div class="form-group">
             <label >
-              الأسم الأخير
+              الاسم الأخير
             </label>
-            <p>
-              اسم العميل
-            </p>
+            <p>{{localUser.last_name}}</p>
           </div>
           <div class="form-group">
             <label >
               البريد الالكترونى
             </label>
-            <p>
-              methaaq@itech.com
-            </p>
+            <p>{{localUser.email}}</p>
           </div>
           <div class="form-group">
             <label >
               رقم الهاتف
             </label>
             <p>
-              ٠١٢٠١٩١٤٩١٨
+              {{localUser.phone}}
             </p>
           </div>
           <div class="form-group">
             <label >
               العنوان
             </label>
-            <p>
-              الزقازيق - الشرقية
-            </p>
+            <p>{{localUser.address}}</p>
           </div>
         </div>
       </ng-template>
@@ -149,5 +145,5 @@
 </ion-content>
 
 <ion-footer [hidden]="!pageMode.editMode">
-  <button ion-button no-margin no-margin full type="submit">{{pageMode.editText|translate}}</button>
+  <button ion-button no-margin  full type="submit" (click)="submitForm()">{{pageMode.editText|translate}}</button>
 </ion-footer>

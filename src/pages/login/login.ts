@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, ViewController, NavParams } from 'ionic-angular';
+import {IonicPage, NavController, ViewController, NavParams, Events} from 'ionic-angular';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import { MyVariabels } from "../../providers/variables";
 import { UsersProviders } from "../../providers/users";
-import { AppUtilFunctions } from '../../providers/utilfuns';//
-import { Storage } from '@ionic/storage';
-
+import { AppUtilFunctions } from '../../providers/utilfuns';
+import {AppstorageProvider} from "../../providers/appstorage/appstorage";
 
 @IonicPage()
 @Component({
@@ -17,13 +15,13 @@ export class LoginPage {
     loader:boolean=false;
     openAsPage; boolean = false;
     constructor(
-        private storage: Storage,
+        private appStorage: AppstorageProvider,
         public appUtils: AppUtilFunctions,
         public navCtrl: NavController,
         private formBuilder: FormBuilder ,
-        public Vari: MyVariabels,
         public usersproviders: UsersProviders,
         public viewCtrl: ViewController,
+        public events: Events,
         navParams: NavParams
     ) {
      this.loginForm =this.formBuilder.group({
@@ -52,60 +50,42 @@ export class LoginPage {
      onSubmit(){
        if (this.loginForm.controls.phone.hasError('required')) {
          this.appUtils.AppToast("الرجاء إدخال رقم الموبابل");
-       }
-       else if (this.loginForm.controls.password.hasError('required')) {
+       } else if (this.loginForm.controls.password.hasError('required')) {
          this.appUtils.AppToast("الرجاء إدخال  كلمة المرور");
-       }
-       else {
-
-         //this.appUtils.AppToast();
-         ///send data
+       } else {
          this.loader = true;
-         // console.log('you have entered ', this.emailOrMobile, this.password);
-         this.usersproviders.userLogin(this.loginForm.value)
-           .subscribe((res) => {
 
+         this.usersproviders
+           .userLogin(this.loginForm.value)
+           .subscribe((res) => {
              if (res.error) {
                this.appUtils.AppToast('البيانات غير متطابقة')
              } else {
                console.log(res);
+               this.appStorage.saveToken(res.token);
                this.appUtils.AppToast('تم الدخول بنجاح');
                this.usersproviders.getUserData(res.token)
                  .subscribe(data=>{
                    console.log(data);
                    if (data.user) {
-                     this.navCtrl.setRoot('HomePage')
+                     data.user.name = data.user.first_name +' ' + data.user.last_name; // concat the user name
+                     this.appStorage.saveUserData(data.user)
+                       .then(()=>{
+                         this.events.publish('refreshStorage');
+                         this.events.publish('changeRoot','HomePage');
+
+                       });
+
+
                    }
                  })
              }
-             // if (res.data) {
-             //   console.log('this.userInfoLogin', res.data)
-             //   this.storage.set('userInfo', res.data);
-             //   // localStorage.removeItem('localUserInfo');
-             //   // localStorage.setItem('localUserInfo', JSON.stringify(res.data))
-             //   this.appUtils.AppToast("ﺗﻢ اﻟﺪﺧﻮﻝ ﺑﻨﺠﺎﺡ");
-             //   this.navCtrl.setRoot('HomePage');
-             //   this.loader = false;
-             // }
-             // else {
-             //   if (res.errors.match) {
-             //     this.appUtils.AppToast("ﻛﻠﻤﺔ اﻟﻤﺮﻭﺭ ﺧﺎﻃﺌﺔ ﺣﺎﻭﻝ ﻣﺮﺓ ﺃﺧﺮﻯ");
-             //     this.loader = false;
-             //   }
-             //   else if (res.errors.notRegistered) {
-             //     this.appUtils.AppToast("عفوا رقم الموبايل غير موجود");
-             //     this.loader = false;
-             //   }
-             //
-             // }
-
-
+           },(err)=>{
+             console.warn(err);
+             this.appUtils.AppToast('الرجاء المحاولة فى وقت اخر')
            });
-
-
-         // console.log('Device registered', registration, registration.registrationId, this.platform.is('android') ? 'android' : 'ios');
        }
-     }//end submit
+     }
 
 
 }

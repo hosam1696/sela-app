@@ -20,6 +20,25 @@ page-home {
 
       }
     }
+    .notifications {
+      position: absolute;
+      width: 90%;
+      top: 10px;
+      right: 5%;
+      background-color: #ffffffed;
+      &:after {
+        content: '';
+        background-color: transparent;
+        width: 0;
+        height: 0;
+        position: absolute;
+        top: -24px;
+        right: 17%;
+        transform: rotate(-90deg);
+        border: 12px solid transparent;
+        border-left-color: #ffffffed;
+      }
+    }
     .swiper-slide {
       align-items: flex-start !important;
     }
@@ -97,7 +116,7 @@ page-home {
     }
   }
 }
- .popover-viewport{   
+ .popover-viewport{
             top: 57px;
             left: 108px;
             transform-origin: right top 0px;

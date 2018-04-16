@@ -17,9 +17,10 @@ import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {AppUtilFunctions} from '../providers/utilfuns';
 import {MyVariabels} from'../providers/variables';
-import {UsersProviders} from'../providers/users';
 import { Geolocation} from '@ionic-native/geolocation';
 import { AppAPI } from '../providers/api';
+import { AppstorageProvider } from '../providers/appstorage/appstorage';
+import { AreasProvider } from '../providers/areas/areas';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -61,10 +62,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     SplashScreen,
     AppUtilFunctions,
     MyVariabels,
-    UsersProviders,
     Geolocation,
     AppAPI,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    AppstorageProvider,
+    AreasProvider
   ]
 })
 export class AppModule {}

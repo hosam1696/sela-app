@@ -1,34 +1,46 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams ,ActionSheetController,Platform,ToastController} from 'ionic-angular';
+import {Component} from '@angular/core';
+import {
+  IonicPage,
+  NavController,
+  NavParams,
+  ActionSheetController,
+  Platform,
+  ToastController,
+  Events
+} from 'ionic-angular';
 import {FormBuilder, FormGroup, Validators, FormControl} from "@angular/forms";
-import { MyVariabels } from "../../providers/variables";
-import { AppUtilFunctions } from '../../providers/utilfuns';//
-import { UsersProviders } from "../../providers/users";
+import {MyVariabels} from "../../providers/variables";
+import {AppUtilFunctions} from '../../providers/utilfuns';//
+import {UsersProviders} from "../../providers/users";
 import {HomePage} from '../home/home';
-import { Camera, CameraOptions } from '@ionic-native/camera';
-import { FilePath } from '@ionic-native/file-path';
-import { FileTransfer, FileUploadOptions, FileTransferObject, } from '@ionic-native/file-transfer';
-import { File } from '@ionic-native/file';
+import {Camera, CameraOptions} from '@ionic-native/camera';
+import {FilePath} from '@ionic-native/file-path';
+import {FileTransfer, FileUploadOptions, FileTransferObject,} from '@ionic-native/file-transfer';
+import {File} from '@ionic-native/file';
+import {AppstorageProvider} from "../../providers/appstorage/appstorage";
+import {UserData} from "../../providers/types/interface";
+
 @IonicPage()
 @Component({
   selector: 'page-signup',
   templateUrl: 'signup.html',
 })
 export class SignupPage {
-  loader:boolean=false;
+  loader: boolean = false;
   cameraError: any;
-  uploadLoader:boolean=false;
+  uploadLoader: boolean = false;
   signupForm: FormGroup;
   usertypeInput: HTMLInputElement;
   formMasks: any = {
-    mobile: [/\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/]
+    mobile: [/\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/]
   };
+
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public formBuilder: FormBuilder,
               public Vari: MyVariabels,
               public appUtils: AppUtilFunctions,
-              public usersproviders: UsersProviders,
+              public userProvider: UsersProviders,
               public actionCtrl: ActionSheetController,
               public camera: Camera,
               public platform: Platform,
@@ -36,8 +48,9 @@ export class SignupPage {
               public filePath: FilePath,
               public transfer: FileTransfer,
               public toastCtrl: ToastController,
-
-              ) {
+              public appStorage: AppstorageProvider,
+              public events: Events,
+  ) {
     this.signupForm = this.formBuilder.group({
       'role': ['user', Validators.required],
       'first_name': ['', Validators.required],
@@ -46,7 +59,7 @@ export class SignupPage {
       'password': ['', Validators.required],
       'confirm_password': ['', Validators.required],
       'email': ['', [Validators.required, Validators.pattern(this.Vari.EMAIL_REGEXP)]],
-      'phone':['' ,[Validators.required, Validators.pattern(this.Vari.NUMBER_REGXP), Validators.minLength(9), Validators.maxLength(9)]],
+      'phone': ['', [Validators.required, Validators.pattern(this.Vari.NUMBER_REGXP), Validators.minLength(9), Validators.maxLength(9)]],
       'address': ['', Validators.required],
       'agreeCondition': [false, Validators.required],
       'vehicle': [''],
@@ -56,85 +69,85 @@ export class SignupPage {
 
 
   submitForm() {
-         console.log(' this.signupForm.value ', this.signupForm.value);
-         if (this.signupForm.controls.first_name.hasError('required')) {
-          this.appUtils.AppToast("يرجى إدخال الاسم الاول");
-         }
-        else if (this.signupForm.controls.last_name.hasError('required')) {
-          this.appUtils.AppToast("يرجى إدخال الاسم الاخير");
-         }
-        else if (this.signupForm.controls.phone.hasError('required')) {
-              this.appUtils.AppToast("ﻳﺮﺟﻰ ﺇﺩﺧﺎﻝ ﺭﻗﻢ اﻟﻤﻮﺑﺎﻳﻞ");
-            }
+    console.log(' this.signupForm.value ', this.signupForm.value);
+    if (this.signupForm.controls.first_name.hasError('required')) {
+      this.appUtils.AppToast("يرجى إدخال الاسم الاول");
+    }
+    else if (this.signupForm.controls.last_name.hasError('required')) {
+      this.appUtils.AppToast("يرجى إدخال الاسم الاخير");
+    }
+    else if (this.signupForm.controls.phone.hasError('required')) {
+      this.appUtils.AppToast("ﻳﺮﺟﻰ ﺇﺩﺧﺎﻝ ﺭﻗﻢ اﻟﻤﻮﺑﺎﻳﻞ");
+    }
 
-        else if (this.signupForm.controls.email.hasError('required')) {
-              this.appUtils.AppToast("ﻳﺮﺟﻰ ﺇﺩﺧﺎﻝ اﻟﺒﺮﻳﺪ اﻹﻟﻜﺘﺮﻭﻧﻲ");
-            }
-        else if (this.signupForm.controls.email.hasError('pattern')) {
-              this.appUtils.AppToast("ﻳﺮﺟﻰ ﺇﺩﺧﺎﻝ اﻟﺒﺮﻳﺪ اﻹﻟﻜﺘﺮﻭﻧﻲ ﺑﺸﻜﻞ ﺻﺤﻴﺢ");
-            }
-        else if (this.signupForm.controls.address.hasError('required')) {
-          this.appUtils.AppToast("يرجى إدخال العنوان  ");
-         }
-        else if (this.signupForm.controls.password.hasError('required')) {
-              this.appUtils.AppToast("ﻳﺮﺟﻰ ﺇﺩﺧﺎﻝ ﻛﻠﻤﺔ اﻟﻤﺮﻭﺭ");
-            }
-        else if (this.signupForm.controls.confirm_password.hasError('required')) {
-              this.appUtils.AppToast("ﻳﺮﺟﻰ ﺇﺩﺧﺎﻝ ﺗﺄﻛﻴﺪ ﻛﻠﻤﺔ اﻟﻤﺮﻭﺭ ");
-            }
-        else if (this.signupForm.controls.password.value != this.signupForm.controls.confirm_password.value) {
-                this.appUtils.AppToast("ﻋﻔﻮا ﻛﻠﻤﺘﺎ اﻟﻤﺮﻭﺭ ﻏﻴﺮ ﻣﺘﻄﺎﺑﻘﺘﻴﻦ");
-            }
-        else if (this.signupForm.controls.agreeCondition.value==false) {
-          this.appUtils.AppToast("يرجى الموافقة على الشروط والاحكام");
-         }
+    else if (this.signupForm.controls.email.hasError('required')) {
+      this.appUtils.AppToast("ﻳﺮﺟﻰ ﺇﺩﺧﺎﻝ اﻟﺒﺮﻳﺪ اﻹﻟﻜﺘﺮﻭﻧﻲ");
+    }
+    else if (this.signupForm.controls.email.hasError('pattern')) {
+      this.appUtils.AppToast("ﻳﺮﺟﻰ ﺇﺩﺧﺎﻝ اﻟﺒﺮﻳﺪ اﻹﻟﻜﺘﺮﻭﻧﻲ ﺑﺸﻜﻞ ﺻﺤﻴﺢ");
+    }
+    else if (this.signupForm.controls.address.hasError('required')) {
+      this.appUtils.AppToast("يرجى إدخال العنوان  ");
+    }
+    else if (this.signupForm.controls.password.hasError('required')) {
+      this.appUtils.AppToast("ﻳﺮﺟﻰ ﺇﺩﺧﺎﻝ ﻛﻠﻤﺔ اﻟﻤﺮﻭﺭ");
+    }
+    else if (this.signupForm.controls.confirm_password.hasError('required')) {
+      this.appUtils.AppToast("ﻳﺮﺟﻰ ﺇﺩﺧﺎﻝ ﺗﺄﻛﻴﺪ ﻛﻠﻤﺔ اﻟﻤﺮﻭﺭ ");
+    }
+    else if (this.signupForm.controls.password.value != this.signupForm.controls.confirm_password.value) {
+      this.appUtils.AppToast("ﻋﻔﻮا ﻛﻠﻤﺘﺎ اﻟﻤﺮﻭﺭ ﻏﻴﺮ ﻣﺘﻄﺎﺑﻘﺘﻴﻦ");
+    }
+    else if (this.signupForm.controls.agreeCondition.value == false) {
+      this.appUtils.AppToast("يرجى القراءة والموافقة على الشروط والاحكام");
+    }
 
-        else {
-          this.loader = true;
-          delete this.signupForm.value.agreeCondition;
-          delete this.signupForm.value.confirm_password;
-          this.signupForm.get('phone').setValue(this.signupForm.get('phone').value.replace(/\s/g,''));
-          this.usersproviders.userRegister(this.signupForm.value)
-            .subscribe((res) => {
-              console.log(res);
-                // if (res.data) {
-                //   // localStorage.removeItem('localUserInfo');
-                //   // localStorage.setItem('localUserInfo',JSON.stringify(res.data))
-                //   this.appUtils.AppToast("ﺗﻢ ﺗﺴﺠﻴﻞ اﻟﺤﺴﺎﺏ ﺑﻨﺠﺎﺡ");
-                //   this.navCtrl.push(HomePage)
-                //  }
-                // else{
-                //       if(res.errors.e_mail){
-                //        this.appUtils.AppToast("ﻋﺬﺭا اﻟﺒﺮﻳﺪ اﻻﻟﻜﺘﺮﻭﻧﻲ اﻟﺬﻱ اﺩﺧﻠﺘﻪ ﻣﺴﺘﺨﺪﻡ ﻣﻦ ﻗﺒﻞ ﺷﺨﺺ اﺧﺮ");
-                //        this.loader = false;
-                //         }
-                //       else{
-                //
-                //        this.appUtils.AppToast("ﻋﺬﺭا اﻟﻤﻮﺑﺎﻳﻞ اﻟﺬﻱ اﺩﺧﻠﺘﻪ ﻣﺴﺘﺨﺪﻡ ﻣﻦ ﻗﺒﻞ ﺷﺨﺺ اﺧﺮ");
-                //        this.loader = false;
-                //        }
-                //
-                // }
-              },err => {
-                this.loader = false;
-                // this.isOnline = false;
-                // this.translateService.get('ErrorNetWorkConnection').subscribe(
-                //   value => {
-                //      this.appUtils.AppToast(value);
-                //    })
-            },() => {
-                this.loader = false;
-            });
+    else {
+      this.loader = true;
+      // customize the form object to be sent to the server
+      delete this.signupForm.value.agreeCondition;
+      delete this.signupForm.value.confirm_password;
+      this.signupForm.get('phone').setValue(this.signupForm.get('phone').value.replace(/\s/g, ''));
+      if (this.signupForm.get('role').value === 'user') {
+        this.signupForm.get('role').setValue('')
+      }
 
-         }
-      }//end submit
+      // send form object to the server
+      this.userProvider
+        .userRegister(this.signupForm.value)
+        .subscribe(async (res: UserData) => {
+          console.log(res);
+          if (res.id) {
+            this.appUtils.AppToast('تم التسجيل بنجاح');
+            await this.appStorage.saveToken(res.token);
+            res.name = res.first_name + ' ' + res.last_name; // concat the user name
+            await this.appStorage.saveUserData(res);
+            this.events.publish('changeRoot', 'HomePage');
+            this.events.publish('refreshStorage');
+            this.navCtrl.setRoot('HomePage');
+          } else {
+            console.log(res)
+          }
+
+        }, err => {
+          this.loader = false;
+          this.signupForm.get('role').setValue('user');
+          console.warn(err);
+          this.appUtils.AppToast('يرجى المحاولة مرة اخرى');
+
+        }, () => {
+          this.loader = false;
+        });
+
+    }
+  }//end submit
 
 
   changeUserType(event) {
-    this.signupForm.get('type_of_user').setValue( this.usertypeInput.value)
+    this.signupForm.get('type_of_user').setValue(this.usertypeInput.value)
   }
 
-   public pickImage() { // cameraImage defines we select to change (avatar | cover) image
+  public pickImage() { // cameraImage defines we select to change (avatar | cover) image
 
     let actionSheetCtrl = this.actionCtrl.create({
       title: 'اختر من',
@@ -155,7 +168,7 @@ export class SignupPage {
             console.log('Photo Album clicked');
 
             /*   open camera photo Library */
-            this.openCamera('PHOTOLIBRARY' );
+            this.openCamera('PHOTOLIBRARY');
 
           }
         },
@@ -169,13 +182,13 @@ export class SignupPage {
         }
       ]
     });
-      actionSheetCtrl.present();
+    actionSheetCtrl.present();
   }
 
-private openCamera(type: string = 'CAMERA' ) {
+  private openCamera(type: string = 'CAMERA') {
 
     const cameraOptions: CameraOptions = {
-      quality: (type=='CAMERA')?70:40,
+      quality: (type == 'CAMERA') ? 70 : 40,
       destinationType: this.camera.DestinationType.FILE_URI,
       mediaType: this.camera.MediaType.PICTURE,
       correctOrientation: true,
@@ -219,7 +232,6 @@ private openCamera(type: string = 'CAMERA' ) {
       }
 
 
-
       // detect image extension
       let extension: string = imageData.substring(imageData.lastIndexOf('.') + 1, imageData.lastIndexOf('?') != -1 ? imageData.lastIndexOf('?') : imageData.length);
 
@@ -247,8 +259,8 @@ private openCamera(type: string = 'CAMERA' ) {
   //   return newFileName;
   // }
 
-   private uploadImage(file, type) {
-    file = (file.indexOf('?') != -1)?file.split('?')[0]:file;
+  private uploadImage(file, type) {
+    file = (file.indexOf('?') != -1) ? file.split('?')[0] : file;
 
     const fto: FileTransferObject = this.transfer.create();
 
@@ -264,7 +276,7 @@ private openCamera(type: string = 'CAMERA' ) {
 
     let serverFile = this.Vari.API_URL + "uploadImage.php?uploadFolder=templates/default/uploads/avatars";
 
-    this.uploadLoader =true;
+    this.uploadLoader = true;
 
 
     fto.upload(encodeURI(file), encodeURI(serverFile), uploadOptions, true)
@@ -280,8 +292,8 @@ private openCamera(type: string = 'CAMERA' ) {
         this.uploadLoader = false;
         if (err.body) {
           //this.showToast('image name ' + err.body);
-          console.log('%c%s', 'font-size:20px','Body message from the server', err.body);
-          console.log(JSON.parse(err.body),JSON.parse(err.body).name);
+          console.log('%c%s', 'font-size:20px', 'Body message from the server', err.body);
+          console.log(JSON.parse(err.body), JSON.parse(err.body).name);
 
 
           //this.showToast(err.json().errorInfo());
@@ -290,7 +302,7 @@ private openCamera(type: string = 'CAMERA' ) {
             // this.userLocal[cameraImage] = JSON.parse(err.body).name;
 
             // localStorage.setItem('userLocalData', JSON.stringify(this.userLocal));
-          }else {
+          } else {
             this.showToast(JSON.parse(err.body).errorInfo)
           }
 
@@ -298,7 +310,8 @@ private openCamera(type: string = 'CAMERA' ) {
       });
 
   }
-   public showToast(msg:string):void {
+
+  public showToast(msg: string): void {
     let toast = this.toastCtrl.create({
       message: msg,
       duration: 3000,

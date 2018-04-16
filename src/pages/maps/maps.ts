@@ -1,7 +1,6 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
 import {NavParams, IonicPage, NavController} from 'ionic-angular';
 import { Geolocation, Geoposition} from '@ionic-native/geolocation';
-// import {NativeGeocoder, NativeGeocoderForwardResult, NativeGeocoderReverseResult} from "@ionic-native/native-geocoder";
 
 declare let google;
 declare let debounce;
@@ -22,6 +21,7 @@ export class MapsPage {
               public geolocation: Geolocation,
               public navParams: NavParams) {
     this.initMap = this.navParams.get('pageData');
+    console.log('Restaurant Location',this.initMap)
   }
 
   ionViewDidLoad() {
@@ -35,7 +35,7 @@ export class MapsPage {
   }
 
   public loadMap(latlng = [-34.9290, 138.6010]): void{
-    
+
     let latLng = new google.maps.LatLng(...latlng);
 
     let mapOptions = {
@@ -60,9 +60,10 @@ export class MapsPage {
         debounce(marker);
       });
       marker.setMap(this.map);
-    }
+    };
 
     makeMarker(this.userlatlng);
+    makeMarker(this.initMap, 'Restaurant')
     /*this.markers.forEach(place => {
       makeMarker(place.latlng, place.title);
     });*/

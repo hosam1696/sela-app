@@ -5,7 +5,7 @@
       <ion-icon name="md-list"></ion-icon>
     </button>
 
-    <button ion-button icon-only clear (click)="presentPopover($event)">
+    <button ion-button icon-only clear (click)="hideNotification=!hideNotification;notificationIsOpen=!hideNotification">
       <ion-icon class="bill-icon" name="notifications"></ion-icon>
     </button>
     <ion-buttons end>
@@ -22,7 +22,13 @@
 </ion-header>
 
 <ion-content class="md" no-padding>
-
+  <section class="notifications" [hidden]="hideNotification" clickOutside (clickOutsideEvent)="fireEvent()">
+    <ion-list no-lines>
+      <ion-item class="transparent-bg">
+        تم توصيل الطلبية ووصول المندوب اليك
+      </ion-item>
+    </ion-list>
+  </section>
   <section class="hero">
     <img class="hero-img" src="assets/imgs/hero-img.png" alt="">
   </section>
@@ -34,9 +40,9 @@
       <button no-margin ion-button clear (click)="changeHomeCategory('all')" [class.selected]="restaurant_category == 'all'">
         الكل
       </button>
-      <button no-margin ion-button clear (click)="changeHomeCategory('active')" [class.selected]="restaurant_category == 'active'"> المطاعم النشيطة
-      </button>
       <button no-margin ion-button clear (click)="changeHomeCategory('nearby')" [class.selected]="restaurant_category == 'nearby'"> المطاعم القريبة
+      </button>
+      <button no-margin ion-button clear (click)="changeHomeCategory('active')" [class.selected]="restaurant_category == 'active'"> المطاعم النشيطة
       </button>
 
     </div>
@@ -45,7 +51,7 @@
   <ion-slides dir="rtl">
     <ion-slide>
       <ion-list no-lines margin-horizontal>
-        <ion-item margin-bottom (click)="openPage('MapsPage')">
+        <ion-item margin-bottom  *ngFor="let restaurant of allResaurants" (click)="openPage('MapsPage', {pageData:[restaurant.lat, restaurant.lng]})">
           <ion-avatar>
             <img src="assets/imgs/rest-alt.png" alt="">
           </ion-avatar>

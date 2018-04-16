@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { SignupPage } from './signup';
 import { TextMaskModule } from 'angular2-text-mask';
+import {UsersProviders} from "../../providers/users";
+import {AppstorageProvider} from "../../providers/appstorage/appstorage";
 
 @NgModule({
   declarations: [
@@ -11,5 +13,9 @@ import { TextMaskModule } from 'angular2-text-mask';
     IonicPageModule.forChild(SignupPage),
     TextMaskModule
   ],
+  providers: [
+    UsersProviders,
+    AppstorageProvider,
+  ]
 })
 export class SignupPageModule {}
