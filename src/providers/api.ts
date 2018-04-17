@@ -21,7 +21,7 @@ export class AppAPI {
 
     post(endpoint: string, params?: any, headers?: any, body?: any) {
         let httpParams: HttpParams = new HttpParams({});
-        let httpHeaders: HttpHeaders = new HttpHeaders({});
+        let httpHeaders: HttpHeaders = new HttpHeaders({}).set('Access-Control-Allow-Origin', '*');
         if (params) {
             for (let param in params) {
                 httpParams = httpParams.set(param, params[param])
