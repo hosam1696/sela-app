@@ -5,7 +5,8 @@
       <ion-icon name="md-list"></ion-icon>
     </button>
 
-    <button ion-button icon-only clear (click)="hideNotification=!hideNotification;notificationIsOpen=!hideNotification">
+    <button ion-button icon-only clear
+            (click)="hideNotification=!hideNotification;notificationIsOpen=!hideNotification">
       <ion-icon class="bill-icon" name="notifications"></ion-icon>
     </button>
     <ion-buttons end>
@@ -24,8 +25,9 @@
 <ion-content class="md" no-padding>
   <section class="notifications" [hidden]="hideNotification" clickOutside (clickOutsideEvent)="fireEvent()">
     <ion-list no-lines>
+      <!-- Notification is Static for now-->
       <ion-item class="transparent-bg">
-        تم توصيل الطلبية ووصول المندوب اليك
+        لا يوجد اشعارارت حتى الان
       </ion-item>
     </ion-list>
   </section>
@@ -37,93 +39,71 @@
     <h1>المطاعم</h1>
 
     <div class="cat-segments">
-      <button no-margin ion-button clear (click)="changeHomeCategory('all')" [class.selected]="restaurant_category == 'all'">
-        الكل
+      <button no-margin ion-button clear (click)="changeHomeCategory('all')"
+              [class.selected]="restaurant_category == 'all'">الكل
       </button>
-      <button no-margin ion-button clear (click)="changeHomeCategory('nearby')" [class.selected]="restaurant_category == 'nearby'"> المطاعم القريبة
+      <button no-margin ion-button clear (click)="changeHomeCategory('nearby')"
+              [class.selected]="restaurant_category == 'nearby'"> المطاعم القريبة
       </button>
-      <button no-margin ion-button clear (click)="changeHomeCategory('active')" [class.selected]="restaurant_category == 'active'"> المطاعم النشيطة
+      <button no-margin ion-button clear (click)="changeHomeCategory('active')"
+              [class.selected]="restaurant_category == 'active'"> المطاعم النشيطة
       </button>
 
     </div>
   </section>
 
   <ion-slides dir="rtl">
+    <!-- All Restaurant Slide -->
     <ion-slide>
       <ion-list no-lines margin-horizontal>
-        <ion-item margin-bottom  *ngFor="let restaurant of allResaurants" (click)="openPage('MapsPage', {pageData:[restaurant.lat, restaurant.lng]})">
-          <ion-avatar>
-            <img src="assets/imgs/rest-alt.png" alt="">
+        <!-- Loading component for All Restaurant -->
+        <ion-item margin-bottom *ngFor="let i of [1,2,3]" [hidden]="allRestaurants&&allRestaurants.length">
+          <ion-avatar class="loading">
+            <img src="" alt="">
           </ion-avatar>
-          <div class="result-actions">
-            <p>مطعم هانى</p>
-            <div class="est-loc">
-              <ion-icon name="pin" color="primary"></ion-icon>
-              ٥٠ كلم
-            </div>
-          </div>
-        </ion-item>
-        <ion-item margin-bottom (click)="openPage('MapsPage')">
-          <ion-avatar>
-            <img src="assets/imgs/rest-alt.png" alt="">
-          </ion-avatar>
-          <div class="result-actions">
-            <p>مطعم هانى</p>
-            <div class="est-loc">
-              <ion-icon name="pin" color="primary"></ion-icon>
-              ٥٠ كلم
-            </div>
+          <div class="result-actions loading">
+            <p></p>
+            <p></p>
           </div>
         </ion-item>
 
-        <ion-item margin-bottom tappable (click)="openPage('MapsPage')">
+        <!-- Real Data From Data base -->
+        <ion-item margin-bottom *ngFor="let restaurant of allRestaurants"
+                  (click)="openPage('MapsPage', {pageData:[restaurant.lat, restaurant.lng]})">
           <ion-avatar>
             <img src="assets/imgs/rest-alt.png" alt="">
           </ion-avatar>
           <div class="result-actions">
-            <p>مطعم هانى</p>
-            <div class="est-loc">
-              <ion-icon name="pin" color="primary"></ion-icon>
-              ٥٠ كلم
-            </div>
+            <p class="rest-name">مطعم </p>
+            <span>{{restaurant.address}}</span>
+
           </div>
         </ion-item>
       </ion-list>
     </ion-slide>
 
+    <!-- Nearest slide-->
     <ion-slide>
       <ion-list no-lines margin-horizontal>
-        <ion-item margin-bottom (click)="openPage('MapsPage')">
-          <ion-avatar>
-            <img src="assets/imgs/rest-alt.png" alt="">
+        <!-- Loading component for nearby Restaurant -->
+        <ion-item margin-bottom *ngFor="let i of [1,2,3]" [hidden]="nearbyRestaurants&&nearbyRestaurants.length">
+          <ion-avatar class="loading">
+            <img src="" alt="">
           </ion-avatar>
-          <div class="result-actions">
-            <p>مطعم هانى</p>
-            <div class="est-loc">
-              <ion-icon name="pin" color="primary"></ion-icon>
-              ٥٠ كلم
-            </div>
+          <div class="result-actions loading">
+            <p></p>
+            <p></p>
           </div>
         </ion-item>
-        <ion-item margin-bottom (click)="openPage('MapsPage')">
+        <!-- Real Data From Data base -->
+        <ion-item margin-bottom *ngFor="let restaurant of nearbyRestaurants"
+                  (click)="openPage('MapsPage', {pageData:[restaurant.lat, restaurant.lng]})">
           <ion-avatar>
             <img src="assets/imgs/rest-alt.png" alt="">
           </ion-avatar>
           <div class="result-actions">
-            <p>مطعم هانى</p>
-            <div class="est-loc">
-              <ion-icon name="pin" color="primary"></ion-icon>
-              ٥٠ كلم
-            </div>
-          </div>
-        </ion-item>
-
-        <ion-item margin-bottom tappable (click)="openPage('MapsPage')">
-          <ion-avatar>
-            <img src="assets/imgs/rest-alt.png" alt="">
-          </ion-avatar>
-          <div class="result-actions">
-            <p>مطعم هانى</p>
+            <p>مطعم </p>
+            <span [hidden]="!restaurant.address">{{restaurant.address}}</span>
             <div class="est-loc">
               <ion-icon name="pin" color="primary"></ion-icon>
               ٥٠ كلم
@@ -177,7 +157,6 @@
     </ion-slide>
 
   </ion-slides>
-
 
 
 </ion-content>

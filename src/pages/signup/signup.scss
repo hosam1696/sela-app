@@ -24,6 +24,7 @@ page-signup {
         border-bottom: 2px solid $primary;
         margin-bottom: $form-margin;
         background-color: #fff;
+        max-height: 45px;
         &.invalid {
           border-bottom-color: $danger;
         }
@@ -49,6 +50,7 @@ page-signup {
           flex-direction: column;
           align-items: center;
           color: #ccc;
+          max-height: calc(100% - 14px);
           ion-icon {
             font-size: 7rem;
             color: #999;
@@ -108,7 +110,7 @@ page-signup {
               margin: 0;
               color: $primary !important;
               direction: rtl;
-              font-size: 1.5rem
+              font-size: 15px
             }
           }
         }

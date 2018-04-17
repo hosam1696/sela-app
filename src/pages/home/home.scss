@@ -72,7 +72,13 @@ page-home {
     ion-list {
         ion-item{
           //padding: 8px !important;
+          max-height: 95px;
           ion-avatar {
+            &.loading {
+              img {
+                border-color: transparent;
+              }
+            }
             img {
               background-color: #eee;
               width: 7rem !important;
@@ -89,11 +95,42 @@ page-home {
             display: flex;
             flex-direction: column;
             padding: 8px;
+            .rest-name {
+              margin-bottom: 8px;
+              width: 100%
+            }
+            &.loading {
+              p {
+                width: 100px;
+                height: 10px;
+                background-color: #eee;
+                border-radius: 5px;
+                margin: 8px 0;
+                animation: blinkbg 2s linear  infinite;
+                animation-direction: alternate;
+              }
+              @keyframes blinkbg {
+                to {background-color: #ccc}
+              }
+            }
             &>* {
               color: #9D9D9D
             }
             p {
               margin: 0;
+              &:first-of-type{
+                color: #555;
+                font-weight: bold;
+              }
+
+            }
+            span {
+              font-size: 12px;
+
+            }
+            .est-loc {
+              margin-top: 6px;
+              transform: translateX(6px);
             }
           }
 

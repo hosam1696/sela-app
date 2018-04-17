@@ -1,7 +1,7 @@
 export enum ResturantCategories {
     'all' = 0,
+    'nearby',
     'active',
-    'nearby'
 }
 
 export enum UserStatus {

@@ -1,6 +1,7 @@
 
 import { Injectable } from '@angular/core';
 import {AppAPI} from "../api";
+import "rxjs/add/operator/retry";
 
 @Injectable()
 export class AreasProvider {
@@ -14,6 +15,6 @@ export class AreasProvider {
     return this.api.get(`branch/${id}`)
   }
   getNearestBranches(loc:[number, number]) {
-    return this.api.get(`branch/nearest/lat/${loc[0]}/lng/${loc[1]}`)
+    return this.api.get(`branch/nearest/lat/${loc[0]}/lng/${loc[1]}`).retry(3)
   }
 }

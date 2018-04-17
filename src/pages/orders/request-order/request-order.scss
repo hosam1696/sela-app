@@ -1,0 +1,70 @@
+page-request-order {
+
+  ion-content {
+    .page-title {
+      background-color: #fff;
+      ion-label {
+        width: 100px;
+        font-weight: bold;
+      }
+    }
+    .request-msg {
+      margin-top: 3.5rem !important;
+      p {
+        color: #fff;
+        padding: 8px;
+        font-weight: bold;
+        margin-bottom: 0 !important;
+      }
+      ion-textarea {
+        background-color: #fff;
+        padding: 8px;
+        textarea {
+          margin-top: 0 !important;
+        }
+      }
+    }
+  }
+
+  ion-footer {
+    &.page-footer {
+      display: flex;
+      button {
+        width: 50%;
+        border-radius: 0 !important;
+        p {
+          padding: 0 1rem;
+        }
+        ion-icon {
+          position: absolute;
+          right: 1.3rem;
+          z-index: 5;
+        }
+        &.button-md {
+          &:before,
+          &:after {
+            top: 0 !important
+          }
+        }
+        &:last-of-type {
+          &:before, &:after {
+            background: linear-gradient(to right, #3BBBEF, #2D78A8);
+          }
+        }
+        &:before, &:after {
+          content: '';
+          position: absolute;
+          top: 4px;
+          right: -40px;
+          width: 60px;
+          height: 60px;
+          transform: rotate(45deg) translate(-15px, -1px);
+          transform-origin: 50% 50%;
+          background: linear-gradient(to right, #F98D21, #F8111B);
+        }
+
+      }
+
+    }
+  }
+}

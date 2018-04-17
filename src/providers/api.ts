@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
-type mylimit = 'x' | 'y'
+
 @Injectable()
 
 export class AppAPI {

@@ -1,0 +1,22 @@
+page-order {
+  ion-content {
+    .page-title {
+      background-color: #fff;
+      ion-label {
+        width: 100px;
+      }
+    }
+
+    ion-list {
+      ion-item {
+        ion-label {
+          white-space: normal;
+          &:first-of-type {
+            width: 25%;
+            color: #969696;
+          }
+        }
+      }
+    }
+  }
+}

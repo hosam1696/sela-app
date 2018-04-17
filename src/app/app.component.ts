@@ -30,9 +30,9 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       {title: 'Home', component: 'HomePage', icon: 'home'},
-      {title: 'MyRequests', component: 'RequestsPage', icon: 'cart'},
+      {title: 'MyOrders', component: 'OrdersPage', icon: 'cart', params: {'userData':this.appStorage._USER_DATA}},
       {title: 'Settings', component: 'SettingsPage', icon: 'settings'},
-      {title: 'Wallet', component: 'WalletPage', icon: 'card'},
+      //{title: 'Wallet', component: 'WalletPage', icon: 'card'},
       {title: 'Cart', component: 'CartPage', icon: 'cart'},
       //{title: 'Login', component: 'LoginPage', icon: 'log-in', params: {openAsPage: true}},
       {title: 'Signup', component: 'SignupPage', icon: 'log-in'},
@@ -70,9 +70,12 @@ export class MyApp {
 
     if (page.title === 'Logout') {
       this.logout();
+    } else if (page.title === 'Home') {
+      this.nav.setRoot(page.component);
     } else if (typeof page == 'string') {
       this.nav.push(page)
     } else {
+      console.log(page);
       this.nav.push(page.component, page.params || {})
     }
   }

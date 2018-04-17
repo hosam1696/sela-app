@@ -7,6 +7,12 @@ page-login {
       top: 0;
       left: 0
     }
+    .for-hero {
+      display: flex;
+      justify-content: center;
+      height:40vh;
+      align-items: center;
+    }
     &.content {
       background-color: $primary;
     }
@@ -18,17 +24,16 @@ page-login {
             margin-bottom: 10px;
             align-items: center;
             padding: 2px;
+            max-height: 45px;
             ion-icon {
-              margin: 0 4px 0 1rem;
-              padding: 1rem;
-              width: 3.8rem;
-              height: 3.8rem;
-              line-height: 0.8;
+              margin: 0 4px;
+              width: 3.2rem;
+              height: 3.2rem;
+              line-height: 3.2rem;
               text-align: center;
               border-radius: 50%;
               border: 1.2px solid #fff;
               color: #fff !important;
-
               font-size: 2.25rem;
             }
             ion-input {
@@ -37,10 +42,8 @@ page-login {
                   color: #fff !important;
                   font-weight: bold
                 }
-
               }
             }
-
       }
       .form-submit {
         button {

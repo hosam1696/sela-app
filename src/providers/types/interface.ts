@@ -22,4 +22,21 @@ export interface UserData {
   vehicle?:string|null
 }
 
-export interface MenuPage {title: string, component: any, icon: string, params?:any, noUserLogged?:boolean}
+export interface MenuPage {
+  title: string,
+  component: any,
+  icon: string,
+  params?: any,
+  noUserLogged?: boolean,
+}
+export  interface  Order {
+  branch_id: number,
+  created_at: string,
+  id: number,
+  notes: string,
+  status: number,
+  total: string,
+  type: string,
+  updated_at: string,
+  user_id: number
+}

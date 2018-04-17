@@ -4,9 +4,8 @@
     <button ion-button icon-only clear >
       <ion-icon class="bill-icon" name="notifications"></ion-icon>
     </button>
-
     <ion-buttons end>
-      <button ion-button icon-only (click)="openPage('SearchPage')">
+      <button ion-button icon-only (click)="openPage('MapsPage')">
         <ion-icon name="search"></ion-icon>
       </button>
       <button ion-button icon-only class="cart-button" (click)="openPage('CartPage')">
@@ -23,25 +22,36 @@
   <section margin-top text-center >
     <ion-chip class="page-title">
       <ion-icon name="basket"></ion-icon>
-      <ion-label>طلبية</ion-label>
+      <ion-label>طلباتى</ion-label>
     </ion-chip>
   </section>
+  <p text-center>
+    <ion-spinner *ngIf="loader"></ion-spinner>
+  </p>
+  <p text-center margin *ngIf="orders&&!orders.length">
+    لا يوجد طلبات
+  </p>
+  <ion-list no-lines>
+    <ion-item no-border no-padding margin-bottom
+              (click)="openPage('OrderPage', order, i+1)"
+              *ngFor="let order of orders;let i = index"
+    >
+      <p class="header-bg request-num">
+       <span> طلبية {{i+1}}</span>
+        <span>
+          <ion-icon name="egg" [color]="order.status?'secure':'light'"></ion-icon>&nbsp;
+          <span [innerHTML]="order.status?'تم التسليم':'فى مرحلة الاعداد'"></span>
+        </span>
+      </p>
+      <div class="request-body">
+        <p>{{order.notes}}</p>
+        <p class="estimate-time">
+          <ion-icon color="primary" name="timer"></ion-icon>
+          <span>25 دقيقة</span>
+        </p>
+        <!--<p>{{order.total|currency:'2.1'}}</p>-->
+      </div>
+    </ion-item>
 
-  <section class="request-msg" margin-top>
-    <p class="header-bg">نص الطلبية</p>
-    <ion-textarea cols="30" rows="12"></ion-textarea>
-  </section>
-
+  </ion-list>
 </ion-content>
-
-<ion-footer class="page-footer">
-  <button ion-button color="danger" no-margin>
-    <ion-icon name="ios-thunderstorm"></ion-icon>
-    <p>توصيل سريع</p>
-  </button>
-  <button ion-button color="secondary" no-margin>
-    <ion-icon name="md-car"></ion-icon>
-    <p>توصيل عادى</p>
-  </button>
-
-</ion-footer>

@@ -28,7 +28,7 @@ export class UsersProviders {
   }
 
   resetPassword(resetobj:any) {
-    return this.api.get('resetPassword', resetobj)
+    return this.api.post('resetPassword', resetobj)
   }
 
   updateUserInfo(userData:any) {

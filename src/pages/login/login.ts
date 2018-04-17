@@ -61,28 +61,35 @@ export class LoginPage {
              if (res.error) {
                this.appUtils.AppToast('البيانات غير متطابقة')
              } else {
-               console.log(res);
+               console.log(res); // TODO: DEV Only reminder to be removed
                this.appStorage.saveToken(res.token);
                this.appUtils.AppToast('تم الدخول بنجاح');
                this.usersproviders.getUserData(res.token)
                  .subscribe(data=>{
-                   console.log(data);
+                   console.log(data); // TODO: DEV Only reminder to be removed
                    if (data.user) {
                      data.user.name = data.user.first_name +' ' + data.user.last_name; // concat the user name
+                     data.user.token = res.token;
                      this.appStorage.saveUserData(data.user)
                        .then(()=>{
                          this.events.publish('refreshStorage');
                          this.events.publish('changeRoot','HomePage');
-
                        });
-
-
                    }
                  })
              }
            },(err)=>{
-             console.warn(err);
-             this.appUtils.AppToast('الرجاء المحاولة فى وقت اخر')
+
+             if (err.error instanceof ErrorEvent) {
+               console.info('%c%s%c%s','font-weight: bold;color:red;font-size:14px','Hosam', 'color: #333' ,'  it\'s your fault check your code', err);
+             } else {
+               console.error(
+                 `Backend returned code ${err.status}, ` +
+                 `body was: ${err.error}`);
+             }
+
+             this.appUtils.AppToast('الرجاء المحاولة فى وقت اخر');
+
            });
        }
      }

@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {OrdersProvider} from "../../providers/orders/orders";
+import {Order, UserData} from "../../providers/types/interface";
+import {AppstorageProvider} from "../../providers/appstorage/appstorage";
 
 
 @IonicPage()
@@ -8,12 +11,43 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'orders.html',
 })
 export class OrdersPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  localUser: UserData;
+  orders: Order[];
+  loader: boolean = true;
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public ordersProvider: OrdersProvider,
+              public appStorage: AppstorageProvider
+              ) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad OrdersPage');
+  async ionViewDidLoad() {
+    // Get stored User Data
+    this.localUser = await this.appStorage.getUserData();
+    console.log('saved data', this.localUser);
+
+    // Get User Orders
+    this.getOrders(this.localUser.token)
+  }
+
+
+  getOrders(token: string){
+    this.ordersProvider.getUserOrders(token)
+      .subscribe(data=>{
+        this.orders = data;
+        if (this.orders.length<1) {
+          this.loader = false;
+        }
+      },err=>{
+        this.loader= false
+      },()=>{
+        this.loader = false
+
+      })
+  }
+
+  public openPage(page: string, order, orderNumber) {
+    this.navCtrl.push(page, {order, localUser: this.localUser, orderNumber})
   }
 
 }

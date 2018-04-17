@@ -52,15 +52,19 @@ export class ProfilePage {
 
   submitForm() {
     console.log(this.profileEditForm.value);
+    const currentToken = this.localUser.token;
     this.profileEditForm.get('phone').setValue(this.profileEditForm.get('phone').value.replace(/\s/g, ''));
-    this.userProvider.updateUserInfo({id: this.localUser.id,token: this.localUser.token,...this.profileEditForm.value})
+    this.userProvider.updateUserInfo({id: this.localUser.id,token: currentToken,...this.profileEditForm.value})
       .subscribe((data)=>{
-        console.log(status, data[0]);
+        let userData:UserData = data[0];
+        //TODO: remove this line
+        console.log(status, userData);
         if (data.status) {
           this.appUtils.AppToast('تم تعديل البيانات');
-          data[0].name = data[0].first_name+ ' '+ data[0].last_name;
-          this.localUser = data[0];
-          this.appStorage.saveUserData(data[0])
+          userData.name = userData.first_name+ ' '+ userData.last_name;
+          userData.token = currentToken;
+          this.localUser = userData;
+          this.appStorage.saveUserData(userData)
             .then(()=>{
               this.events.publish('refreshStorage');
             })
