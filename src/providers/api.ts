@@ -16,7 +16,6 @@ export class AppAPI {
                 httpParams = httpParams.set(param, params[param])
             }
         }
-
         return this.http.get<any>(this.API_URL + endpoint, {params: httpParams})
     }
 

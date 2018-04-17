@@ -133,7 +133,7 @@ export class SignupPage {
           this.loader = false;
           this.signupForm.get('role').setValue('user');
           console.warn(err);
-          this.appUtils.AppToast('يرجى المحاولة مرة اخرى');
+          this.appUtils.AppToast('خطأ فى الخادم');
 
         }, () => {
           this.loader = false;

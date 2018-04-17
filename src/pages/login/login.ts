@@ -85,10 +85,11 @@ export class LoginPage {
              } else {
                console.error(
                  `Backend returned code ${err.status}, ` +
-                 `body was: ${err.error}`);
+                 `body was: ${err.error.body}`);
+
+               this.appUtils.AppToast('خطأ فى الخادم');
              }
 
-             this.appUtils.AppToast('الرجاء المحاولة فى وقت اخر');
 
            });
        }
