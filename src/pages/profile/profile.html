@@ -21,10 +21,10 @@
 
 
 <ion-content padding>
-  <section class="user-section" (click)="openPage('ProfilePage')">
+  <section class="user-section">
     <div class="user-img">
       <img src="assets/imgs/profile-alt.png" alt="">
-      <button ion-button icon-only mini round (click)="changeImage()">
+      <button ion-button icon-only type="button" mini round (click)="changeImage()">
         <ion-icon name="add"></ion-icon>
       </button>
     </div>
@@ -87,7 +87,7 @@
         <span>+966</span>
         <input  type="tel" [textMask]="{mask: formMasks.mobile}" placeholder="رقم الجوال 9 ارقام" formControlName="phone" autocomplete="true" name="form_phone">
       </div>
-      <div class="form-group" [hidden]="localUser.role === 'user'">
+      <div class="form-group" [hidden]="localUser.role == 'user'">
         <label >
           المركبة
         </label>

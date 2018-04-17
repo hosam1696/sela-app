@@ -16,7 +16,7 @@ export interface UserData {
   mobile_type: string|null,
   name: string|null,
   phone: string,
-  role: string| number,
+  role: string,
   token:string,
   updated_at?:string,
   vehicle?:string|null

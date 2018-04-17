@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "604541579484",
+    "firebase_url": "https://sellah-82474.firebaseio.com",
+    "project_id": "sellah-82474",
+    "storage_bucket": "sellah-82474.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:604541579484:android:2a95baf6b9560ba6",
+        "android_client_info": {
+          "package_name": "com.methaaq.sellah"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "604541579484-0idlmfir2l8dt03h9a3htr5t88ppragi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDFO4p_UqIa7fex4-xBE6XegIFZ5tPDro"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
