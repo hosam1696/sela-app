@@ -10,7 +10,8 @@
     "lint": "ionic-app-scripts lint",
     "ionic:build": "ionic-app-scripts build",
     "ionic:serve": "ionic-app-scripts serve",
-    "run:ios": "ionic cordova run ios -l -c"
+    "run:ios": "ionic cordova run ios -l -c",
+    "run:android": "ionic cordova run android -l -c"
   },
   "dependencies": {
     "@angular/animations": "5.2.9",
