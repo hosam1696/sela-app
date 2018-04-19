@@ -52,12 +52,17 @@
     </div>
   </section>
 
+  <!-- No Restaurant -->
+  <p text-center margin *ngIf="allRestaurants&&!allRestaurants.length&&restaurant_category === 'all'">
+    لا يوجد مطاعم حاليا
+  </p>
+
   <ion-slides dir="rtl">
     <!-- All Restaurant Slide -->
     <ion-slide>
       <ion-list no-lines margin-horizontal>
         <!-- Loading component for All Restaurant -->
-        <ion-item margin-bottom *ngFor="let i of [1,2,3]" [hidden]="allRestaurants&&allRestaurants.length">
+        <ion-item margin-bottom *ngFor="let i of [1,2,3]" [hidden]="allRestaurants||allRestaurants?.length">
           <ion-avatar class="loading">
             <img src="" alt="">
           </ion-avatar>
