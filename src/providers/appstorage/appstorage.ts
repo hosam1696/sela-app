@@ -10,7 +10,6 @@ export class AppstorageProvider {
   _USER_DATA: UserData;
   localUserStatus: UserStatus;
   constructor(public storage: Storage) {
-      this.getUserData()
   }
   public async  saveToken(token: string): Promise<any> {
     this._TOKEN = await this.storage.set('TOKEN', token);

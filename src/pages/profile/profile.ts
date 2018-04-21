@@ -1,7 +1,5 @@
 import { Component } from "@angular/core";
 import {
-  AlertController,
-  AlertOptions,
   Events,
   IonicPage,
   NavController,

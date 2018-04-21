@@ -19,14 +19,29 @@
 </ion-header>
 
 <ion-content>
-
-  <div [hidden]="!loader" class="loader">
-    <p></p>
-  </div>
-
+  <div [hidden]="!loader" class="loader"><p></p></div>
   <div #map id="map" style="height:100%;"></div>
+  <section class="order-links" [style.right]="orderInfoOpen?0:'100%'">
+    <button no-margin ion-button mini icon-only color="light" (click)="orderInfoOpen=!orderInfoOpen" >
+      <ion-icon [name]="orderInfoOpen?'ios-arrow-forward':'ios-arrow-back'"></ion-icon>
+    </button>
+    <div class="anim-gr">
+      <p></p>
+    </div>
+    <div>
+      <p>المندوب</p>
+      <p>{{'لم يتم التحديد'||orderDistinations.deligator}}</p>
+    </div>
+    <p>
+      <ion-icon name="ios-rewind"color="primary"></ion-icon>
+    </p>
+    <div>
+      <p>المطعم</p>
+      <p>{{orderDistinations.restaurant?.name}}</p>
+    </div>
+  </section>
 </ion-content>
 
 <ion-footer no-margin>
-  <button full ion-button no-margin color="secondary" (click)="openPage('RequestOrderPage')">اضافة طلبية</button>
+  <button full ion-button no-margin color="secondary" (click)="openPage('RequestOrderPage', {pageData: orderDistinations})">اضافة طلبية</button>
 </ion-footer>

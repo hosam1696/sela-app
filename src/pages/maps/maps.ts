@@ -17,6 +17,11 @@ export class MapsPage {
   userlatlng: [number, number];
   loader: any = true;
   initMap: any;
+  orderDistinations = {
+    restaurant: undefined,
+    deligator: undefined
+  };
+  orderInfoOpen: boolean =  false;
   constructor(public navCtrl: NavController,
               public geolocation: Geolocation,
               public navParams: NavParams) {
@@ -34,23 +39,70 @@ export class MapsPage {
       })
   }
 
-  public loadMap(latlng = [-34.9290, 138.6010]): void{
+  public loadMap(latlng = [-34.9290, 138.6010]): void {
+
     let latLng = new google.maps.LatLng(...latlng);
     let mapOptions = {
       center: latLng,
       zoom: 19,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       fullscreenControl: false,
+      styles: [
+        {
+          "featureType": "administrative.land_parcel",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "administrative.neighborhood",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "poi",
+          "elementType": "labels.text",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "road",
+          "elementType": "labels",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "water",
+          "elementType": "labels.text",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        }
+      ]
     },
       request = {
         location: {lat: this.userlatlng[0], lng: this.userlatlng[1]},
-        radius: 500,
-        type: 'restaurant'
+        radius: 5000,
+        type: 'restaurant' // types of places we want to search for
       };
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+
+    console.log(this.map.markers);
     // stop loader
     this.loader = false;
-
 
     // search places
     if (!this.initMap) {
@@ -71,8 +123,13 @@ export class MapsPage {
 
             google.maps.event.addListener(marker, 'click', () => {
               console.log('marker clicked', marker, place);
-              infowindow.setContent(place.name);
+              let htmlContent = `
+                <b>&nbsp;&nbsp;  ${place.name}</b><br>
+                ${place.vicinity.split(',').join('<br>')}
+              `;
+              infowindow.setContent(htmlContent);
               infowindow.open(this.map, marker);
+              this.orderDistinations.restaurant = place;
             });
           };
           for (let i = 0; i < results.length; i++) {
