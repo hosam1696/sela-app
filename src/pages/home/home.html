@@ -51,6 +51,8 @@
 
     </div>
   </section>
+  <!-- maps -->
+  <div #map></div>
 
   <!-- No Restaurant -->
   <p text-center margin *ngIf="allRestaurants&&!allRestaurants.length&&restaurant_category === 'all'">
@@ -91,7 +93,7 @@
     <ion-slide>
       <ion-list no-lines margin-horizontal>
         <!-- Loading component for nearby Restaurant -->
-        <ion-item margin-bottom *ngFor="let i of [1,2,3]" [hidden]="nearbyRestaurants&&nearbyRestaurants.length">
+        <ion-item margin-bottom *ngFor="let i of [1,2,3]" [hidden]="nearbyRestaurants.locnear.length||nearbyRestaurants.featured.length">
           <ion-avatar class="loading">
             <img src="" alt="">
           </ion-avatar>
@@ -101,7 +103,7 @@
           </div>
         </ion-item>
         <!-- Real Data From Data base -->
-        <ion-item margin-bottom *ngFor="let restaurant of nearbyRestaurants"
+        <ion-item margin-bottom *ngFor="let restaurant of nearbyRestaurants?.featured"
                   (click)="openPage('MapsPage', {pageData:[restaurant.lat, restaurant.lng]})">
           <ion-avatar>
             <img src="assets/imgs/rest-alt.png" alt="">
@@ -113,6 +115,20 @@
               <ion-icon name="pin" color="primary"></ion-icon>
               ٥٠ كلم
             </div>
+          </div>
+        </ion-item>
+        <ion-item margin-bottom *ngFor="let restaurant of nearbyRestaurants?.locnear"
+                  (click)="openPage('MapsPage', {pageData:restaurant.geometry.location})">
+          <ion-avatar>
+            <img [src]="restaurant.icon || 'assets/imgs/rest-alt.png'" alt="">
+          </ion-avatar>
+          <div class="result-actions">
+            <p>{{restaurant.name}}</p>
+            <p [hidden]="!restaurant.address">{{restaurant.address}}</p>
+            <p class="est-loc">
+              <ion-icon name="pin" color="primary"></ion-icon>
+              ٥٠ كلم
+            </p>
           </div>
         </ion-item>
       </ion-list>

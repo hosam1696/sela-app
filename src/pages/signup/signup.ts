@@ -11,13 +11,11 @@ import {
 import {
   FormBuilder,
   FormGroup,
-  Validators,
-  FormControl
+  Validators
 } from "@angular/forms";
 import { MyVariabels } from "../../providers/variables";
 import { AppUtilFunctions } from "../../providers/utilfuns"; //
 import { UsersProviders } from "../../providers/users";
-import { HomePage } from "../home/home";
 import { Camera, CameraOptions } from "@ionic-native/camera";
 import { FilePath } from "@ionic-native/file-path";
 import {

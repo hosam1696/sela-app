@@ -39,6 +39,11 @@ page-home {
         border-left-color: #ffffffed;
       }
     }
+
+    ion-slides {
+      height: fit-content !important;
+
+    }
     .swiper-slide {
       align-items: flex-start !important;
     }
@@ -74,13 +79,14 @@ page-home {
           //padding: 8px !important;
           max-height: 95px;
           ion-avatar {
+            min-width: 70px !important;
             &.loading {
               img {
                 border-color: transparent;
+                background-color: #eee;
               }
             }
             img {
-              background-color: #eee;
               width: 7rem !important;
               height: 7rem !important;
               border: 2px solid $primary;
@@ -91,9 +97,10 @@ page-home {
           }
           .result-actions {
             background-color: #fff;
-            align-items: center;
+            align-items: flex-start;
             display: flex;
             flex-direction: column;
+            flex: 1;
             padding: 8px;
             .rest-name {
               margin-bottom: 8px;
@@ -130,7 +137,6 @@ page-home {
             }
             .est-loc {
               margin-top: 6px;
-              transform: translateX(6px);
             }
           }
 

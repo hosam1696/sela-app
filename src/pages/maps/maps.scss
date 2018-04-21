@@ -1,37 +1,47 @@
 page-maps {
-  .center-loader {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #666;
-  }
-  #pac-input {
-    z-index: 0;
-    position: absolute;
-    left: 125px;
-    top: 0;
-    width: 50%;
-    padding: 11px;
-    border: none;
-    margin-top: 10px;
-    border-radius: 1px;
-    box-shadow: 1px 1px 2px #ccc;
 
+  ion-content {
+    .content {
+
+      background-color: #eee;
+      height: 100%;
+    }
+    #map {
+      height: 100% !important;
+      width: 100%;
+    }
+    .center-loader {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+    }
+
+    .small {
+      font-size: 12px !important
+    }
+    .loader {
+      position: absolute;
+      z-index: 99999;
+      background-color: #eee;
+      width: 100%;
+      height: 5px;
+      top:0;
+      left: 0;
+      display: flex;
+      justify-content: center;
+      p {
+        margin: 0;
+        width: 0;
+        height: 100%;
+        background: linear-gradient(to left, $primary, #3BBCF0);
+        animation: fillwidth 1.5s ease-in-out infinite;
+        @keyframes fillwidth {
+          to {
+            width: 100%
+          }
+        }
+      }
+    }
   }
-  #save-loc {
-    position: absolute;
-    bottom: 15px;
-    left: 10px;
-    box-shadow: 0 14px 7px -6px #404838;
-  }
-  .small {
-    font-size: 12px !important
-  }
-  ion-content.content {
-    background-color: #eee;
-    height: 100%;
-  }
-  ion-content #map {
-    height: 100% !important;
-    width: 100%;}
 }

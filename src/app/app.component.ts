@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {Events, Nav, Platform} from 'ionic-angular';
+import {AlertController, AlertOptions, Events, Nav, Platform} from 'ionic-angular';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {HomePage} from "../pages/home/home";
@@ -23,6 +23,7 @@ export class MyApp {
               public splashScreen: SplashScreen,
               public translateService: TranslateService,
               public events: Events,
+              public alertCtrl: AlertController,
               public appStorage: AppstorageProvider
   ) {
     this.initializeApp();
@@ -48,6 +49,7 @@ export class MyApp {
 
       this.appStorage.getUserData()
         .then((data: UserData) => {
+          console.log('App component',data);
           this.rootPage = data.id ? 'HomePage' : 'LoginPage'
         }).catch(() => {
         this.rootPage = 'LoginPage'
@@ -57,12 +59,41 @@ export class MyApp {
       this.splashScreen.hide();
     });
 
+    // change root page event
     this.events.subscribe('changeRoot', (root) => {
       console.info('%c%s%c%s', 'color:#2196f3', 'changing root to > ', 'color:#f44336;font-weight:bold', root);
       this.rootPage = root
     });
+
+    // refresh local storage event
     this.events.subscribe('refreshStorage',()=>{
       this.appStorage.getUserData();
+    });
+
+    // Log out user event
+    this.events.subscribe('userLogout', ()=> {
+      let options: AlertOptions = {
+        title: "هل ترغب فى تسجيل خروجك؟",
+        buttons: [
+          {
+            text: "نعم",
+            handler: () => {
+
+              this.appStorage
+                .clearEntries()
+                .then(() => {
+                  this.events.publish('changeRoot', 'LoginPage')
+                })
+            }
+          },
+          {
+            text: "الغاء",
+            handler: () => {}
+          }
+        ]
+      };
+      let alert = this.alertCtrl.create(options);
+      alert.present();
     })
   }
 
@@ -81,10 +112,6 @@ export class MyApp {
   }
 
   private logout(): void {
-    this.appStorage
-      .clearEntries()
-      .then(() => {
-        this.events.publish('changeRoot', 'LoginPage')
-      })
+    this.events.publish('userLogout')
   }
 }

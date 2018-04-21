@@ -5,12 +5,12 @@
       <ion-icon name="md-list"></ion-icon>
     </button>
 
-    <button ion-button icon-only clear >
+    <button ion-button icon-only clear>
       <ion-icon class="bill-icon" name="notifications"></ion-icon>
     </button>
     <ion-buttons end>
-      <button ion-button icon-only class="cart-button" (click)="openPage('CartPage')">
-        <ion-icon name="cart">
+      <button ion-button icon-only class="cart-button" (click)="getUserLocation()">
+        <ion-icon name="locate">
           <!--<ion-badge color="secondary">0</ion-badge>-->
         </ion-icon>
       </button>
@@ -18,34 +18,15 @@
   </ion-navbar>
 </ion-header>
 
-<!--<ion-header>-->
-  <!--<ion-navbar color="primary">-->
-    <!--<ion-title>تحديد المكان</ion-title>-->
-    <!--<ion-buttons start>-->
-      <!--<button ion-button (click)="myCurrentLoc()"  class="small"> موقعى&nbsp;<ion-icon name="pin"></ion-icon> </button>-->
-    <!--</ion-buttons>-->
-    <!--<ion-buttons end>-->
-      <!--<button ion-button class="close-btn" (click)="closeModalwithoutSave()">-->
-        <!--<ion-icon name="md-close-circle" color="light">-->
-        <!--</ion-icon>-->
-      <!--</button>-->
-    <!--</ion-buttons>-->
-
-  <!--</ion-navbar>-->
-  <!--<input  [hidden]="mapLoaded == false" id="pac-input" placeholder="ابحث عن المكان">-->
-  <!--&lt;!&ndash;<ion-toolbar>-->
-  <!--</ion-toolbar> &ndash;&gt;-->
-<!--</ion-header>-->
 <ion-content>
-  <!--*ngIf="loader"
-  <p text-center *ngIf="loader" class="center-loader">
-    <ion-spinner name="crescent" color="primary"></ion-spinner>
-    &nbsp; تحميل...
-  </p>-->
+
+  <div [hidden]="!loader" class="loader">
+    <p></p>
+  </div>
 
   <div #map id="map" style="height:100%;"></div>
 </ion-content>
 
 <ion-footer no-margin>
-    <button full ion-button no-margin color="secondary" (click)="openPage('RequestOrderPage')">اضافة طلبية</button>
+  <button full ion-button no-margin color="secondary" (click)="openPage('RequestOrderPage')">اضافة طلبية</button>
 </ion-footer>

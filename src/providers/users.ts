@@ -15,6 +15,9 @@ export class UsersProviders {
    userLogin(userData){
     return this.api.post('login', userData);
   }
+  userLogout() {
+    return this.api.get('logout')
+  }
   userRegister(userData) {
 
     return this.api.post('register', userData);
