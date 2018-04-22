@@ -44,7 +44,7 @@ page-maps {
         margin: 0;
         transform: translateX(5px);
       }
-      div {
+      &>div {
         width: 50%;
         padding: 5px 8px;
         p {

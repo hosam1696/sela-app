@@ -118,7 +118,7 @@
           </div>
         </ion-item>
         <ion-item margin-bottom *ngFor="let restaurant of nearbyRestaurants?.locnear"
-                  (click)="openPage('MapsPage', {pageData:restaurant.geometry.location})">
+                  (click)="openPage('MapsPage', {pageData:restaurant})">
           <ion-avatar>
             <img [src]="restaurant.icon || 'assets/imgs/rest-alt.png'" alt="">
           </ion-avatar>

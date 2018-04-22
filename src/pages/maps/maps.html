@@ -20,7 +20,7 @@
 
 <ion-content>
   <div [hidden]="!loader" class="loader"><p></p></div>
-  <div #map id="map" style="height:100%;"></div>
+  <div #map hidden id="map" style="height:100%;"></div>
   <section class="order-links" [style.right]="orderInfoOpen?0:'100%'">
     <button no-margin ion-button mini icon-only color="light" (click)="orderInfoOpen=!orderInfoOpen" >
       <ion-icon [name]="orderInfoOpen?'ios-arrow-forward':'ios-arrow-back'"></ion-icon>

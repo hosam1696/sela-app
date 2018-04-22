@@ -2,8 +2,10 @@ export class Place {
   public title: string;
   public loc: [number, number];
   public icon: string;
-  constructor(loc, title, type) {
-    Object.assign(this, {loc,title, type});
+  public vicinity: string;
+  public type: string;
+  constructor(loc, title, type, vicinity= '') {
+    Object.assign(this, {loc,title, type, vicinity});
     this.icon = type === 'user'? 'assets/imgs/user-pin.png': 'assets/imgs/res-pin.png'
   }
 

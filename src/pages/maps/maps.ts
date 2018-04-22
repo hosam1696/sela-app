@@ -1,6 +1,7 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
 import {NavParams, IonicPage, NavController} from 'ionic-angular';
 import { Geolocation, Geoposition} from '@ionic-native/geolocation';
+import { Place } from './place.model';
 
 declare let google;
 
@@ -14,6 +15,7 @@ export class MapsPage {
   @ViewChild('map') mapElement: ElementRef;
   map: any;
   appMarkers:any[] = [];
+  mapPlaces:Place[] = []
   userlatlng: [number, number];
   loader: any = true;
   initMap: any;
@@ -22,6 +24,7 @@ export class MapsPage {
     deligator: undefined
   };
   orderInfoOpen: boolean =  false;
+  infowindow:any;
   constructor(public navCtrl: NavController,
               public geolocation: Geolocation,
               public navParams: NavParams) {
@@ -101,12 +104,13 @@ export class MapsPage {
       };
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
 
+    this.infowindow = new google.maps.InfoWindow();
+
     // stop loader
     this.loader = false;
 
     // search places
     if (!this.initMap) {
-      let infowindow = new google.maps.InfoWindow();
       let service = new google.maps.places.PlacesService(this.map);
       service.nearbySearch(request, (results,status)=> {
         console.log(results);
@@ -127,8 +131,8 @@ export class MapsPage {
                 <b>&nbsp;&nbsp;  ${place.name}</b><br>
                 ${place.vicinity.split(',').join('<br>')}
               `;
-              infowindow.setContent(htmlContent);
-              infowindow.open(this.map, marker);
+              this.infowindow.setContent(htmlContent);
+              this.infowindow.open(this.map, marker);
               this.orderDistinations.restaurant = place;
             });
           };
@@ -142,23 +146,30 @@ export class MapsPage {
 
 
     // make markers
-    let makeMarker = (loc, title = 'my location') => {
-      if (!Array.isArray(loc)) {
-        console.log('geomtry',loc.lat(),loc.lng());
-      }
-      latLng = !Array.isArray(loc)?loc:new google.maps.LatLng(...loc); // Cairo;
+    let makeMarker = (place: Place) => {
+      
+      latLng = !Array.isArray(place.loc)?place.loc:new google.maps.LatLng(...place.loc); // Cairo;
       console.log('marker location', latLng);
       let marker = new google.maps.Marker({
         position: latLng,
         map: this.map,
         animation: google.maps.Animation.DROP,
-        icon: 'assets/imgs/user-pin.png',
-        title
+        icon: 'assets/imgs/'+place.type+'-pin.png',
+        title: place.title
       });
       this.appMarkers.push(marker);
       marker.addListener('click', () => {
         debounce(marker);
+        console.log('marker clicked', marker, place.loc);
+              let htmlContent = `
+                <b>&nbsp;&nbsp;  ${place.title}</b><br>
+                ${place.vicinity.split(',').join('<br>')}
+              `;
+              this.infowindow.setContent(htmlContent);
+              this.infowindow.open(this.map, marker);
+              this.orderDistinations.restaurant = {...place,name:place.title};
       });
+      
       function debounce(marker) {
         if (marker.getAnimation() !== null) {
           marker.setAnimation(null);
@@ -172,11 +183,14 @@ export class MapsPage {
       marker.setMap(this.map);
     };
 
-    makeMarker(this.userlatlng);
-    makeMarker(this.initMap, 'Restaurant')
-    /*this.markers.forEach(place => {
-      makeMarker(place.latlng, place.title);
-    });*/
+    this.mapPlaces.push(new Place(this.userlatlng, 'موقعى', 'user'));
+    if (this.initMap)
+      this.mapPlaces.push(new Place(this.initMap.geometry.location, this.initMap.name, 'res' , this.initMap.vicinity))
+    console.log(this.mapPlaces);
+    this.mapPlaces.forEach(place=>{
+      makeMarker(place)
+    });
+    
   }
 
   openPage(page: string, params:any = {}) {
