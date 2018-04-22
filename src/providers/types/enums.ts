@@ -13,3 +13,8 @@ export enum ResetActiveSlide{
   phone=0,
   email
 }
+
+export enum orderType {
+  normal = 0,
+  rapid
+}

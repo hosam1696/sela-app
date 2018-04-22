@@ -10,6 +10,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { UsersProviders } from "../../providers/users";
 import { AppUtilFunctions } from "../../providers/utilfuns";
 import { AppstorageProvider } from "../../providers/appstorage/appstorage";
+import {UserData} from "../../providers/types/interface";
 
 @IonicPage()
 @Component({
@@ -67,14 +68,15 @@ export class LoginPage {
             this.appUtils.AppToast("البيانات غير متطابقة");
           } else {
             console.log(res); // TODO: DEV Only reminder to be removed
+            let self = this;
             this.appStorage.saveToken(res.token);
             this.appUtils.AppToast("تم الدخول بنجاح");
-            this.usersproviders.getUserData(res.token).subscribe(data => {
-              console.log(data); // TODO: DEV Only reminder to be removed
-              this.loader = false;
-              if (data.user) {
+            this.usersproviders.getUserData(res.token).subscribe((data:UserData|any) => {
+              console.log('get user data from view user',data); // TODO: DEV Only reminder to be removed
+              self.loader = false;
+              if (data.id) {
                 this.appStorage.saveToken(res.token);
-                this.appStorage.saveUserData(data.user).then(() => {
+                this.appStorage.saveUserData(data).then(() => {
                   this.events.publish("refreshStorage");
                   this.events.publish("changeRoot", "HomePage");
                 });

@@ -38,10 +38,11 @@ page-login {
             }
             ion-input {
               input {
+                letter-spacing: 1px !important;
+                font-weight: bold;
                 &::placeholder {
                   color: #fff !important;
                   font-weight: bold;
-                  letter-spacing: 1px !important;
                 }
               }
             }

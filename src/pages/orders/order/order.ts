@@ -30,4 +30,8 @@ export class OrderPage {
       })
   }
 
+  openPage(page:string, params:any = {}) {
+    this.navCtrl.push(page, params)
+  }
+
 }

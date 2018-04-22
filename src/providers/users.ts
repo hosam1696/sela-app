@@ -31,7 +31,7 @@ export class UsersProviders {
   }
 
   getUserData(token: string) {
-    return this.api.get('user', {token})
+    return this.api.get('view-user', {token})
   }
 
   resetPassword(resetobj:any) {

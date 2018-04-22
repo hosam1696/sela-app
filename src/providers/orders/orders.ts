@@ -14,4 +14,8 @@ export class OrdersProvider {
   getOrderById(id: number, token: string) {
     return this.api.get('orders/'+id, {token})
   }
+
+  requestOrder(orderData) {
+    return this.api.post('orders', orderData)
+  }
 }

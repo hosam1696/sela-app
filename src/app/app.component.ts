@@ -36,9 +36,9 @@ export class MyApp {
       {title: 'Home', component: 'HomePage', icon: 'home'},
       {title: 'MyOrders', component: 'OrdersPage', icon: 'cart', params: {'userData':this.appStorage._USER_DATA}},
       {title: 'Settings', component: 'SettingsPage', icon: 'settings'},
-      { title: 'ContactUs', component: 'ContactusPage', icon: 'call'},
       //{title: 'Wallet', component: 'WalletPage', icon: 'card'},
       {title: 'Cart', component: 'CartPage', icon: 'cart'},
+      { title: 'ContactUs', component: 'ContactusPage', icon: 'call'},
       //{title: 'Login', component: 'LoginPage', icon: 'log-in', params: {openAsPage: true}},
       {title: 'Signup', component: 'SignupPage', icon: 'log-in'},
       {title: 'Logout', component: '', icon: 'log-out'}
