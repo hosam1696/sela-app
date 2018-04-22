@@ -47,6 +47,7 @@ export class MapsPage {
       zoom: 19,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       fullscreenControl: false,
+      disableDefaultUI:true,
       styles: [
         {
           "featureType": "administrative.land_parcel",
@@ -95,12 +96,11 @@ export class MapsPage {
     },
       request = {
         location: {lat: this.userlatlng[0], lng: this.userlatlng[1]},
-        radius: 5000,
+        radius: 500,
         type: 'restaurant' // types of places we want to search for
       };
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
 
-    console.log(this.map.markers);
     // stop loader
     this.loader = false;
 
@@ -143,7 +143,11 @@ export class MapsPage {
 
     // make markers
     let makeMarker = (loc, title = 'my location') => {
-      latLng = new google.maps.LatLng(...loc); // Cairo;
+      if (!Array.isArray(loc)) {
+        console.log('geomtry',loc.lat(),loc.lng());
+      }
+      latLng = !Array.isArray(loc)?loc:new google.maps.LatLng(...loc); // Cairo;
+      console.log('marker location', latLng);
       let marker = new google.maps.Marker({
         position: latLng,
         map: this.map,
