@@ -116,6 +116,7 @@ export class SignupPage {
         name: this.concatWords("first_name", "last_name"),
         phone: this.signupForm.get("phone").value.replace(/\s/g, "")
       };
+      this.loader = true;
       delete signupData.agreeCondition;
       delete signupData.confirm_password;
 
@@ -123,6 +124,7 @@ export class SignupPage {
       this.userProvider.userRegister(signupData).subscribe(
         async (res: UserData & { status: number; messages: string }) => {
           console.log('Register Response',res); //TODO: reminder to remove this line
+          this.loader = false;
           if (res.id) {
             this.appUtils.AppToast("تم التسجيل بنجاح");
             await this.appStorage.saveUserData(res);

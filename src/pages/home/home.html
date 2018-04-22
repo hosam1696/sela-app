@@ -26,7 +26,7 @@
   <section class="notifications" [hidden]="hideNotification" clickOutside (clickOutsideEvent)="fireEvent()">
     <ion-list no-lines>
       <!-- Notification is Static for now-->
-      <ion-item class="transparent-bg">
+      <ion-item class="transparent-bg" (click)="openPage('NotificationPage')">
         لا يوجد اشعارارت حتى الان
       </ion-item>
     </ion-list>
@@ -52,7 +52,7 @@
     </div>
   </section>
   <!-- maps -->
-  <div #map></div>
+  <div #map hidden></div>
 
   <!-- No Restaurant -->
   <p text-center margin *ngIf="allRestaurants&&!allRestaurants.length&&restaurant_category === 'all'">
@@ -75,7 +75,7 @@
         </ion-item>
 
         <!-- Real Data From Data base -->
-        <ion-item margin-bottom *ngFor="let restaurant of allRestaurants"
+        <ion-item margin-bottom *ngFor="let restaurant of allRestaurants;trackBy: trackByFn"
                   (click)="openPage('MapsPage', {pageData:[restaurant.lat, restaurant.lng]})">
           <ion-avatar>
             <img src="assets/imgs/rest-alt.png" alt="">
@@ -103,7 +103,7 @@
           </div>
         </ion-item>
         <!-- Real Data From Data base -->
-        <ion-item margin-bottom *ngFor="let restaurant of nearbyRestaurants?.featured"
+        <ion-item margin-bottom *ngFor="let restaurant of nearbyRestaurants?.featured;trackBy: trackByFn"
                   (click)="openPage('MapsPage', {pageData:[restaurant.lat, restaurant.lng]})">
           <ion-avatar>
             <img src="assets/imgs/rest-alt.png" alt="">
@@ -117,7 +117,7 @@
             </div>
           </div>
         </ion-item>
-        <ion-item margin-bottom *ngFor="let restaurant of nearbyRestaurants?.locnear"
+        <ion-item margin-bottom *ngFor="let restaurant of nearbyRestaurants?.locnear;trackBy: trackByFn"
                   (click)="openPage('MapsPage', {pageData:restaurant})">
           <ion-avatar>
             <img [src]="restaurant.icon || 'assets/imgs/rest-alt.png'" alt="">

@@ -22,6 +22,7 @@ import { AppAPI } from '../providers/api';
 import { AppstorageProvider } from '../providers/appstorage/appstorage';
 import { AreasProvider } from '../providers/areas/areas';
 import { OrdersProvider } from '../providers/orders/orders';
+import {UsersProviders} from "../providers/users";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -67,6 +68,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppAPI,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AppstorageProvider,
+    UsersProviders,
     AreasProvider,
     OrdersProvider
   ]

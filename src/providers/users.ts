@@ -15,8 +15,8 @@ export class UsersProviders {
    userLogin(userData){
     return this.api.post('login', userData);
   }
-  userLogout() {
-    return this.api.get('logout')
+  userLogout(token) {
+    return this.api.get('logout', {token})
   }
   userRegister(userData) {
 
@@ -24,6 +24,10 @@ export class UsersProviders {
   }
   userEdite(userData) {
     return this.api.post('edituser', userData);
+  }
+
+  contactAdmins(contactData: any, endpoint:string) {
+    return this.api.post(endpoint, contactData)
   }
 
   getUserData(token: string) {

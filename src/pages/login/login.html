@@ -31,7 +31,10 @@
        </button>
    </div>
    <div class="form-submit" text-center margin-top>
-        <button ion-button  color="secondary" type="submit">الدخول</button>
+        <button ion-button  color="secondary" type="submit">
+          الدخول
+          <ion-spinner color="light" [hidden]="!loader" margin-horizontal></ion-spinner>
+        </button>
    </div>
   </form>
 </ion-content>

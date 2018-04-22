@@ -71,13 +71,16 @@ export class LoginPage {
             this.appUtils.AppToast("تم الدخول بنجاح");
             this.usersproviders.getUserData(res.token).subscribe(data => {
               console.log(data); // TODO: DEV Only reminder to be removed
+              this.loader = false;
               if (data.user) {
-                data.user.token = res.token;
+                this.appStorage.saveToken(res.token);
                 this.appStorage.saveUserData(data.user).then(() => {
                   this.events.publish("refreshStorage");
                   this.events.publish("changeRoot", "HomePage");
                 });
               }
+            },()=>{
+              this.loader = false;
             });
           }
         },

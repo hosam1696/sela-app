@@ -12,6 +12,7 @@ import {AppstorageProvider} from "../../providers/appstorage/appstorage";
 })
 export class OrdersPage {
   localUser: UserData;
+  token: string;
   orders: Order[];
   loader: boolean = true;
   constructor(public navCtrl: NavController,
@@ -23,13 +24,11 @@ export class OrdersPage {
 
   async ionViewDidLoad() {
     // Get stored User Data
-    this.localUser = await this.appStorage.getUserData();
-    console.log('saved data', this.localUser);
-
+    [this.localUser, this.token] = await Promise.all([this.appStorage.getUserData(), this.appStorage.getToken()]);
+    console.log('saved data', this.localUser, this.token);
     // Get User Orders
-    this.getOrders(this.localUser.token)
+    this.getOrders(this.token)
   }
-
 
   getOrders(token: string){
     this.ordersProvider.getUserOrders(token)

@@ -6,6 +6,8 @@ import {HomePage} from "../pages/home/home";
 import {TranslateService} from '@ngx-translate/core';
 import {AppstorageProvider} from "../providers/appstorage/appstorage";
 import {MenuPage, UserData} from "../providers/types/interface";
+import {UsersProviders} from "../providers/users";
+import {ContactusPage} from "../pages/contactus/contactus";
 
 
 @Component({
@@ -24,15 +26,17 @@ export class MyApp {
               public translateService: TranslateService,
               public events: Events,
               public alertCtrl: AlertController,
-              public appStorage: AppstorageProvider
+              public appStorage: AppstorageProvider,
+              public userProvider: UsersProviders
   ) {
     this.initializeApp();
-
+    //this.appStorage.clearEntries()
     // used for an example of ngFor and navigation
     this.pages = [
       {title: 'Home', component: 'HomePage', icon: 'home'},
       {title: 'MyOrders', component: 'OrdersPage', icon: 'cart', params: {'userData':this.appStorage._USER_DATA}},
       {title: 'Settings', component: 'SettingsPage', icon: 'settings'},
+      { title: 'ContactUs', component: 'ContactusPage', icon: 'call'},
       //{title: 'Wallet', component: 'WalletPage', icon: 'card'},
       {title: 'Cart', component: 'CartPage', icon: 'cart'},
       //{title: 'Login', component: 'LoginPage', icon: 'log-in', params: {openAsPage: true}},
@@ -77,13 +81,21 @@ export class MyApp {
         buttons: [
           {
             text: "نعم",
-            handler: () => {
+            handler:  async () => {
+              const token = await  this.appStorage.getToken();
+              this.userProvider.userLogout(token)
+                .subscribe (data=>{
+                  console.log(data);
+                  if (data.status) {
+                    this.appStorage
+                      .clearEntries()
+                      .then(() => {
+                        this.events.publish('changeRoot', 'LoginPage')
+                      })
+                  }
 
-              this.appStorage
-                .clearEntries()
-                .then(() => {
-                  this.events.publish('changeRoot', 'LoginPage')
-                })
+                });
+
             }
           },
           {

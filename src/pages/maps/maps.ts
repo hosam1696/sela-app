@@ -19,12 +19,12 @@ export class MapsPage {
   userlatlng: [number, number];
   loader: any = true;
   initMap: any;
-  orderDistinations = {
+  orderDestination = {
     restaurant: undefined,
     deligator: undefined
   };
   orderInfoOpen: boolean =  false;
-  infowindow:any;
+  infoWindow:any;
   constructor(public navCtrl: NavController,
               public geolocation: Geolocation,
               public navParams: NavParams) {
@@ -33,13 +33,17 @@ export class MapsPage {
   }
 
   ionViewDidLoad() {
-    this.geolocation.getCurrentPosition()
-      .then((data: Geoposition) => {
-        this.userlatlng = [data.coords.latitude, data.coords.longitude];
-        return this.userlatlng
-      }).then((latlng) => {
+    this.getUserLocation()
+      .then((latlng) => {
         this.loadMap(latlng);
       })
+  }
+
+  public getUserLocation() {
+    return this.geolocation
+      .getCurrentPosition()
+      //TODO: may change the output to object {lat:-, ln:-}
+      .then((data: Geoposition) => this.userlatlng = [data.coords.latitude, data.coords.longitude])
   }
 
   public loadMap(latlng = [-34.9290, 138.6010]): void {
@@ -51,26 +55,9 @@ export class MapsPage {
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       fullscreenControl: false,
       disableDefaultUI:true,
-      styles: [
+      styles:[
         {
-          "featureType": "administrative.land_parcel",
-          "stylers": [
-            {
-              "visibility": "off"
-            }
-          ]
-        },
-        {
-          "featureType": "administrative.neighborhood",
-          "stylers": [
-            {
-              "visibility": "off"
-            }
-          ]
-        },
-        {
-          "featureType": "poi",
-          "elementType": "labels.text",
+          "featureType": "poi.business",
           "stylers": [
             {
               "visibility": "off"
@@ -79,7 +66,7 @@ export class MapsPage {
         },
         {
           "featureType": "road",
-          "elementType": "labels",
+          "elementType": "labels.icon",
           "stylers": [
             {
               "visibility": "off"
@@ -87,8 +74,7 @@ export class MapsPage {
           ]
         },
         {
-          "featureType": "water",
-          "elementType": "labels.text",
+          "featureType": "transit",
           "stylers": [
             {
               "visibility": "off"
@@ -104,7 +90,7 @@ export class MapsPage {
       };
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
 
-    this.infowindow = new google.maps.InfoWindow();
+    this.infoWindow = new google.maps.InfoWindow();
 
     // stop loader
     this.loader = false;
@@ -131,9 +117,9 @@ export class MapsPage {
                 <b>&nbsp;&nbsp;  ${place.name}</b><br>
                 ${place.vicinity.split(',').join('<br>')}
               `;
-              this.infowindow.setContent(htmlContent);
-              this.infowindow.open(this.map, marker);
-              this.orderDistinations.restaurant = place;
+              this.infoWindow.setContent(htmlContent);
+              this.infoWindow.open(this.map, marker);
+              this.orderDestination.restaurant = place;
             });
           };
           for (let i = 0; i < results.length; i++) {
@@ -147,7 +133,7 @@ export class MapsPage {
 
     // make markers
     let makeMarker = (place: Place) => {
-      
+
       latLng = !Array.isArray(place.loc)?place.loc:new google.maps.LatLng(...place.loc); // Cairo;
       console.log('marker location', latLng);
       let marker = new google.maps.Marker({
@@ -165,11 +151,11 @@ export class MapsPage {
                 <b>&nbsp;&nbsp;  ${place.title}</b><br>
                 ${place.vicinity.split(',').join('<br>')}
               `;
-              this.infowindow.setContent(htmlContent);
-              this.infowindow.open(this.map, marker);
-              this.orderDistinations.restaurant = {...place,name:place.title};
+              this.infoWindow.setContent(htmlContent);
+              this.infoWindow.open(this.map, marker);
+              this.orderDestination.restaurant = {...place,name:place.title};
       });
-      
+
       function debounce(marker) {
         if (marker.getAnimation() !== null) {
           marker.setAnimation(null);
@@ -190,15 +176,12 @@ export class MapsPage {
     this.mapPlaces.forEach(place=>{
       makeMarker(place)
     });
-    
+
   }
 
   openPage(page: string, params:any = {}) {
     this.navCtrl.push(page, params)
   }
 
-  getUserLocation() {
-    // get the current location of user
-  }
 
 }

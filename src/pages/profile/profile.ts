@@ -26,6 +26,7 @@ export class ProfilePage {
     mobile: [/\d/, /\d/, /\d/, " ", /\d/, /\d/, /\d/, " ", /\d/, /\d/, /\d/]
   };
   localUser: UserData;
+  token: string;
   defaultRating: number = 4;
   constructor(
     public navCtrl: NavController,
@@ -39,7 +40,8 @@ export class ProfilePage {
 
   async ionViewDidLoad() {
     this.profileEditForm = this.formBuilder.group({});
-    this.localUser = await this.appStorage.getUserData();
+
+    [this.localUser, this.token] = await Promise.all([this.appStorage.getUserData(), this.appStorage.getToken()]);
   }
 
   private initiateEditForm() {
@@ -52,6 +54,7 @@ export class ProfilePage {
       vehicle: [this.localUser.vehicle]
     });
   }
+
   openPage(page: string) {
     this.navCtrl.push(page);
   }
@@ -61,7 +64,7 @@ export class ProfilePage {
       ...this.profileEditForm.value,
       id: this.localUser.id,
       phone: this.profileEditForm.get("phone").value.replace(/\s/g, ""),
-      token: this.localUser.token,
+      token: this.token,
       name: this.concatWords('first_name', 'last_name')
     };
 

@@ -27,7 +27,7 @@ export class AppstorageProvider {
   }
 
   public  getToken() {
-    return this._TOKEN?this._TOKEN:undefined;
+    return this.storage.get('TOKEN');
   }
 
   public saveLocation(location) {

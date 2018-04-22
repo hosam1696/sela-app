@@ -18,12 +18,12 @@ declare let google: any;
 export class HomePage {
   @ViewChild(Slides) homeSlides: Slides;
   @ViewChild('map') mapElement: any;
-  restaurant_category: string ;
+  restaurant_category: string;
   hideNotification: boolean = true;
   notificationIsOpen: boolean = false;
-  userLocation: [number, number];
+  userLocation: {lat:number, lng:number};
   allRestaurants: any[];
-  nearbyRestaurants: {featured:any[], locnear:any[]} = {featured:[],locnear:[]};
+  nearbyRestaurants: { featured: any[], locnear: any[] } = {featured: [], locnear: []};
 
   constructor(public navCtrl: NavController,
               public appUtils: AppUtilFunctions,
@@ -33,6 +33,7 @@ export class HomePage {
               public geoLocation: Geolocation
   ) {
     this.restaurant_category = 'all';
+    //this.appStorage.clearEntries() // Dev Only clearing local storage
   }
 
   ionViewDidLoad() {
@@ -48,7 +49,7 @@ export class HomePage {
   public getLocation(): Promise<[number, number]> {
     return this.geoLocation.getCurrentPosition()
       .then((locData: Geoposition) => {
-        return this.userLocation = [locData.coords.latitude, locData.coords.longitude];
+        return this.userLocation = {lat:locData.coords.latitude, lng:locData.coords.longitude};
       }, (err) => {
         //TODO Get the nearest location
         console.log('Error launching GeoLocation')
@@ -106,7 +107,14 @@ export class HomePage {
   getNearestBranches() {
 
     if (this.userLocation) {
-      let latLng = new google.maps.LatLng(...this.userLocation);
+      // Get featured restaurants from DB
+      this.areasProvider.getNearestBranches([this.userLocation.lat, this.userLocation.lng])
+        .subscribe(data => {
+          console.log(data);
+          this.nearbyRestaurants.featured = [data]
+        });
+      // Get restaurants from Google Maps
+      let latLng = this.userLocation;
       let mapOptions = {
         center: latLng,
         zoom: 19,
@@ -114,25 +122,20 @@ export class HomePage {
         fullscreenControl: false,
       };
       let request = {
-        location: {lat: this.userLocation[0], lng: this.userLocation[1]},
+        location: this.userLocation,
         radius: 500,
         type: 'restaurant'
       };
 
-    let map = new google.maps.Map(this.mapElement, mapOptions);
-    let service = new google.maps.places.PlacesService(map);
-    service.nearbySearch(request, (results,status)=> {
-      if (status === google.maps.places.PlacesServiceStatus.OK) {
-        console.log('Google maps restaurants',results);
-        this.nearbyRestaurants.locnear = results;
-      }
-    });
+      let map = new google.maps.Map(this.mapElement, mapOptions);
+      let service = new google.maps.places.PlacesService(map);
+      service.nearbySearch(request, (results, status) => {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+          console.log('Google maps restaurants', results);
+          this.nearbyRestaurants.locnear = results;
+        }
+      });
 
-      this.areasProvider.getNearestBranches(this.userLocation)
-        .subscribe(data => {
-          console.log(data);
-          this.nearbyRestaurants.featured = [data]
-        })
     } else {
       //TODO: reminder for removing this line in production
       console.warn('No user location sent fallback to get nearest location');
@@ -142,8 +145,6 @@ export class HomePage {
           this.getNearestBranches()
         })
     }
-
-
   }
 
   // Get Restaurant details by it's id
@@ -153,7 +154,9 @@ export class HomePage {
         console.log(d);
       })
   }
-
+  trackByFn(index, item) {
+    return index; // or item.id
+  }
 
   public changeSlide(slideNum: number): void {
     this.homeSlides.slideTo(slideNum)
