@@ -6,7 +6,8 @@ import {ResturantCategories} from '../../providers/types/enums';
 import {AreasProvider} from "../../providers/areas/areas";
 import {Geolocation, Geoposition} from "@ionic-native/geolocation";
 import {AppstorageProvider} from "../../providers/appstorage/appstorage";
-
+import { orderBy } from 'lodash';
+import { PlaceNearMap } from '../../providers/types/interface';
 declare let google: any;
 
 
@@ -23,8 +24,8 @@ export class HomePage {
   notificationIsOpen: boolean = false;
   userLocation: {lat:number, lng:number};
   allRestaurants: any[];
-  nearbyRestaurants: { featured: any[], locnear: any[] } = {featured: [], locnear: []};
-
+  nearbyRestaurants: { featured: any[], locnear: PlaceNearMap[] } = {featured: [], locnear: []};
+  activeRestaurants: any[];
   constructor(public navCtrl: NavController,
               public appUtils: AppUtilFunctions,
               public userProvider: UsersProviders,
@@ -32,17 +33,17 @@ export class HomePage {
               public areasProvider: AreasProvider,
               public geoLocation: Geolocation
   ) {
-    this.restaurant_category = 'all';
+    this.restaurant_category = 'nearby';
     //this.appStorage.clearEntries() // Dev Only clearing local storage
   }
 
   ionViewDidLoad() {
     // Get Client  current location
-    this.getLocation();
-    // Get restaurants
-    if (this.restaurant_category === 'all') {
-      this.getAllBranches()
-    }
+    this.getLocation()
+      .then(() => {
+        // Get restaurants
+        this.switchPlaces();
+      })
 
   }
 
@@ -86,6 +87,11 @@ export class HomePage {
 
     this.changeSlide(ResturantCategories[this.restaurant_category]);
 
+    this.switchPlaces();
+  }
+
+  private switchPlaces() {
+
     switch (this.restaurant_category) {
       case 'all':
         this.getAllBranches();
@@ -93,6 +99,8 @@ export class HomePage {
       case 'nearby':
         this.getNearestBranches();
         break;
+      case 'active':
+        this.getActiveBranches();
     }
   }
 
@@ -100,7 +108,7 @@ export class HomePage {
     this.areasProvider.getBrachType()
       .subscribe(data => {
         console.log(data);
-        this.allRestaurants = data;
+        this.allRestaurants = data.map(place=>this.makePlace(place));
       });
   }
 
@@ -111,28 +119,33 @@ export class HomePage {
       this.areasProvider.getNearestBranches([this.userLocation.lat, this.userLocation.lng])
         .subscribe(data => {
           console.log(data);
-          this.nearbyRestaurants.featured = [data]
+          this.nearbyRestaurants.featured = Array.isArray(data) ? data : [data];
         });
       // Get restaurants from Google Maps
-      let latLng = this.userLocation;
-      let mapOptions = {
-        center: latLng,
-        zoom: 19,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        fullscreenControl: false,
-      };
-      let request = {
-        location: this.userLocation,
-        radius: 500,
-        type: 'restaurant'
-      };
-
-      let map = new google.maps.Map(this.mapElement, mapOptions);
-      let service = new google.maps.places.PlacesService(map);
+      const latLng = this.userLocation;
+      const mapOptions = {center: latLng,zoom: 19,mapTypeId: google.maps.MapTypeId.ROADMAP,fullscreenControl: false,};
+      //TODO: Add feature to load more places by increasing the raduis value
+      const request = {location: this.userLocation,radius: 500,type: 'restaurant'};
+      const map = new google.maps.Map(this.mapElement, mapOptions);
+      const service = new google.maps.places.PlacesService(map);
       service.nearbySearch(request, (results, status) => {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
           console.log('Google maps restaurants', results);
-          this.nearbyRestaurants.locnear = results;
+          //TODO: sort result places based on the current user position
+          let finalResult = results.map(place => {
+            let location = { lat: place.geometry.location.lat(), lng: place.geometry.location.lng() }
+            return {
+              location,
+              distance: this.distanceTo(location),
+              icon: place.icon,
+              id: place.place_id,
+              rating: place.rating,
+              address: place.vicinity,
+              title: place.name
+            }
+          });
+          console.log('finalResult', finalResult)
+          this.nearbyRestaurants.locnear = orderBy(finalResult, 'distance');
         }
       });
 
@@ -147,6 +160,14 @@ export class HomePage {
     }
   }
 
+  getActiveBranches() {
+    this.areasProvider.getActiveBranches()
+      .subscribe(data => {
+        console.log(data);
+        this.activeRestaurants = data.map(place => this.makePlace(place));
+        console.log(this.activeRestaurants);
+      })
+  }
   // Get Restaurant details by it's id
   fetchBranch(id: number) {
     this.areasProvider.getBranch(id)
@@ -160,6 +181,30 @@ export class HomePage {
 
   public changeSlide(slideNum: number): void {
     this.homeSlides.slideTo(slideNum)
+  }
+
+  private distanceTo(location: {lat: number, lng: number}):number {
+    const EARTH_RADIUS_KM = 6371;
+    const toRad = x => x * (Math.PI / 180);
+    let [lat1, lat2] = [toRad(this.userLocation.lat), toRad(location.lat)];
+    let deltalng = toRad(location.lng - this.userLocation.lng);
+    return 1000 * Math.acos(
+      Math.sin(lat1) * Math.sin(lat2) +
+      Math.cos(lat1) * Math.cos(lat2) * Math.cos(deltalng)) * EARTH_RADIUS_KM;
+  }
+
+  private makePlace(place) {
+    console.log(place);
+    let location = { lat: Number(place.lat), lng: Number(place.lng) }
+    return {
+        location,
+        distance: this.distanceTo(location),
+        icon: 'assets/imgs/rest-alt.png',
+        id: place.id,
+        address: place.address,
+        title: place.branch_name
+      }
+    
   }
 
 }

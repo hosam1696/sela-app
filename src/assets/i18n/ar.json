@@ -9,5 +9,8 @@
   "Wallet": "المحفظة",
   "CustomerName": "اسم العميل",
   "EditProfile" : "تعديل البيانات",
-  "ContactUs": "تواصل معنا"
+  "ContactUs": "تواصل معنا",
+  "rapid": "سريع",
+  "normal": "عادى",
+  "cash on delivery": "الدفع عند الاستلام"
 }

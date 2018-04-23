@@ -17,4 +17,7 @@ export class AreasProvider {
   getNearestBranches(loc:[number, number]) {
     return this.api.get(`branch/nearest/lat/${loc[0]}/lng/${loc[1]}`).retry(3)
   }
+  getActiveBranches() {
+    return this.api.get('activeBranches')
+  }
 }

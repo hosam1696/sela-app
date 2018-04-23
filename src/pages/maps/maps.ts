@@ -1,7 +1,8 @@
-import {Component, ElementRef, ViewChild} from '@angular/core';
-import {NavParams, IonicPage, NavController} from 'ionic-angular';
-import { Geolocation, Geoposition} from '@ionic-native/geolocation';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { NavParams, IonicPage, NavController } from 'ionic-angular';
+import { Geolocation, Geoposition } from '@ionic-native/geolocation';
 import { Place } from './place.model';
+import { PlaceNearMap } from '../../providers/types/interface';
 
 declare let google;
 
@@ -14,8 +15,8 @@ export class MapsPage {
 
   @ViewChild('map') mapElement: ElementRef;
   map: any;
-  appMarkers:any[] = [];
-  mapPlaces:Place[] = []
+  appMarkers: any[] = [];
+  mapPlaces: Place[] = []
   userlatlng: [number, number];
   loader: any = true;
   initMap: any;
@@ -23,13 +24,14 @@ export class MapsPage {
     restaurant: undefined,
     deligator: undefined
   };
-  orderInfoOpen: boolean =  false;
-  infoWindow:any;
+  orderInfoOpen: boolean = false;
+  infoWindow: any;
+  restaurantName: string = '';
   constructor(public navCtrl: NavController,
-              public geolocation: Geolocation,
-              public navParams: NavParams) {
+    public geolocation: Geolocation,
+    public navParams: NavParams) {
     this.initMap = this.navParams.get('pageData');
-    console.log('Restaurant Location',this.initMap)
+    console.log('Restaurant Location', this.initMap)
   }
 
   ionViewDidLoad() {
@@ -54,8 +56,8 @@ export class MapsPage {
       zoom: 19,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       fullscreenControl: false,
-      disableDefaultUI:true,
-      styles:[
+      disableDefaultUI: true,
+      styles: [
         {
           "featureType": "poi.business",
           "stylers": [
@@ -84,7 +86,7 @@ export class MapsPage {
       ]
     },
       request = {
-        location: {lat: this.userlatlng[0], lng: this.userlatlng[1]},
+        location: { lat: this.userlatlng[0], lng: this.userlatlng[1] },
         radius: 500,
         type: 'restaurant' // types of places we want to search for
       };
@@ -98,7 +100,7 @@ export class MapsPage {
     // search places
     if (!this.initMap) {
       let service = new google.maps.places.PlacesService(this.map);
-      service.nearbySearch(request, (results,status)=> {
+      service.nearbySearch(request, (results, status) => {
         console.log(results);
         if (status === google.maps.places.PlacesServiceStatus.OK) {
           let makeMarker = (place) => {
@@ -107,19 +109,19 @@ export class MapsPage {
               map: this.map,
               position: placeLoc,
               icon: 'assets/imgs/res-pin.png',
-
               animation: google.maps.Animation.DROP,
             });
 
             google.maps.event.addListener(marker, 'click', () => {
               console.log('marker clicked', marker, place);
               let htmlContent = `
-                <b>&nbsp;&nbsp;  ${place.name}</b><br>
-                ${place.vicinity.split(',').join('<br>')}
+                <b>&nbsp;&nbsp;  ${place.name || place.title}</b><br>
+                ${(place.vicinity || place.address).split(',').join('<br>')}
               `;
               this.infoWindow.setContent(htmlContent);
               this.infoWindow.open(this.map, marker);
-              this.orderDestination.restaurant = place;
+              this.orderDestination.restaurant = { ...place, title: place.name, location: { lat: place.geometry.location.lat(), lng: place.geometry.location.lng()}};
+              this.restaurantName = this.orderDestination.restaurant.title;
             });
           };
           for (let i = 0; i < results.length; i++) {
@@ -134,26 +136,26 @@ export class MapsPage {
     // make markers
     let makeMarker = (place: Place) => {
 
-      latLng = !Array.isArray(place.loc)?place.loc:new google.maps.LatLng(...place.loc); // Cairo;
+      latLng = !Array.isArray(place.location) ? place.location : new google.maps.LatLng(...place.location); // Cairo;
       console.log('marker location', latLng);
       let marker = new google.maps.Marker({
         position: latLng,
         map: this.map,
         animation: google.maps.Animation.DROP,
-        icon: 'assets/imgs/'+place.type+'-pin.png',
+        icon: 'assets/imgs/' + place.type + '-pin.png',
         title: place.title
       });
       this.appMarkers.push(marker);
       marker.addListener('click', () => {
         debounce(marker);
-        console.log('marker clicked', marker, place.loc);
-              let htmlContent = `
+        console.log('marker clicked', marker, place);
+        let htmlContent = `
                 <b>&nbsp;&nbsp;  ${place.title}</b><br>
                 ${place.vicinity.split(',').join('<br>')}
               `;
-              this.infoWindow.setContent(htmlContent);
-              this.infoWindow.open(this.map, marker);
-              this.orderDestination.restaurant = {...place,name:place.title};
+        this.infoWindow.setContent(htmlContent);
+        this.infoWindow.open(this.map, marker);
+        this.setRestaurant(place);
       });
 
       function debounce(marker) {
@@ -169,19 +171,27 @@ export class MapsPage {
       marker.setMap(this.map);
     };
 
-    this.mapPlaces.push(new Place(this.userlatlng, 'موقعى', 'user'));
-    if (this.initMap)
-      this.mapPlaces.push(new Place(this.initMap.geometry.location, this.initMap.name, 'res' , this.initMap.vicinity))
+    this.mapPlaces.push(new Place(0, this.userlatlng, 'موقعى', 'user'));
+    if (this.initMap) {
+      this.mapPlaces.push(new Place(this.initMap.id,this.initMap.location, this.initMap.title, 'res', this.initMap.address, this.initMap.rating))
+      this.setRestaurant(this.initMap);
+    }
     console.log(this.mapPlaces);
-    this.mapPlaces.forEach(place=>{
+    this.mapPlaces.forEach(place => {
       makeMarker(place)
     });
 
   }
 
-  openPage(page: string, params:any = {}) {
+  openPage(page: string, params: any = {}) {
     this.navCtrl.push(page, params)
   }
 
+  private setRestaurant(restaurant: Place | any) {
+    if (restaurant.type != 'user') {
+      this.orderDestination.restaurant = restaurant;
+      this.restaurantName = this.orderDestination.restaurant.title;
+    }
+  }
 
 }

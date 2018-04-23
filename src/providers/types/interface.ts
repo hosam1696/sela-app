@@ -3,6 +3,10 @@ export interface PageMode {
   editText: string
 }
 
+export interface LatLng {
+  lat: number,
+  lng: number
+}
 export interface UserData {
   address: string,
   c_code: string,
@@ -29,6 +33,17 @@ export interface MenuPage {
   params?: any,
   noUserLogged?: boolean,
 }
+
+export interface PlaceNearMap {
+  location: LatLng,
+  distance: number,
+  icon: string,
+  id: string,
+  rating: number & string,
+  address: string,
+  name?: string,
+  title: string
+}
 export  interface  Order {
   branch_id: number,
   created_at: string,
@@ -38,5 +53,21 @@ export  interface  Order {
   total: string,
   type: string,
   updated_at: string,
-  user_id: number
+  user_id: number,
+  time?: number,
+  payment_option: string,
+  place_id?: string,
+  products: any[]
+}
+
+export interface Branch {
+  id: number,
+  area_id: number,
+  brand_id: number,
+  user_id: number,
+  branch_name: string,
+  lat: string,
+  lng: string,
+  commercial_registry: string,
+  
 }

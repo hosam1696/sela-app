@@ -16,15 +16,18 @@ export class OrderPage {
   orderNumber: number;
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              public ordersProvider: OrdersProvider
+    public ordersProvider: OrdersProvider,
+              public appProvider: AppstorageProvider
               ) {
       this.localUser = this.navParams.get('localUser');
       this.orderNumber = this.navParams.get('orderNumber');
-      this.order = this.navParams.get('order');
+    this.order = this.navParams.get('order');
+    
   }
 
-  ionViewDidLoad() {
-    this.ordersProvider.getOrderById(this.order.id, this.localUser.token)
+  async ionViewDidLoad() {
+    let token = await this.appProvider.getToken();
+    this.ordersProvider.getOrderById(this.order.id, token)
       .subscribe(data=>{
         console.log(data);
       })

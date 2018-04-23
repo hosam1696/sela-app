@@ -8,8 +8,37 @@ page-request-order {
         font-weight: bold;
       }
     }
+    .restaurant-id {
+      p {
+        &.rest-name {
+          background-color: $primary;
+          padding: 8px;
+          color: #fff;
+          font-weight: bold;
+          margin-bottom: 0;
+          min-height: 40px;
+        }
+        &.rest-rating {
+          margin: 0;
+          background-color: #fff;
+          padding: 8px;
+          rating {
+            ul {
+              margin: 0;
+              padding: 0;
+              text-align: center;
+              li {
+                ion-icon {
+                  color: #fbc256;
+                  font-size: 2rem;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
     .request-msg {
-      margin-top: 3.5rem !important;
       p {
         color: #fff;
         padding: 8px;

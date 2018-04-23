@@ -11,7 +11,7 @@
     </button>
     <ion-buttons end>
       <button ion-button icon-only (click)="openPage('MapsPage')">
-        <ion-icon name="search"></ion-icon>
+        <ion-icon name="locate"></ion-icon>
       </button>
       <button ion-button icon-only class="cart-button" (click)="openPage('CartPage')">
         <ion-icon name="cart">
@@ -39,9 +39,9 @@
     <h1>المطاعم</h1>
 
     <div class="cat-segments">
-      <button no-margin ion-button clear (click)="changeHomeCategory('all')"
+      <!--<button no-margin ion-button clear (click)="changeHomeCategory('all')"
               [class.selected]="restaurant_category == 'all'">الكل
-      </button>
+      </button>-->
       <button no-margin ion-button clear (click)="changeHomeCategory('nearby')"
               [class.selected]="restaurant_category == 'nearby'"> المطاعم القريبة
       </button>
@@ -61,9 +61,8 @@
 
   <ion-slides dir="rtl">
     <!-- All Restaurant Slide -->
-    <ion-slide>
+    <!--<ion-slide>
       <ion-list no-lines margin-horizontal>
-        <!-- Loading component for All Restaurant -->
         <ion-item margin-bottom *ngFor="let i of [1,2,3]" [hidden]="allRestaurants||allRestaurants?.length">
           <ion-avatar class="loading">
             <img src="" alt="">
@@ -74,20 +73,18 @@
           </div>
         </ion-item>
 
-        <!-- Real Data From Data base -->
         <ion-item margin-bottom *ngFor="let restaurant of allRestaurants;trackBy: trackByFn"
-                  (click)="openPage('MapsPage', {pageData:[restaurant.lat, restaurant.lng]})">
+                  (click)="openPage('MapsPage', {pageData:restaurant})">
           <ion-avatar>
             <img src="assets/imgs/rest-alt.png" alt="">
           </ion-avatar>
           <div class="result-actions">
-            <p class="rest-name">مطعم </p>
-            <span>{{restaurant.address}}</span>
-
+            <p>{{restaurant.title}} </p>
+            <p [hidden]="!restaurant.address">{{restaurant.address}}</p>
           </div>
         </ion-item>
       </ion-list>
-    </ion-slide>
+    </ion-slide> -->
 
     <!-- Nearest slide-->
     <ion-slide>
@@ -110,11 +107,11 @@
           </ion-avatar>
           <div class="result-actions">
             <p>مطعم </p>
-            <span [hidden]="!restaurant.address">{{restaurant.address}}</span>
-            <div class="est-loc">
+            <p [hidden]="!restaurant.address">{{restaurant.address}}</p>
+            <p class="est-loc">
               <ion-icon name="pin" color="primary"></ion-icon>
               ٥٠ كلم
-            </div>
+            </p>
           </div>
         </ion-item>
         <ion-item margin-bottom *ngFor="let restaurant of nearbyRestaurants?.locnear;trackBy: trackByFn"
@@ -123,11 +120,11 @@
             <img [src]="restaurant.icon || 'assets/imgs/rest-alt.png'" alt="">
           </ion-avatar>
           <div class="result-actions">
-            <p>{{restaurant.name}}</p>
+            <p>{{restaurant.title}}</p>
             <p [hidden]="!restaurant.address">{{restaurant.address}}</p>
             <p class="est-loc">
               <ion-icon name="pin" color="primary"></ion-icon>
-              ٥٠ كلم
+              {{restaurant.distance | number:'.0-0'}} متر
             </p>
           </div>
         </ion-item>
@@ -137,47 +134,31 @@
 
     <ion-slide>
       <ion-list no-lines margin-horizontal>
-        <ion-item margin-bottom (click)="openPage('MapsPage')">
-          <ion-avatar>
-            <img src="assets/imgs/rest-alt.png" alt="">
+        <ion-item margin-bottom *ngFor="let i of [1,2,3]" [hidden]="activeRestaurants&&activeRestaurants.length">
+          <ion-avatar class="loading">
+            <img src="" alt="">
           </ion-avatar>
-          <div class="result-actions">
-            <p>مطعم هانى</p>
-            <div class="est-loc">
-              <ion-icon name="pin" color="primary"></ion-icon>
-              ٥٠ كلم
-            </div>
+          <div class="result-actions loading">
+            <p></p>
+            <p></p>
           </div>
         </ion-item>
-        <ion-item margin-bottom (click)="openPage('MapsPage')">
-          <ion-avatar>
-            <img src="assets/imgs/rest-alt.png" alt="">
-          </ion-avatar>
-          <div class="result-actions">
-            <p>مطعم هانى</p>
-            <div class="est-loc">
-              <ion-icon name="pin" color="primary"></ion-icon>
-              ٥٠ كلم
-            </div>
-          </div>
-        </ion-item>
+<ion-item margin-bottom  *ngFor="let restaurant of activeRestaurants;trackBy: trackByFn"
 
-        <ion-item margin-bottom tappable (click)="openPage('MapsPage')">
+  (click)="openPage('MapsPage', {pageData:restaurant})">
+
           <ion-avatar>
-            <img src="assets/imgs/rest-alt.png" alt="">
+            <img [src]="restaurant.icon" alt="">
           </ion-avatar>
           <div class="result-actions">
-            <p>مطعم هانى</p>
-            <div class="est-loc">
+            <p>{{restaurant.title}}</p>
+            <p class="est-loc">
               <ion-icon name="pin" color="primary"></ion-icon>
-              ٥٠ كلم
-            </div>
+              {{restaurant.distance | number}} متر
+            </p>
           </div>
         </ion-item>
       </ion-list>
     </ion-slide>
-
   </ion-slides>
-
-
 </ion-content>

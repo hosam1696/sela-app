@@ -21,10 +21,12 @@
 <ion-content>
   <div [hidden]="!loader" class="loader"><p></p></div>
   <div #map id="map" style="height:100%;"></div>
-  <section class="order-links" [style.right]="orderInfoOpen?0:'100%'">
-    <button no-margin ion-button mini icon-only color="secondary" (click)="orderInfoOpen=!orderInfoOpen" >
+  <section class="order-links" >
+    <!-- button to toggle the target box
+       [style.right]="orderInfoOpen?0:'100%'"
+      <button no-margin ion-button mini icon-only color="secondary" (click)="orderInfoOpen=!orderInfoOpen" >
       <ion-icon [name]="orderInfoOpen?'ios-arrow-forward':'ios-arrow-back'" color="light"></ion-icon>
-    </button>
+    </button> -->
     <div class="anim-gr">
       <p></p>
     </div>
@@ -37,12 +39,16 @@
     </p>
     <div>
       <p class="order-dest">المطعم</p>
-      <p>{{orderDestination.restaurant?.name || 'لم يتم التحديد'}}</p>
+      
+      <p *ngIf="orderDestination.restaurant">{{restaurantName}}</p>
+      <p *ngIf="!orderDestination.restaurant">
+        لم يتم التحديد
+      </p>
       <!--<p *ngIf="orderDestination.restaurant&&!orderDestination.restaurant.name">لم يتم التحديد</p>-->
     </div>
   </section>
 </ion-content>
 
 <ion-footer no-margin>
-  <button full ion-button no-margin color="secondary" (click)="openPage('RequestOrderPage', {pageData: orderDestination})">اضافة طلبية</button>
+  <button full ion-button no-margin color="secondary" (click)="openPage('RequestOrderPage', {pageData: orderDestination, userLocation: userlatlng})">اضافة طلبية</button>
 </ion-footer>

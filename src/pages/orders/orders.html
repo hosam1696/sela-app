@@ -39,7 +39,7 @@
       <p class="header-bg request-num">
        <span> طلبية {{i+1}}</span>
         <span>
-          <ion-icon name="egg" [color]="order.status?'secure':'light'"></ion-icon>&nbsp;
+          <ion-icon name="egg" [color]="order.status==2?'danger':(order.status==1?'green':'light')"></ion-icon>&nbsp;
           <span [innerHTML]="order.status?'تم التسليم':'فى مرحلة الاعداد'"></span>
         </span>
       </p>
@@ -47,7 +47,7 @@
         <p>{{order.notes}}</p>
         <p class="estimate-time">
           <ion-icon color="primary" name="timer"></ion-icon>
-          <span>25 دقيقة</span>
+          <span>{{order.time}} دقيقة</span>
         </p>
         <!--<p>{{order.total|currency:'2.1'}}</p>-->
       </div>
