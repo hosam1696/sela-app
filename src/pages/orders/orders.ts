@@ -34,9 +34,9 @@ export class OrdersPage {
     this.ordersProvider.getUserOrders(token)
       .subscribe(response=>{
         this.orders = response.data;
-        
+
         this.orders.forEach(order => {
-          order['time'] = this.getMinutes(order); 
+          order['time'] = Math.abs(this.getMinutes(order));
           return order
         });;
         console.log('orders', this.orders);
@@ -52,8 +52,8 @@ export class OrdersPage {
   }
 
   private getMinutes(order:any) {
-    let hours = (new Date(order.delivery_date) - new Date(order.created_at)) / 1000 / 60;
-    return hours;
+    let minutes = <number>(<number>~new Date(order.delivery_date) - <number>~new Date(order.created_at)) / 1000 / 60;
+    return minutes;
   }
   public openPage(page: string, order, orderNumber) {
     this.navCtrl.push(page, {order, localUser: this.localUser, orderNumber})

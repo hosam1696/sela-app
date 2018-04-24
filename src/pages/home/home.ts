@@ -43,6 +43,8 @@ export class HomePage {
       .then(() => {
         // Get restaurants
         this.switchPlaces();
+      },()=>{
+        this.switchPlaces()
       })
 
   }
@@ -91,7 +93,7 @@ export class HomePage {
   }
 
   private switchPlaces() {
-
+    console.log('restaurant category', this.restaurant_category);
     switch (this.restaurant_category) {
       case 'all':
         this.getAllBranches();
@@ -204,7 +206,7 @@ export class HomePage {
         address: place.address,
         title: place.branch_name
       }
-    
+
   }
 
 }

@@ -5,6 +5,7 @@ import { AppstorageProvider } from '../../../providers/appstorage/appstorage';
 import {orderType} from "../../../providers/types/enums";
 import {OrdersProvider} from "../../../providers/orders/orders";
 import { AppUtilFunctions } from '../../../providers/utilfuns';
+import {DeliverystatusPage} from "../../deliverystatus/deliverystatus";
 
 //type orderType = 'normal' | 'rapid';
 
@@ -61,10 +62,10 @@ export class RequestOrderPage {
       this.ordersProvider.requestOrder(orderObject)
         .subscribe(data => {
           console.log(data);
-          if (data.status) 
+          if (data.status)
             //this.navCtrl.push('OrderPage', orderObject);
             this.appUtils.AppToast('تم ارسال الطلبية بنجاح', {}, () => {
-              this.navCtrl.push('OrdersPage');
+              this.navCtrl.push('DeliverystatusPage');
             })
         });
     } else {

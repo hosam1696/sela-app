@@ -7,6 +7,13 @@
 <ion-content padding>
   <form [formGroup]="signupForm" (ngSubmit)="submitForm()">
     <div class="form-user-type">
+      <div class="user" [class.selected]="signupForm.getRawValue()['role'] == 'user'">
+        <label for="type2" >
+          <ion-icon name="man"></ion-icon>
+          <p>تسجيل عادى</p>
+        </label>
+        <input type="radio" id="type2" value="user" formControlName="role" >
+      </div>
       <div class="user" [class.selected]="signupForm.getRawValue()['role'] == 'branch'">
         <label for="type1" >
           <ion-icon name="md-car"></ion-icon>
@@ -14,13 +21,7 @@
         </label>
         <input type="radio" id="type1" value="branch" formControlName="role" >
       </div>
-      <div class="user" [class.selected]="signupForm.getRawValue()['role'] == 'user'">
-        <label for="type2" >
-            <ion-icon name="man"></ion-icon>
-            <p>تسجيل عادى</p>
-        </label>
-        <input type="radio" id="type2" value="user" formControlName="role" >
-      </div>
+
     </div>
     <ion-grid no-padding>
       <ion-row>

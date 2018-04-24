@@ -41,10 +41,17 @@ ion-menu {
   .menu-inner {
     background: transparent !important;
   }
+
   ion-content {
     &.content {
       background-color: rgba(59, 174, 230, 0.86);
       color: $light;
+    }
+    .page-title {
+      background-color: #fff;
+      ion-label {
+        width: 100px;
+      }
     }
     .user-section {
       @extend %flex-center;
