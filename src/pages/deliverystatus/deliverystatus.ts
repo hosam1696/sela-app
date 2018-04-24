@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { OrdersProvider } from '../../providers/orders/orders';
+import {AppstorageProvider} from "../../providers/appstorage/appstorage";
 
 @IonicPage()
 @Component({
@@ -9,14 +10,17 @@ import { OrdersProvider } from '../../providers/orders/orders';
 })
 export class DeliverystatusPage {
   order: any;
+  token: string;
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              public orderProvider: OrdersProvider
+              public orderProvider: OrdersProvider,
+              public storageProvider: AppstorageProvider
             ) {
   }
 
-  ionViewDidLoad() {
+  async ionViewDidLoad() {
     this.order = this.navParams.get('order');
+    this.token = await this.storageProvider.getToken();
     console.log('Order Details ', this.order)
   }
 
@@ -34,7 +38,7 @@ export class DeliverystatusPage {
 
   cancelOrder() {
     // change status of the order;
-    this.orderProvider.updateOrderStatus({id: this.order.id})
+    this.orderProvider.updateOrderStatus({id: this.order.id, token: this.token})
       .subscribe(data=>{
         console.log(data);
       })

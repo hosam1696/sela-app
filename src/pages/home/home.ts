@@ -39,13 +39,14 @@ export class HomePage {
 
   ionViewDidLoad() {
     // Get Client  current location
-    this.getLocation()
-      .then(() => {
-        // Get restaurants
-        this.switchPlaces();
-      },()=>{
-        this.switchPlaces()
-      })
+    // this.getLocation()
+    //   .then(() => {
+    //     // Get restaurants
+    //     this.switchPlaces();
+    //   },()=>{
+    //     this.switchPlaces()
+    //   })
+    this.switchPlaces()
 
   }
 
@@ -70,7 +71,7 @@ export class HomePage {
   }
 
   openPage(page: string, params?: {}) {
-    this.navCtrl.push(page, params);
+    this.navCtrl.push(page, {userLocation: this.userLocation, ...params});
   }
 
   ionViewWillLeave() {
@@ -121,6 +122,7 @@ export class HomePage {
       this.areasProvider.getNearestBranches([this.userLocation.lat, this.userLocation.lng])
         .subscribe(data => {
           console.log(data);
+          //TODO: remove the featured array and chenck the response
           this.nearbyRestaurants.featured = Array.isArray(data) ? data : [data];
         });
       // Get restaurants from Google Maps

@@ -17,3 +17,8 @@ export enum orderType {
   normal = 0,
   rapid
 }
+export enum orderStatus {
+  prepared = 0,
+  delivered,
+  cancelled
+}

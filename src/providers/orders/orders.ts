@@ -20,6 +20,6 @@ export class OrdersProvider {
   }
 
   updateOrderStatus(orderData) {
-    return this.api.post('updateStatus', orderData)
+    return this.api.post('updateStatus/'+ orderData.id, {token: orderData.token, status: 2})
   }
 }

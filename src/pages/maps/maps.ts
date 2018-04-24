@@ -5,7 +5,7 @@ import { Place } from './place.model';
 import { PlaceNearMap } from '../../providers/types/interface';
 
 declare let google;
-
+type LatLng = [number]|{lat:number,lng:number};
 @IonicPage()
 @Component({
   selector: 'page-maps',
@@ -16,8 +16,8 @@ export class MapsPage {
   @ViewChild('map') mapElement: ElementRef;
   map: any;
   appMarkers: any[] = [];
-  mapPlaces: Place[] = []
-  userlatlng: [number, number];
+  mapPlaces: Place[] = [];
+  userlatlng: LatLng;
   loader: any = true;
   initMap: any;
   orderDestination = {
@@ -35,10 +35,17 @@ export class MapsPage {
   }
 
   ionViewDidLoad() {
-    this.getUserLocation()
-      .then((latlng) => {
-        this.loadMap(latlng);
-      })
+    this.userlatlng = this.navParams.get('userLocation');
+    console.log('maps params user location', this.userlatlng);
+    if (this.userlatlng) {
+      this.loadMap(this.userlatlng);
+    } else {
+      this.getUserLocation()
+        .then((latlng) => {
+          this.loadMap(latlng);
+        })
+    }
+
   }
 
   public getUserLocation() {
@@ -48,9 +55,9 @@ export class MapsPage {
       .then((data: Geoposition) => this.userlatlng = [data.coords.latitude, data.coords.longitude])
   }
 
-  public loadMap(latlng = [-34.9290, 138.6010]): void {
-
-    let latLng = new google.maps.LatLng(...latlng);
+  public loadMap(latlng:LatLng = [-34.9290, 138.6010]): void {
+    let maplatlng = Array.isArray(latlng)? latlng: [latlng.lat, latlng.lng];
+    let latLng = new google.maps.LatLng(...maplatlng);
     let mapOptions = {
       center: latLng,
       zoom: 17,

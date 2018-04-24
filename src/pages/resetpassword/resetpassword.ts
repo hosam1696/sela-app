@@ -2,6 +2,7 @@ import {Component, ViewChild} from '@angular/core';
 import {IonicPage, NavController, NavParams, Slides} from 'ionic-angular';
 import {ResetActiveSlide} from "../../providers/types/enums";
 import {UsersProviders} from "../../providers/users";
+import {AppUtilFunctions} from "../../providers/utilfuns";
 
 
 @IonicPage()
@@ -16,7 +17,8 @@ export class ResetpasswordPage {
   emailInput: string| any = '';
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              public userProvider: UsersProviders) {
+              public userProvider: UsersProviders,
+              public appUtils: AppUtilFunctions) {
   }
 
   changeSlide(num: number):void {
@@ -33,6 +35,11 @@ export class ResetpasswordPage {
     this.userProvider.resetPassword(obj)
       .subscribe(data=>{
         console.log(data);
+        if (data.status == 0) {
+          this.appUtils.AppToast(this.activeSlide?'البريد الالكترونى غير صحيح':'رقم الهاتف غير صحيح')
+        } else {
+          console.log(data)
+        }
       })
   }
 }
