@@ -101,7 +101,7 @@ export class LoginPage {
               `Backend returned code ${err.status}, ` +
                 `body was: ${err.error.body}`
             );
-
+            this.loader = false;
             this.appUtils.AppToast("خطأ فى الخادم");
           }
         }

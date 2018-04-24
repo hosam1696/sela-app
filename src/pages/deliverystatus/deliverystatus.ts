@@ -8,7 +8,7 @@ import { OrdersProvider } from '../../providers/orders/orders';
   templateUrl: 'deliverystatus.html',
 })
 export class DeliverystatusPage {
-
+  order: any;
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public orderProvider: OrdersProvider
@@ -16,7 +16,8 @@ export class DeliverystatusPage {
   }
 
   ionViewDidLoad() {
-
+    this.order = this.navParams.get('order');
+    console.log('Order Details ', this.order)
   }
 
   openPage(page: string, params:any = {}) {
@@ -33,7 +34,7 @@ export class DeliverystatusPage {
 
   cancelOrder() {
     // change status of the order;
-    this.orderProvider.updateOrderStatus({id: 47})
+    this.orderProvider.updateOrderStatus({id: this.order.id})
       .subscribe(data=>{
         console.log(data);
       })

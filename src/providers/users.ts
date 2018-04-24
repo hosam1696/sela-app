@@ -42,6 +42,10 @@ export class UsersProviders {
     return this.api.post('verifyCode', {code});
   }
 
+  refrehToken(token) {
+    return this.api.get('refresh', {token})
+  }
+
   updateUserInfo(userData:any) {
     let id = userData.id;
     delete userData.id;

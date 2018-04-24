@@ -3,7 +3,7 @@
   <ion-navbar color="primary" class="header-bg">
     <ion-buttons end>
       <button ion-button icon-only (click)="openPage('HomePage')">
-        <ion-icon color="light" name="home" ></ion-icon>  
+        <ion-icon color="light" name="home" ></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -22,7 +22,7 @@
 
   <section margin-top class="ordered-deliverd">
     <ion-icon name="checkmark-circle"></ion-icon>
-    <p> تم ارسال طلبيتك بنجاح الى</p>  
+    <p> تم ارسال طلبيتك بنجاح الى</p>
     <div class="deligator">
         <div class="user-avatar">
           <img src="assets/imgs/profile-alt.png" alt="">
@@ -30,10 +30,10 @@
         </div>
         <div class="contact">
           <button ion-button color="secondary" (click)="openPage('ChatPage')">
-            <ion-icon name="chatbubbles" color="light"></ion-icon> 
+            <ion-icon name="chatbubbles" color="light"></ion-icon>
             مراسلة</button>
           <button ion-button color="secondary" (click)="dialNumber()">
-            <ion-icon name="call" color="light"></ion-icon>  
+            <ion-icon name="call" color="light"></ion-icon>
             اتصال</button>
         </div>
     </div>
@@ -41,7 +41,7 @@
 
   <section class="actions-btns">
     <!-- TODO: change the static data sent to order Page-->
-    <button ion-button (click)="openPage('OrderPage', {orderNumber: 1, order: {id:27}})">عرض الطلب</button>
+    <button ion-button (click)="openPage('OrderPage', {orderNumber: 1, order: {id:order.id}})">عرض الطلب</button>
     <button ion-button color="danger" (click)="cancelOrder()">الغاء الطلب</button>
   </section>
 </ion-content>

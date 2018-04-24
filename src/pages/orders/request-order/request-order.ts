@@ -41,7 +41,7 @@ export class RequestOrderPage {
 
   requestOrder(type) {
     if (this.orderRequests && this.orderRequests.trim()) {
-      
+
      this.sendOrder(type);
     } else {
       this.appUtils.AppToast('يرجى كتابة الطلبية')
@@ -73,18 +73,19 @@ export class RequestOrderPage {
     this.ordersProvider.requestOrder(orderObject)
     .subscribe(data => {
       console.log(data);
-      if (data.status) {
+      if (data.id) {
         this.loader = false;
-        this.navCtrl.push('DeliverystatusPage');
+        this.navCtrl.push('DeliverystatusPage', {order: data});
       }
-        //this.navCtrl.push('OrderPage', orderObject);
-        
-        //this.appUtils.AppToast('تم ارسال الطلبية بنجاح')
     },()=>{
 
       this.loader = false;
       this.appUtils.AppToast('DEV: Token Validation')
-      // hardcoded solution for expiered token
+      // hardcoded solution for expired token
+      this.userProvider.refrehToken(this.token)
+        .subscribe(data=>{
+          console.log(data);
+        })
       /*this.userProvider.userLogin({phone: this.localUser.phone, password: '123456'})
         .subscribe(token=>{
           this.token = token;
