@@ -21,32 +21,71 @@
 <ion-content>
   <div [hidden]="!loader" class="loader"><p></p></div>
   <div #map id="map" style="height:100%;"></div>
-  <section class="order-links" >
-    <!-- button to toggle the target box
+  <!-- button to toggle the target box
        [style.right]="orderInfoOpen?0:'100%'"
       <button no-margin ion-button mini icon-only color="secondary" (click)="orderInfoOpen=!orderInfoOpen" >
       <ion-icon [name]="orderInfoOpen?'ios-arrow-forward':'ios-arrow-back'" color="light"></ion-icon>
     </button> -->
-    <div class="anim-gr">
-      <p></p>
-    </div>
-    <div>
-      <p class="order-dest">المندوب</p>
-      <p>{{'لم يتم التحديد'||orderDestination.deligator}}</p>
-    </div>
-    <p>
-      <ion-icon name="ios-rewind"color="primary"></ion-icon>
-    </p>
-    <div>
-      <p class="order-dest">المطعم</p>
-      
-      <p *ngIf="orderDestination.restaurant">{{restaurantName}}</p>
-      <p *ngIf="!orderDestination.restaurant">
-        لم يتم التحديد
+  <ion-slides dir="rtl" class="order-links" initialSlide="1">
+    <ion-slide>
+      <div class="delegate-pic">
+        <img src="assets/imgs/profile-alt.png" width="60" alt="">
+        <div class="deligate-info">
+          <p>اسم المندوب</p>
+          <rating [(ngModel)]="defaultRating" readOnly="true" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star" nullable="false"></rating>
+        </div>
+      </div>
+      <div class="deligate-contact">
+        <p>
+          <ion-icon name="call"></ion-icon>
+          <span>01201914918</span>
+        </p>
+        <p>
+          <ion-icon name="mail"></ion-icon>
+          <span>hosamelnabawy@gmail.com</span>
+        </p>
+      </div>
+    </ion-slide>
+    <ion-slide class="destination-slide">
+      <div class="anim-gr"><p></p></div>
+      <div class="slide-sec">
+        <p class="order-dest block-dest-title">المندوب</p>
+        <p class="block-dest-name">{{'لم يتم التحديد'||orderDestination.deligator}}</p>
+      </div>
+      <p>
+        <ion-icon name="ios-rewind"color="primary"></ion-icon>
       </p>
-      <!--<p *ngIf="orderDestination.restaurant&&!orderDestination.restaurant.name">لم يتم التحديد</p>-->
-    </div>
-  </section>
+      <div class="slide-sec">
+        <p class="order-dest">المطعم</p>
+
+        <p *ngIf="orderDestination.restaurant" class="block-dest-title">{{restaurantName}}</p>
+        <p *ngIf="!orderDestination.restaurant" class="block-dest-name">
+          لم يتم التحديد
+        </p>
+        <!--<p *ngIf="orderDestination.restaurant&&!orderDestination.restaurant.name">لم يتم التحديد</p>-->
+      </div>
+    </ion-slide>
+    <ion-slide>
+      <div class="delegate-pic">
+        <img src="assets/imgs/profile-alt.png" width="60" alt="">
+        <div class="deligate-info">
+          <p>اسم المطعم</p>
+          <rating [(ngModel)]="defaultRating" readOnly="true" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star" nullable="false"></rating>
+        </div>
+      </div>
+      <div class="deligate-contact">
+        <p>
+          <ion-icon name="call"></ion-icon>
+          <span>01201914918</span>
+        </p>
+        <p>
+          <ion-icon name="mail"></ion-icon>
+          <span>hosamelnabawy@gmail.com</span>
+        </p>
+      </div>
+    </ion-slide>
+  </ion-slides>
+
 </ion-content>
 
 <ion-footer no-margin>

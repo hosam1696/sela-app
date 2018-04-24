@@ -123,6 +123,8 @@ export class HomePage {
         .subscribe(data => {
           console.log(data);
           //TODO: remove the featured array and chenck the response
+          data.lat = Number(data.lat);
+          data.lng = Number(data.lng);
           this.nearbyRestaurants.featured = Array.isArray(data) ? data : [data];
         });
       // Get restaurants from Google Maps

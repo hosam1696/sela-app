@@ -53,7 +53,6 @@
   </section>
   <!-- maps -->
   <div #map hidden></div>
-
   <!-- No Restaurant -->
   <p text-center margin *ngIf="allRestaurants&&!allRestaurants.length&&restaurant_category === 'all'">
     لا يوجد مطاعم حاليا
@@ -101,7 +100,7 @@
         </ion-item>
         <!-- Real Data From Data base -->
         <ion-item margin-bottom *ngFor="let restaurant of nearbyRestaurants?.featured;trackBy: trackByFn"
-                  (click)="openPage('MapsPage', {pageData:[restaurant.lat, restaurant.lng]})">
+                  (click)="openPage('MapsPage', {pageData:[restaurant.lat, restaurant.lng], userLocation:{lat:restaurant.lat,lng:restaurant.lng}})">
           <ion-avatar>
             <img src="assets/imgs/rest-alt.png" alt="">
           </ion-avatar>

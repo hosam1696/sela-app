@@ -3,6 +3,7 @@ import { IonicPageModule } from 'ionic-angular';
 import { DeliverystatusPage } from './deliverystatus';
 import { OrdersProvider } from '../../providers/orders/orders';
 import {AppstorageProvider} from "../../providers/appstorage/appstorage";
+import {AppUtilFunctions} from "../../providers/utilfuns";
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import {AppstorageProvider} from "../../providers/appstorage/appstorage";
   ],
   providers: [
     OrdersProvider,
-    AppstorageProvider
+    AppstorageProvider,
+    AppUtilFunctions
   ]
 })
 export class DeliverystatusPageModule {}

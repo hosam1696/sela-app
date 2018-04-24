@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import {
   Events,
-  IonicPage,
+  IonicPage, ModalController,
   NavController,
   NavParams
 } from "ionic-angular";
@@ -35,7 +35,8 @@ export class ProfilePage {
     public appStorage: AppstorageProvider,
     public events: Events,
     public userProvider: UsersProviders,
-    public appUtils: AppUtilFunctions
+    public appUtils: AppUtilFunctions,
+    public modalCtrl: ModalController
   ) {}
 
   async ionViewDidLoad() {
@@ -109,5 +110,10 @@ export class ProfilePage {
 
   public logout(): void {
     this.events.publish('userLogout')
+  }
+
+  public openModal() {
+    let modal = this.modalCtrl.create('FeedbacksPage', {localUser: this.localUser, token: this.token});
+    modal.present()
   }
 }

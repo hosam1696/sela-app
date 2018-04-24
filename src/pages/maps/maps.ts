@@ -20,6 +20,7 @@ export class MapsPage {
   userlatlng: LatLng;
   loader: any = true;
   initMap: any;
+  defaultRating: number = 4; // default rating value
   orderDestination = {
     restaurant: undefined,
     deligator: undefined

@@ -6,16 +6,20 @@
 
 
 <ion-content padding>
+
   <section margin-top text-center >
     <ion-chip class="page-title">
       <ion-icon name="basket"></ion-icon>
       <ion-label>
         طلبية
-         {{orderNumber}} 
+         {{orderNumber}}
       </ion-label>
     </ion-chip>
   </section>
 
+  <p text-center margin [hidden]="order&&order.user_id">
+    <ion-spinner></ion-spinner>
+  </p>
   <ion-list margin-top *ngIf="order&&order.user_id">
     <ion-item>
       <ion-label>
@@ -35,7 +39,7 @@
     </ion-item>
     <ion-item>
       <ion-label>
-        حالة الطلبية
+        سرعة الطلبية
       </ion-label>
       <ion-label>
         {{order.type | translate}}
@@ -49,9 +53,17 @@
         {{order.payment_option | translate}}
       </ion-label>
     </ion-item>
+    <ion-item margin-top>
+      <ion-label>
+        حالة الطلبية
+      </ion-label>
+      <ion-label>
+        {{order.status==2?'تم الالغاء':(order.status == 1?'تم التسليم':'فى مرحلة الاعداد')}}
+      </ion-label>
+    </ion-item>
   </ion-list>
 
-  <p text-center class="order-track-btn">
-    <button ion-button (click)="openPage('TrackorderPage')" color="secondary" >تتبع الطلب</button>
+  <p text-center class="order-track-btn" *ngIf="order&&order.user_id">
+    <button ion-button (click)="openPage('TrackorderPage')" color="secondary" disabled>تتبع الطلب</button>
   </p>
  </ion-content>

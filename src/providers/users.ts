@@ -57,6 +57,14 @@ export class UsersProviders {
     return this.api.post('users.php?action=setDeviceToken', data);
   }
 
+  addFeedBack(feedbackData) {
+    return this.api.post('feedback', feedbackData)
+  }
+
+  getFeedBacks(token) {
+    return this.api.get('feedback', {token})
+  }
+
 
 }
 

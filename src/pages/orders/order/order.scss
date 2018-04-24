@@ -14,10 +14,12 @@ page-order {
     }
     ion-list {
       ion-item {
+
+        font-size: 1.2rem !important;
         ion-label {
           white-space: normal;
           &:first-of-type {
-            width: 25%;
+            max-width: 25%;
             color: #969696;
           }
         }
