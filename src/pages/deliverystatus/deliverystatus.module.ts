@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { DeliverystatusPage } from './deliverystatus';
+import { OrdersProvider } from '../../providers/orders/orders';
 
 @NgModule({
   declarations: [
@@ -9,5 +10,8 @@ import { DeliverystatusPage } from './deliverystatus';
   imports: [
     IonicPageModule.forChild(DeliverystatusPage),
   ],
+  providers: [
+    OrdersProvider
+  ]
 })
 export class DeliverystatusPageModule {}

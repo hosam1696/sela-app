@@ -1,3 +1,57 @@
 page-deliverystatus {
-
+    ion-content {
+        .page-title {
+            background-color: #fff;
+            ion-label {
+              width: 100px;
+            }
+          }
+          .ordered-deliverd {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            &>ion-icon {
+                font-size: 10rem;
+                color: #70d543
+            }
+            .deligator {
+                display: flex;
+                justify-content: space-between;
+                width: 60%;
+                margin: 2rem 0;
+                padding-bottom: 2rem;
+                border-bottom: 1px solid #dedede;
+                img {
+                    min-width: 80px;
+                    min-height: 80px;
+                    background-color: #ccc;
+                    max-width: 80px;
+                    border-radius: 50%;
+                }
+                .contact {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    button {
+                        width: 100%;
+                        background-color: #adadad;
+                        ion-icon {
+                            margin-left: 8px;
+                        }
+                    }
+                }
+            }
+          }
+          .actions-btns {
+              display: flex;
+              justify-content: center;
+              margin-top: 5rem;
+            button {
+                border-radius: 10px;
+                padding: 2rem 3.5rem;
+              }
+          }
+    }
 }

@@ -14,27 +14,39 @@ export class OrderPage {
   localUser: UserData;
   order: Order;
   orderNumber: number;
+  token: string;
+  loader: boolean = false;
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
     public ordersProvider: OrdersProvider,
               public appProvider: AppstorageProvider
               ) {
       this.localUser = this.navParams.get('localUser');
-      this.orderNumber = this.navParams.get('orderNumber');
-    this.order = this.navParams.get('order');
-    
+      this.orderNumber = this.navParams.get('orderNumber')||1;
+      this.order = this.navParams.get('order');
   }
 
   async ionViewDidLoad() {
-    let token = await this.appProvider.getToken();
-    this.ordersProvider.getOrderById(this.order.id, token)
-      .subscribe(data=>{
-        console.log(data);
-      })
+    this.token = await this.appProvider.getToken();
+    this.localUser = await this.appProvider.getUserData();
+    if (this.order&&this.order.id&&!this.order.user_id) {
+      this.getOrder(this.order.id)
+    } else {
+      console.warn('you have to pass an order')
+    }
+    
   }
 
   openPage(page:string, params:any = {}) {
     this.navCtrl.push(page, params)
+  }
+
+  private getOrder(id) {
+    this.ordersProvider.getOrderById(id, this.token)
+      .subscribe(data=>{
+        console.log('order Data',data);
+        this.order = data;
+      })
   }
 
 }

@@ -53,7 +53,7 @@ export class MapsPage {
     let latLng = new google.maps.LatLng(...latlng);
     let mapOptions = {
       center: latLng,
-      zoom: 19,
+      zoom: 17,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       fullscreenControl: false,
       disableDefaultUI: true,

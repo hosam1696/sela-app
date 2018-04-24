@@ -18,4 +18,8 @@ export class OrdersProvider {
   requestOrder(orderData) {
     return this.api.post('orders', orderData)
   }
+
+  updateOrderStatus(orderData) {
+    return this.api.post('updateStatus', orderData)
+  }
 }

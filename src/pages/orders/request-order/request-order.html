@@ -4,7 +4,11 @@
     <button ion-button icon-only clear >
       <ion-icon class="bill-icon" name="notifications"></ion-icon>
     </button>
-
+    <ion-buttons end *ngIf="loader">
+      <button ion-button>
+        <ion-spinner color="light"></ion-spinner>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 

@@ -11,12 +11,12 @@
       <ion-icon name="basket"></ion-icon>
       <ion-label>
         طلبية
-         {{orderNumber}}
+         {{orderNumber}} 
       </ion-label>
     </ion-chip>
   </section>
 
-  <ion-list margin-top>
+  <ion-list margin-top *ngIf="order&&order.user_id">
     <ion-item>
       <ion-label>
         نص الطلبية

@@ -5,7 +5,7 @@ import { AppstorageProvider } from '../../../providers/appstorage/appstorage';
 import {orderType} from "../../../providers/types/enums";
 import {OrdersProvider} from "../../../providers/orders/orders";
 import { AppUtilFunctions } from '../../../providers/utilfuns';
-import {DeliverystatusPage} from "../../deliverystatus/deliverystatus";
+import { UsersProviders } from '../../../providers/users';
 
 //type orderType = 'normal' | 'rapid';
 
@@ -21,11 +21,13 @@ export class RequestOrderPage {
   token: string;
   userLocation: any;
   rating: number;
+  loader: boolean = false;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public appStorage: AppstorageProvider,
     public ordersProvider: OrdersProvider,
-    public appUtils: AppUtilFunctions
+    public appUtils: AppUtilFunctions,
+    public userProvider: UsersProviders
   ) {
     this.orderDistination = this.navParams.get('pageData');
     this.userLocation = this.navParams.get('userLocation');
@@ -39,37 +41,55 @@ export class RequestOrderPage {
 
   requestOrder(type) {
     if (this.orderRequests && this.orderRequests.trim()) {
-      let orderObject = {
-        status: 0,
-        type: type,
-        branch_name: this.orderDistination.restaurant ? this.orderDistination.restaurant.title : '',
-        branch_loc: JSON.stringify(this.orderDistination.restaurant.location),
-        notes: this.orderRequests,
-        user_id: this.localUser.id,
-        //user_name: this.localUser.name,
-        //address: this.orderDistination.restaurant.address,
-        //user_location: this.userLocation,
-        token: this.token,
-        //total: orderType[type]?100:50
-      };
-      if (typeof this.orderDistination.restaurant.id == 'number') {
-        orderObject['branch_id'] = this.orderDistination.restaurant.id
-      } else {
-        orderObject['place_id'] = this.orderDistination.restaurant.id
-      }
-
-      console.log('order', orderObject);
-      this.ordersProvider.requestOrder(orderObject)
-        .subscribe(data => {
-          console.log(data);
-          if (data.status)
-            //this.navCtrl.push('OrderPage', orderObject);
-            this.appUtils.AppToast('تم ارسال الطلبية بنجاح', {}, () => {
-              this.navCtrl.push('DeliverystatusPage');
-            })
-        });
+      
+     this.sendOrder(type);
     } else {
       this.appUtils.AppToast('يرجى كتابة الطلبية')
     }
+  }
+
+  private sendOrder(type) {
+    let orderObject = {
+      status: 0,
+      type: type,
+      branch_name: this.orderDistination.restaurant ? this.orderDistination.restaurant.title : '',
+      branch_loc: JSON.stringify(this.orderDistination.restaurant.location),
+      notes: this.orderRequests,
+      user_id: this.localUser.id,
+      //user_name: this.localUser.name,
+      //address: this.orderDistination.restaurant.address,
+      //user_location: this.userLocation,
+      token: this.token,
+      //total: orderType[type]?100:50
+    };
+    if (typeof this.orderDistination.restaurant.id == 'number') {
+      orderObject['branch_id'] = this.orderDistination.restaurant.id
+    } else {
+      orderObject['place_id'] = this.orderDistination.restaurant.id
+    }
+
+    console.log('order', orderObject);
+    this.loader = true;
+    this.ordersProvider.requestOrder(orderObject)
+    .subscribe(data => {
+      console.log(data);
+      if (data.status) {
+        this.loader = false;
+        this.navCtrl.push('DeliverystatusPage');
+      }
+        //this.navCtrl.push('OrderPage', orderObject);
+        
+        //this.appUtils.AppToast('تم ارسال الطلبية بنجاح')
+    },()=>{
+
+      this.loader = false;
+      this.appUtils.AppToast('DEV: Token Validation')
+      // hardcoded solution for expiered token
+      /*this.userProvider.userLogin({phone: this.localUser.phone, password: '123456'})
+        .subscribe(token=>{
+          this.token = token;
+          this.sendOrder(type);
+        })*/
+    });
   }
 }

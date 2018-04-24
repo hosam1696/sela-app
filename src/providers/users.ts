@@ -38,6 +38,10 @@ export class UsersProviders {
     return this.api.post('resetPassword', resetobj)
   }
 
+  verifyCode(code) {
+    return this.api.post('verifyCode', {code});
+  }
+
   updateUserInfo(userData:any) {
     let id = userData.id;
     delete userData.id;

@@ -5,6 +5,7 @@ import { AppstorageProvider } from '../../../providers/appstorage/appstorage';
 import {OrdersProvider} from "../../../providers/orders/orders";
 import { AppUtilFunctions } from '../../../providers/utilfuns';
 import { Ionic2RatingModule } from 'ionic2-rating';
+import { UsersProviders } from '../../../providers/users';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { Ionic2RatingModule } from 'ionic2-rating';
   providers: [
     AppstorageProvider,
     OrdersProvider,
-    AppUtilFunctions
+    AppUtilFunctions,
+    UsersProviders
   ]
 })
 export class RequestOrderPageModule {}
