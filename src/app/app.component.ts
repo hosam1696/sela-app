@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {AlertController, AlertOptions, Events, Nav, Platform} from 'ionic-angular';
+import {AlertController, AlertOptions, Events, Nav, Platform, ToastController} from 'ionic-angular';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {HomePage} from "../pages/home/home";
@@ -8,6 +8,8 @@ import {AppstorageProvider} from "../providers/appstorage/appstorage";
 import {MenuPage, UserData} from "../providers/types/interface";
 import {UsersProviders} from "../providers/users";
 import {ContactusPage} from "../pages/contactus/contactus";
+import {FcmProvider} from "../providers/fcm/fcm.provider";
+import {tap} from "rxjs/operators";
 
 
 @Component({
@@ -27,7 +29,9 @@ export class MyApp {
               public events: Events,
               public alertCtrl: AlertController,
               public appStorage: AppstorageProvider,
-              public userProvider: UsersProviders
+              public userProvider: UsersProviders,
+              public fcm: FcmProvider,
+              public toastCtrl: ToastController
   ) {
     this.initializeApp();
     //this.appStorage.clearEntries()
@@ -49,7 +53,8 @@ export class MyApp {
   initializeApp() {
     this.translateService.setDefaultLang('ar');
     this.translateService.use('ar');
-    this.platform.ready().then(() => {
+    this.platform.ready()
+      .then(() => {
 
       this.appStorage.getUserData()
         .then((data: UserData) => {
@@ -61,6 +66,7 @@ export class MyApp {
 
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.handleDeviceNotifications()
     });
 
     // change root page event
@@ -108,6 +114,48 @@ export class MyApp {
       alert.present();
     })
   }
+
+  private handleDeviceNotifications() {
+// Get a FCM token
+    this.fcm.getToken()
+
+    this.fcm.listenToNotifications().pipe(
+      tap(msg => {
+        const toast = this.toastCtrl.create({
+          message: msg.body,
+          duration: 3000
+        });
+        toast.present();
+      })
+    )
+      .subscribe()
+  }
+    /*
+      // Get Device Token
+      this.firebase.getToken()
+        .then(token=>{
+          // save the device token in the data base
+          this.sendDeviceToken(token);
+        });
+
+      // When the token is refreshed
+      this.firebase.onTokenRefresh()
+        .subscribe(token=>{
+            this.sendDeviceToken(token)
+        });
+
+      // this.firebase.onNotificationOpen()
+
+    */
+
+/*
+  private sendDeviceToken(token:string) {
+    this.userProvider.sendDeviceToken(token)
+      .subscribe(status=>{
+        console.log('Device Token Status', status);
+        // may we save the token in the storage
+      })
+  }*/
 
   public openPage(page: MenuPage & string): void {
 

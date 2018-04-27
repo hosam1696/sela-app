@@ -65,7 +65,9 @@ export class UsersProviders {
     return this.api.get('feedback', {token})
   }
 
-
+  sendDeviceToken(deviceToken: string) {
+    return this.api.post('deviceToken'/* dummy routes to be changed later */, {deviceToken})
+  }
 }
 
 

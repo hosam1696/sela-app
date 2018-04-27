@@ -4,7 +4,6 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
 import { Push } from '@ionic-native/push';
-import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import {FilePath} from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
@@ -23,6 +22,8 @@ import { AppstorageProvider } from '../providers/appstorage/appstorage';
 import { AreasProvider } from '../providers/areas/areas';
 import { OrdersProvider } from '../providers/orders/orders';
 import {UsersProviders} from "../providers/users";
+import {Firebase} from "@ionic-native/firebase";
+import {FcmProvider} from "../providers/fcm/fcm.provider";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -56,7 +57,6 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   providers: [
     File,
-    FileTransfer,
     FilePath,
     StatusBar,
     Push,
@@ -70,7 +70,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppstorageProvider,
     UsersProviders,
     AreasProvider,
-    OrdersProvider
+    OrdersProvider,
+    Firebase,
+    FcmProvider
   ]
 })
 export class AppModule {}
