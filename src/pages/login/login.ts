@@ -11,6 +11,7 @@ import { UsersProviders } from "../../providers/users";
 import { AppUtilFunctions } from "../../providers/utilfuns";
 import { AppstorageProvider } from "../../providers/appstorage/appstorage";
 import {UserData} from "../../providers/types/interface";
+import { UserHome } from "../../providers/types/enums";
 
 @IonicPage()
 @Component({
@@ -78,7 +79,7 @@ export class LoginPage {
                 this.appStorage.saveToken(res.token);
                 this.appStorage.saveUserData(data).then(() => {
                   this.events.publish("refreshStorage");
-                  this.events.publish("changeRoot", "HomePage");
+                  this.events.publish("changeRoot", UserHome[data.role]);
                 });
               }
             },()=>{

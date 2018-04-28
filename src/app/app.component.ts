@@ -10,6 +10,7 @@ import {UsersProviders} from "../providers/users";
 import {ContactusPage} from "../pages/contactus/contactus";
 import {FcmProvider} from "../providers/fcm/fcm.provider";
 import {tap} from "rxjs/operators";
+import { UserHome } from '../providers/types/enums';
 
 
 @Component({
@@ -59,7 +60,7 @@ export class MyApp {
       this.appStorage.getUserData()
         .then((data: UserData) => {
           console.log('App component',data);
-          this.rootPage = data.id ? 'HomePage' : 'LoginPage'
+          this.rootPage = data.id ? UserHome[data.role] : 'LoginPage'
         }).catch(() => {
         this.rootPage = 'LoginPage'
       });

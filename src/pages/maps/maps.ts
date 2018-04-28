@@ -5,14 +5,14 @@ import { Place } from './place.model';
 import { PlaceNearMap } from '../../providers/types/interface';
 
 declare let google;
-type LatLng = [number]|{lat:number,lng:number};
+type LatLng = [number, number]|{lat:number,lng:number};
 @IonicPage()
 @Component({
   selector: 'page-maps',
   templateUrl: 'maps.html',
 })
+  
 export class MapsPage {
-
   @ViewChild('map') mapElement: ElementRef;
   map: any;
   appMarkers: any[] = [];
@@ -28,16 +28,19 @@ export class MapsPage {
   orderInfoOpen: boolean = false;
   infoWindow: any;
   restaurantName: string = '';
+  restaurantAddress: string = '';
+  nearbyDeligators: any[];
   constructor(public navCtrl: NavController,
     public geolocation: Geolocation,
     public navParams: NavParams) {
-    this.initMap = this.navParams.get('pageData');
-    console.log('Restaurant Location', this.initMap)
   }
 
   ionViewDidLoad() {
+    this.initMap = this.navParams.get('pageData');
+    console.log('Restaurant Location', this.initMap)
     this.userlatlng = this.navParams.get('userLocation');
     console.log('maps params user location', this.userlatlng);
+
     if (this.userlatlng) {
       this.loadMap(this.userlatlng);
     } else {
@@ -130,6 +133,7 @@ export class MapsPage {
               this.infoWindow.open(this.map, marker);
               this.orderDestination.restaurant = { ...place, title: place.name, location: { lat: place.geometry.location.lat(), lng: place.geometry.location.lng()}};
               this.restaurantName = this.orderDestination.restaurant.title;
+              this.restaurantAddress = this.orderDestination.restaurant.vicinity
             });
           };
           for (let i = 0; i < results.length; i++) {
@@ -199,7 +203,9 @@ export class MapsPage {
     if (restaurant.type != 'user') {
       this.orderDestination.restaurant = restaurant;
       this.restaurantName = this.orderDestination.restaurant.title;
+      this.restaurantAddress = this.orderDestination.restaurant.vicinity || this.orderDestination.restaurant.address
     }
+    console.log('Restaurant ', this.orderDestination.restaurant);
   }
 
 }

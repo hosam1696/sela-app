@@ -18,11 +18,6 @@ import { AppUtilFunctions } from "../../providers/utilfuns"; //
 import { UsersProviders } from "../../providers/users";
 import { Camera, CameraOptions } from "@ionic-native/camera";
 import { FilePath } from "@ionic-native/file-path";
-import {
-  FileTransfer,
-  FileUploadOptions,
-  FileTransferObject
-} from "@ionic-native/file-transfer";
 import { File } from "@ionic-native/file";
 import { AppstorageProvider } from "../../providers/appstorage/appstorage";
 import { UserData } from "../../providers/types/interface";
@@ -54,7 +49,6 @@ export class SignupPage {
     public platform: Platform,
     public file: File,
     public filePath: FilePath,
-    public transfer: FileTransfer,
     public toastCtrl: ToastController,
     public appStorage: AppstorageProvider,
     public events: Events
@@ -128,7 +122,7 @@ export class SignupPage {
           if (res.id) {
             this.appUtils.AppToast("تم التسجيل بنجاح");
             await this.appStorage.saveUserData(res);
-            this.events.publish("changeRoot", "LoginPage");
+            //this.events.publish("changeRoot", "LoginPage");
             this.events.publish("refreshStorage");
             this.navCtrl.setRoot("LoginPage");
           } else {
@@ -144,7 +138,6 @@ export class SignupPage {
         },
         err => {
           this.loader = false;
-          this.signupForm.get("role").setValue("user");
           console.warn(err);
           this.appUtils.AppToast("خطأ فى الخادم");
         },

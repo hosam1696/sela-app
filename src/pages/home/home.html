@@ -22,7 +22,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content class="md" no-padding>
+<ion-content no-padding>
   <section class="notifications" [hidden]="hideNotification" clickOutside (clickOutsideEvent)="fireEvent()">
     <ion-list no-lines>
       <!-- Notification is Static for now-->
@@ -153,7 +153,7 @@
             <p>{{restaurant.title}}</p>
             <p class="est-loc">
               <ion-icon name="pin" color="primary"></ion-icon>
-              {{restaurant.distance | number}} متر
+                {{restaurant.distance | number:'.0-0'}} متر
             </p>
           </div>
         </ion-item>

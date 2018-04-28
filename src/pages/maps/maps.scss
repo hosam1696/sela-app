@@ -19,6 +19,15 @@ page-maps {
       transition: right 0.3s ease;
       ion-slide {
         width: 100vw !important;
+        &:nth-of-type(1) {
+          border-left: 1px solid #eee;
+          background-color: #fcfcfc;
+        }
+        &:nth-of-type(3) {
+          border-right: 1px solid #eee;
+          background-color: #fcfcfc;
+        }
+
         .slide-zoom {
           height: 100%;
         }
@@ -56,14 +65,14 @@ page-maps {
             align-items: center;
 
             p {
-              margin: 0 !important;
+              margin: 5px 0 !important;
               &.order-dest {
                 display: inline-block;
                 /* margin: 0 auto !important; */
-                background-color: #c4c7c7;
+                background-color: #bdbdbd;
                 color: #fff;
                 font-weight: bold;
-                padding: 2px;
+                padding: 2px 5px;
                 border-radius: 5px;
                 margin-bottom: 5px !important;
               }
@@ -81,11 +90,15 @@ page-maps {
           border-bottom: 1px solid #eee;
           padding: 4px 8px;
           //flex:1;
+          &.no-border {
+            border: none;
+            padding: 8px;
+          }
           img {
             width: 60px;
             height: 60px;
             border-radius: 50%;
-            background-color: #eee;
+            //background-color: #eee;
             border: 2px solid $primary;
           }
           .deligate-info {

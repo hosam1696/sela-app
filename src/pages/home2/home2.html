@@ -1,0 +1,35 @@
+<!-- 
+  Home Page for Delegator User 
+-->
+
+<img class="stacked-img-header" src="assets/imgs/logo-head.png" width="86" alt="">
+<ion-header no-border>
+  <ion-navbar color="primary" class="header-bg">
+    <button ion-button menuToggle>
+      <ion-icon name="md-list"></ion-icon>
+    </button>
+
+    <button ion-button icon-only clear (click)="hideNotification=!hideNotification;notificationIsOpen=!hideNotification">
+      <ion-icon class="bill-icon" name="notifications"></ion-icon>
+    </button>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="openPage('MapsPage')">
+        <ion-icon name="locate"></ion-icon>
+      </button>
+      <button ion-button icon-only class="cart-button" (click)="openPage('CartPage')">
+        <ion-icon name="cart">
+          <!--<ion-badge color="secondary">0</ion-badge>-->
+        </ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content no-padding>
+  <section class="hero">
+    <img class="hero-img" src="assets/imgs/hero-img.png" alt="">
+  </section>
+  <p text-center>
+    الصفحة الرئيسية الخاصة بالمندوب
+  </p>
+</ion-content>

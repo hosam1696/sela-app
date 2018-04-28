@@ -26,6 +26,10 @@ export class UsersProviders {
     return this.api.post('edituser', userData);
   }
 
+  getDeligators() {
+    return this.api.get('deligators/lat/31.0154/lng/21.546554')
+  }
+
   contactAdmins(contactData: any, endpoint:string) {
     return this.api.post(endpoint, contactData)
   }

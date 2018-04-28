@@ -22,3 +22,8 @@ export enum orderStatus {
   delivered,
   cancelled
 }
+
+export enum UserHome {
+  'user' = 'HomePage',
+  'branch' = 'Home2Page'
+}

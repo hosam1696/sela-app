@@ -24,7 +24,13 @@ import { OrdersProvider } from '../providers/orders/orders';
 import {UsersProviders} from "../providers/users";
 import {Firebase} from "@ionic-native/firebase";
 import {FcmProvider} from "../providers/fcm/fcm.provider";
+import {AngularFirestoreModule} from "angularfire2/firestore";
+import {AngularFireModule, FirebaseAppConfig} from "angularfire2";
 
+const firebaseinit:FirebaseAppConfig = {
+  apiKey: 'AIzaSyB81z_X21CPaxUprsoJdDtds71yhhwfE9w',
+  projectId: 'sellah-82474'
+};
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -49,7 +55,9 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    FormsModule
+    FormsModule,
+    AngularFirestoreModule,
+    AngularFireModule.initializeApp(firebaseinit)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
