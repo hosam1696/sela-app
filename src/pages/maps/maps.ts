@@ -56,7 +56,11 @@ export class MapsPage {
     return this.geolocation
       .getCurrentPosition()
       //TODO: may change the output to object {lat:-, ln:-}
-      .then((data: Geoposition) => this.userlatlng = [data.coords.latitude, data.coords.longitude])
+      .then((data: Geoposition) => this.userlatlng = ({ lat: data.coords.latitude, lng: data.coords.longitude }))
+      .then(geo => {
+        console.log('user geo', geo);
+        return geo;
+      })
   }
 
   public loadMap(latlng:LatLng = [-34.9290, 138.6010]): void {
@@ -97,7 +101,7 @@ export class MapsPage {
       ]
     },
       request = {
-        location: { lat: this.userlatlng[0], lng: this.userlatlng[1] },
+        location: this.userlatlng,
         radius: 500,
         type: 'restaurant' // types of places we want to search for
       };
@@ -109,7 +113,7 @@ export class MapsPage {
     this.loader = false;
 
     // search places
-    if (!this.initMap) {
+    if (!this.initMap) { // if user do not selected ant restaurant
       let service = new google.maps.places.PlacesService(this.map);
       service.nearbySearch(request, (results, status) => {
         console.log(results);

@@ -31,8 +31,7 @@ export class MyApp {
               public alertCtrl: AlertController,
               public appStorage: AppstorageProvider,
               public userProvider: UsersProviders,
-              public fcm: FcmProvider,
-              public toastCtrl: ToastController
+              public fcm: FcmProvider
   ) {
     this.initializeApp();
     //this.appStorage.clearEntries()
@@ -117,19 +116,7 @@ export class MyApp {
   }
 
   private handleDeviceNotifications() {
-// Get a FCM token
-    this.fcm.getToken()
 
-    this.fcm.listenToNotifications().pipe(
-      tap(msg => {
-        const toast = this.toastCtrl.create({
-          message: msg.body,
-          duration: 3000
-        });
-        toast.present();
-      })
-    )
-      .subscribe()
   }
     /*
       // Get Device Token

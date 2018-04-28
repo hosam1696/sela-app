@@ -256,7 +256,7 @@ export class SignupPage {
         return Promise.resolve([imageData, extension]);
       })
       .then(data => {
-        this.uploadImage(data[0], data[1]);
+        //this.uploadImage(data[0], data[1]);
       })
       .catch(err => {
         console.error("getPicture Error ", err);
@@ -270,7 +270,7 @@ export class SignupPage {
   //     newFileName = n + ".jpg";
   //   return newFileName;
   // }
-
+/*
   private uploadImage(file, type) {
     file = file.indexOf("?") != -1 ? file.split("?")[0] : file;
 
@@ -326,7 +326,7 @@ export class SignupPage {
           }
         }
       );
-  }
+  }*/
 
   public showToast(msg: string): void {
     let toast = this.toastCtrl.create({

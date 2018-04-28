@@ -22,6 +22,7 @@ export class RequestOrderPage {
   userLocation: any;
   rating: number;
   loader: boolean = false;
+  disableBtns: boolean = false;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public appStorage: AppstorageProvider,
@@ -69,17 +70,17 @@ export class RequestOrderPage {
     }
 
     console.log('order', orderObject);
-    this.loader = true;
+    [this.loader, this.disableBtns] = Array(2).fill(true);
     this.ordersProvider.requestOrder(orderObject)
     .subscribe(data => {
       console.log(data);
       if (data.id) {
-        this.loader = false;
+        [this.loader, this.disableBtns] = Array(2).fill(false);
         this.navCtrl.push('DeliverystatusPage', {order: data});
       }
     },()=>{
 
-      this.loader = false;
+      [this.loader, this.disableBtns] = Array(2).fill(false);
       this.appUtils.AppToast('DEV: Token Validation')
       // hardcoded solution for expired token
       this.userProvider.refrehToken(this.token)

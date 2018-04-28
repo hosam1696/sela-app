@@ -7,11 +7,18 @@
 
 
 
-<ion-content padding>
+<ion-content no-padding>
   <section margin-top text-center >
     <ion-chip class="page-title">
       <ion-icon name="basket"></ion-icon>
       <ion-label>تتبع الطلب</ion-label>
     </ion-chip>
   </section>
+
+  <section #map id="map"></section>
+
+  <!--test only-->
+  <p text-center>
+    <button ion-button (click)="openModal()">تقييم</button>
+  </p>
 </ion-content>

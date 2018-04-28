@@ -36,7 +36,6 @@ export class ProfilePage {
     public events: Events,
     public userProvider: UsersProviders,
     public appUtils: AppUtilFunctions,
-    public modalCtrl: ModalController
   ) {}
 
   async ionViewDidLoad() {
@@ -112,8 +111,5 @@ export class ProfilePage {
     this.events.publish('userLogout')
   }
 
-  public openModal() {
-    let modal = this.modalCtrl.create('FeedbacksPage', {localUser: this.localUser, token: this.token});
-    modal.present()
-  }
+
 }

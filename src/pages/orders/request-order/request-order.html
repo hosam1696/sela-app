@@ -37,11 +37,13 @@
 </ion-content>
 
 <ion-footer class="page-footer">
-  <button ion-button color="danger" no-margin (click)="requestOrder('rapid')">
+<button ion-button color="danger" no-margin (click)="requestOrder('rapid')" [disabled]="disableBtns">
+
     <ion-icon name="ios-thunderstorm"></ion-icon>
     <p>توصيل سريع</p>
   </button>
-  <button ion-button color="secondary" no-margin (click)="requestOrder('normal')">
+<button ion-button color="secondary" no-margin (click)="requestOrder('normal')" [disabled]="disableBtns">
+
     <ion-icon name="md-car"></ion-icon>
     <p>توصيل عادى</p>
   </button>

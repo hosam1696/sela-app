@@ -66,13 +66,14 @@ page-maps {
 
             p {
               margin: 5px 0 !important;
+              line-height: 1; 
               &.order-dest {
                 display: inline-block;
                 /* margin: 0 auto !important; */
                 background-color: #bdbdbd;
                 color: #fff;
                 font-weight: bold;
-                padding: 2px 5px;
+                padding: 7px 5px;
                 border-radius: 5px;
                 margin-bottom: 5px !important;
               }
@@ -107,6 +108,14 @@ page-maps {
             justify-content: center;
             flex-direction: column;
             padding: 0 12px;
+            p {
+              &.rating {
+                display: flex;
+                rating {
+                  margin: 0 6px;
+                }
+              }
+            }
           }
           p {
             margin: 0;
