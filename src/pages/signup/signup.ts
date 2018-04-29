@@ -77,7 +77,8 @@ export class SignupPage {
       agreeCondition: [false, Validators.required],
       vehicle: [""],
       c_code: ["966"],
-      location:['']
+      lat:[''],
+      lng:['']
     });
   }
 
@@ -91,7 +92,7 @@ export class SignupPage {
     } else if (this.signupForm.controls.email.hasError("required")) {
       this.appUtils.AppToast("ﻳﺮﺟﻰ ﺇﺩﺧﺎﻝ اﻟﺒﺮﻳﺪ اﻹﻟﻜﺘﺮﻭﻧﻲ");
     } else if (this.signupForm.controls.email.hasError("pattern")) {
-      this.appUtils.AppToast("ﻳﺮﺟﻰ ﺇﺩﺧﺎﻝ اﻟﺒﺮﻳﺪ اﻹﻟﻜﺘﺮﻭﻧﻲ ﺑﺸﻜﻞ ﺻﺤﻴﺢ");
+      this.appUtils.AppToast("ﻳﺮﺟﻰ ﺇﺩﺧﺎﻝ ﺒﺮﻳﺪ اﻹﻟﻜﺘﺮﻭﻧﻲ ﺻﺤﻴﺢ");
     } else if (this.signupForm.controls.address.hasError("required")) {
       this.appUtils.AppToast("يرجى إدخال العنوان  ");
     } else if (this.signupForm.controls.password.hasError("required")) {
@@ -340,7 +341,10 @@ export class SignupPage {
   public getLocation() {
     return this.geolocation
       .getCurrentPosition()
-      .then((data: Geoposition) => this.signupForm.get('location').setValue(JSON.stringify({ lat: data.coords.latitude, lng: data.coords.longitude })))
+      .then((data: Geoposition) => {
+        this.signupForm.get('lat').setValue(data.coords.latitude);
+        this.signupForm.get('lng').setValue(data.coords.longitude);
+      })
       .then(d => {
         console.log(d);
         console.log(this.signupForm.value);
