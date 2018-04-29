@@ -31,18 +31,21 @@
       <div class="delegate-pic">
         <img src="assets/imgs/profile-alt.png" width="60" alt="">
         <div class="deligate-info">
-          <p>اسم المندوب</p>
+          <p *ngIf="orderDestination.delegate">{{orderDestination.delegate.name}}</p>
+          <p *ngIf="!orderDestination.delegate">اسم المندوب</p>
           <rating [(ngModel)]="defaultRating" readOnly="true" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star" nullable="false"></rating>
         </div>
       </div>
       <div class="deligate-contact">
         <p>
           <ion-icon name="call"></ion-icon>
-          <span>01201914918</span>
+        <span *ngIf="orderDestination.delegate">{{orderDestination.delegate.phone}}</span>
+        <span *ngIf="!orderDestination.delegate">٩٦٦٤٤٤٥٤٤</span>
         </p>
         <p>
           <ion-icon name="mail"></ion-icon>
-          <span>hosamelnabawy@gmail.com</span>
+          <span *ngIf="orderDestination.delegate">{{orderDestination.delegate.email}}</span>
+          <span *ngIf="!orderDestination.delegate">freedoom021@gmail.com</span>
         </p>
       </div>
     </ion-slide>
@@ -50,7 +53,8 @@
       <div class="anim-gr"><p></p></div>
       <div class="slide-sec">
         <p class="order-dest block-dest-title">المندوب</p>
-        <p class="block-dest-name">{{'لم يتم التحديد'||orderDestination.deligator}}</p>
+        <p class="block-dest-title" *ngIf="orderDestination.delegate">{{orderDestination.delegate.name}}</p>
+        <p class="block-dest-name block-dest-title" *ngIf="!orderDestination.delegate">لم يتم التحديد</p>
       </div>
       <p>
         <ion-icon name="ios-rewind"color="primary"></ion-icon>
@@ -75,13 +79,13 @@
           </p>
           <p *ngIf="orderDestination.restaurant" class="block-dest-address">العنوان: <b>{{restaurantAddress}}</b></p>
           <p class="rating" *ngIf="orderDestination.restaurant">
-            التقييم: 
+            التقييم:
             <rating dir="rtl" [(ngModel)]="orderDestination.restaurant.rating||defaultRating" readOnly="true" max="5" emptyStarIconName="star-outline"
               halfStarIconName="star-half" starIconName="star" nullable="false"></rating>
           </p>
           </div>
       </div>
-      
+
     </ion-slide>
   </ion-slides>
 

@@ -100,16 +100,16 @@
         </ion-item>
         <!-- Real Data From Data base -->
         <ion-item margin-bottom *ngFor="let restaurant of nearbyRestaurants?.featured;trackBy: trackByFn"
-                  (click)="openPage('MapsPage', {pageData:{lat:restaurant.lat,lng:restaurant.lng}})">
+                  (click)="openPage('MapsPage', {pageData:restaurant})">
           <ion-avatar>
             <img src="assets/imgs/rest-alt.png" alt="">
           </ion-avatar>
           <div class="result-actions">
-            <p>مطعم </p>
+            <p>{{restaurant.title}} </p>
             <p [hidden]="!restaurant.address">{{restaurant.address}}</p>
             <p class="est-loc">
               <ion-icon name="pin" color="primary"></ion-icon>
-              ٥٠ كلم
+              {{restaurant.distance | number:'.0-0'}} متر
             </p>
           </div>
         </ion-item>

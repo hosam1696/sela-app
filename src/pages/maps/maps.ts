@@ -3,6 +3,7 @@ import { NavParams, IonicPage, NavController } from 'ionic-angular';
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
 import { Place } from './place.model';
 import { PlaceNearMap } from '../../providers/types/interface';
+import {AreasProvider} from "../../providers/areas/areas";
 
 declare let google;
 type LatLng = [number, number]|{lat:number,lng:number};
@@ -11,7 +12,7 @@ type LatLng = [number, number]|{lat:number,lng:number};
   selector: 'page-maps',
   templateUrl: 'maps.html',
 })
-  
+
 export class MapsPage {
   @ViewChild('map') mapElement: ElementRef;
   map: google.maps.Map;
@@ -23,7 +24,7 @@ export class MapsPage {
   defaultRating: number = 4; // default rating value
   orderDestination = {
     restaurant: undefined,
-    deligator: undefined
+    delegate: undefined
   };
   orderInfoOpen: boolean = false;
   infoWindow: any;
@@ -32,24 +33,39 @@ export class MapsPage {
   nearbyDeligators: any[];
   constructor(public navCtrl: NavController,
     public geolocation: Geolocation,
+    public areasProvider: AreasProvider,
     public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     this.initMap = this.navParams.get('pageData');
-    console.log('Restaurant Location', this.initMap)
+    console.log('Restaurant Location', this.initMap);
     this.userlatlng = this.navParams.get('userLocation');
     console.log('maps params user location', this.userlatlng);
 
     if (this.userlatlng) {
       this.loadMap(this.userlatlng);
+      this.getNearestDelegates([(<any>this.userlatlng).lat,(<any>this.userlatlng).lng])
     } else {
       this.getUserLocation()
         .then((latlng) => {
           this.loadMap(latlng);
+          this.getNearestDelegates([(<any>latlng).lat,(<any>latlng).lng])
         })
     }
 
+  }
+  private getNearestDelegates(userlatlng) {
+    this.areasProvider.getNearestDelegates(userlatlng)
+      .subscribe(data=>{
+        console.log('nearest branch',data);
+        let delegate = {...data.branch, location :{lat:Number(data.branch.lat), lng: Number(data.branch.lng)}, type: 'user',title: data.branch.name, vicinity: data.branch.address};
+          //new Place(data.id,{lat:data.lat, lng:data.lng}, data.name, 'user' /* make it user icon for now */, data.address, data.rating||this.defaultRating );/*init a default rating*/
+        this.mapPlaces.push(delegate);
+        this.orderDestination.delegate = delegate;
+        this.makeMarker(delegate);
+        console.log(this.orderDestination);
+      })
   }
 
   public getUserLocation() {
@@ -149,54 +165,55 @@ export class MapsPage {
     }
 
 
-    // make markers
-    let makeMarker = (place: Place) => {
-
-      latLng = !Array.isArray(place.location) ? place.location : new google.maps.LatLng(...place.location); // Cairo;
-      console.log('marker location', latLng);
-      let marker = new google.maps.Marker({
-        position: latLng,
-        map: this.map,
-        animation: google.maps.Animation.DROP,
-        icon: 'assets/imgs/' + place.type + '-pin.png',
-        title: place.title
-      });
-      this.appMarkers.push(marker);
-      marker.addListener('click', () => {
-        debounce(marker);
-        console.log('marker clicked', marker, place);
-        let htmlContent = `
-                <b>&nbsp;&nbsp;  ${place.title}</b><br>
-                ${place.vicinity.split(',').join('<br>')}
-              `;
-        this.infoWindow.setContent(htmlContent);
-        this.infoWindow.open(this.map, marker);
-        this.setRestaurant(place);
-      });
-
-      function debounce(marker) {
-        if (marker.getAnimation() !== null) {
-          marker.setAnimation(null);
-        } else {
-          marker.setAnimation(google.maps.Animation.BOUNCE);
-          setTimeout(() => {
-            marker.setAnimation(null);
-          }, 850)
-        }
-      }
-      marker.setMap(this.map);
-    };
 
     this.mapPlaces.push(new Place(0, this.userlatlng, 'موقعى', 'user'));
     if (this.initMap) {
-      this.mapPlaces.push(new Place(this.initMap.id,this.initMap.location, this.initMap.title, 'res', this.initMap.address, this.initMap.rating))
+      this.mapPlaces.push(new Place(this.initMap.id,this.initMap.location, this.initMap.title, 'res', this.initMap.address, this.initMap.rating));
       this.setRestaurant(this.initMap);
     }
     console.log(this.mapPlaces);
     this.mapPlaces.forEach(place => {
-      makeMarker(place)
+      this.makeMarker(place, this.map)
     });
 
+  }
+
+  // make markers
+  private makeMarker (place: Place, map = this.map)  {
+
+    let latLng = !Array.isArray(place.location) ? place.location : new google.maps.LatLng(...place.location); // Cairo;
+    console.log('marker location', latLng);
+    let marker = new google.maps.Marker({
+      position: latLng,
+      map: map,
+      animation: google.maps.Animation.DROP,
+      icon: 'assets/imgs/' + place.type + '-pin.png',
+      title: place.title
+    });
+    this.appMarkers.push(marker);
+    marker.addListener('click', () => {
+      debounce(marker);
+      console.log('marker clicked', marker, place);
+      let htmlContent = `
+                <b>&nbsp;&nbsp;  ${place.title}</b><br>
+                ${place.vicinity.split(',').join('<br>')}
+              `;
+      this.infoWindow.setContent(htmlContent);
+      this.infoWindow.open(this.map, marker);
+      this.setRestaurant(place);
+    });
+
+    function debounce(marker) {
+      if (marker.getAnimation() !== null) {
+        marker.setAnimation(null);
+      } else {
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+        setTimeout(() => {
+          marker.setAnimation(null);
+        }, 850)
+      }
+    }
+    marker.setMap(this.map);
   }
 
   openPage(page: string, params: any = {}) {

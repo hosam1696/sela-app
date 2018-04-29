@@ -125,6 +125,7 @@ export class HomePage {
           //TODO: remove the featured array and chenck the response
           data.lat = Number(data.lat);
           data.lng = Number(data.lng);
+          data = this.makePlace(data);
           this.nearbyRestaurants.featured = Array.isArray(data) ? data : [data];
         });
       // Get restaurants from Google Maps

@@ -61,12 +61,13 @@ export class RequestOrderPage {
       //address: this.orderDistination.restaurant.address,
       //user_location: this.userLocation,
       token: this.token,
+      delegate_id: this.orderDistination.delegate.id
       //total: orderType[type]?100:50
     };
     if (typeof this.orderDistination.restaurant.id == 'number') {
-      orderObject['branch_id'] = this.orderDistination.restaurant.id
+      orderObject['branch_id'] = this.orderDistination.restaurant.id // send the id of a restaurant from db
     } else {
-      orderObject['place_id'] = this.orderDistination.restaurant.id
+      orderObject['place_id'] = this.orderDistination.restaurant.id // the restaurant is from google API
     }
 
     console.log('order', orderObject);

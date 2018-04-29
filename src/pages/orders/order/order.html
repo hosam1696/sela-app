@@ -20,7 +20,7 @@
   <p text-center margin [hidden]="order&&order.user_id">
     <ion-spinner></ion-spinner>
   </p>
-  <div class="order-details">
+  <div class="order-details" *ngIf="order&&order.user_id">
     <div class="form-group">
       <label>
          نص الطلبية
