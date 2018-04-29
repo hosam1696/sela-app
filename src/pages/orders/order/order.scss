@@ -6,6 +6,51 @@ page-order {
         width: 100px;
       }
     }
+    .order-details {
+      margin-top: 10px;
+      .form-group {
+        display: flex;
+        background: #fff;
+        border-radius: 10px;
+        color: #696969;
+        padding: 6px;
+        margin-bottom: 10px;
+        &.mobile-group {
+          align-items: center;
+          height: 36px;
+          input {
+            direction: ltr !important;
+            padding-left: 6px;
+            font-weight: bold;
+            border: none
+          }
+          span {
+            order: 3;
+            direction: ltr;
+          }
+        }
+        label {
+          width: 35%;
+          position: relative;
+          &:after {
+            content: ':';
+            position: absolute;
+            left: 8px;
+            top: 0;
+          }
+        }
+        ion-input {
+          input {
+            margin: 0 !important;
+            font-weight: bold;
+          }
+        }
+        p {
+          margin: 0
+        }
+      }
+    }
+
     .order-track-btn {
       button {
         border-radius: 10px;

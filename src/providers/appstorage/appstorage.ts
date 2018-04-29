@@ -22,6 +22,19 @@ export class AppstorageProvider {
     this._USER_DATA = await this.storage.set('localUserInfo', userData);
     return this._USER_DATA
   }
+
+  public async registerUserInStorage(userData: UserData) {
+    let user = await this.saveUserData(userData);
+    let userLogged = await this.userLogged(false);
+    return user;
+  }
+
+  public async loginUserInStorage(userData: UserData, token: string) {
+    let user = await this.saveUserData(userData);
+    let userLogged = await this.userLogged(true);
+    let userToken = await this.saveToken(token);
+    return user;
+  }
   public async getUserData():Promise<UserData> {
     return this._USER_DATA = await this.storage.get('localUserInfo')
   }
@@ -30,6 +43,12 @@ export class AppstorageProvider {
     return this.storage.get('TOKEN');
   }
 
+  public userLogged(userLogStatus: boolean) {
+    return this.storage.set('userLogged', userLogStatus)
+  }
+  public get userLogStatus() {
+    return this.storage.get('userLogged');
+  }
   public saveLocation(location) {
     return this.storage.set('userLocation', location)
   }

@@ -20,58 +20,48 @@
   <p text-center margin [hidden]="order&&order.user_id">
     <ion-spinner></ion-spinner>
   </p>
-  <ion-list margin-top *ngIf="order&&order.user_id">
-    <ion-item>
-      <ion-label>
-        نص الطلبية
-      </ion-label>
-      <ion-label>
-        {{order.notes}}
-      </ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>
-        سعر الطلبية
-      </ion-label>
-      <ion-label>
-        {{order.total}} ريال
-      </ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>
-        سرعة الطلبية
-      </ion-label>
-      <ion-label>
-        {{order.type | translate}}
-      </ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>
+  <div class="order-details">
+    <div class="form-group">
+      <label>
+         نص الطلبية
+      </label>
+      <p>{{order.notes}}</p>
+    </div>
+    <div class="form-group">
+      <label>
+         سعر الطلبية
+      </label>
+      <p>{{order.total}} ريال</p>
+    </div>
+    <div class="form-group">
+      <label>
+         سرعة الطلبية
+      </label>
+      <p>{{order.type | translate}}</p>
+    </div>
+    <div class="form-group">
+      <label>
         طريقة الدفع
-      </ion-label>
-      <ion-label>
-        {{order.payment_option | translate}}
-      </ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>
-        المندوب
-      </ion-label>
-      <ion-label>
-        اسم المندوب
-      </ion-label>
-    </ion-item>
-    <ion-item margin-top>
-      <ion-label>
+      </label>
+      <p>
+         {{order.payment_option | translate}}
+      </p>
+    </div>
+    <div class="form-group">
+      <label>
+         المندوب
+      </label>
+      <p>اسم المندوب</p>
+    </div>
+    <div margin-top class="form-group">
+      <label>
         حالة الطلبية
-      </ion-label>
-      <ion-label>
-        {{order.status==2?'تم الالغاء':(order.status == 1?'تم التسليم':'فى مرحلة الاعداد')}}
-      </ion-label>
-    </ion-item>
-  </ion-list>
+      </label>
+      <p>{{order.status==2?'تم الالغاء':(order.status == 1?'تم التسليم':'فى مرحلة الاعداد')}}</p>
+    </div>
+  </div>
 
   <p text-center class="order-track-btn" *ngIf="order&&order.user_id">
-    <button ion-button (click)="openPage('TrackorderPage')" color="secondary" disabled>تتبع الطلب</button>
+    <button ion-button (click)="openPage('TrackorderPage')" color="secondary" >تتبع الطلب</button>
   </p>
  </ion-content>

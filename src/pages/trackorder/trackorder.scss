@@ -11,9 +11,16 @@ page-trackorder {
       height: 60vh;
       width: 100%;
       margin: 2rem 0;
-          border-bottom: 10px solid #e8e8e8;
-          border-top: 10px solid #e8e8e8;
+          border-bottom: 10px solid $primary;// #e8e8e8;
+          border-top: 10px solid $primary;//#e8e8e8;
 
     }
+    .review-btn {
+      button {
+        border-radius: 10px;
+        padding: 2rem 3.5rem;
+      }
+    }
+
   }
 }

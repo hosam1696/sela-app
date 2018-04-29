@@ -14,7 +14,7 @@ type LatLng = [number, number]|{lat:number,lng:number};
   
 export class MapsPage {
   @ViewChild('map') mapElement: ElementRef;
-  map: any;
+  map: google.maps.Map;
   appMarkers: any[] = [];
   mapPlaces: Place[] = [];
   userlatlng: LatLng;

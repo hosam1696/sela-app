@@ -55,6 +55,13 @@
     <div class="form-group">
       <input type="text" placeholder="العنوان" formControlName="address" autocomplete="true" name="form_address">
     </div>
+    <div class="form-group location-group" (click)="getLocation()" [hidden]="signupForm.getRawValue()['role'] == 'user'">
+      <div>
+        <span>الموقع الحالى</span>
+        <ion-icon name="checkmark-circle" [color]="signupForm.getRawValue()['location']?'secure':'light'"></ion-icon>
+      </div>
+      <input hidden type="text" placeholder="الموقع الحالى" formControlName="location" autocomplete="true">
+    </div>
     <div class="form-group">
       <input type="password" placeholder="كلمة المرور" formControlName="password" autocomplete="false">
     </div>

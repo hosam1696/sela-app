@@ -76,8 +76,7 @@ export class LoginPage {
               console.log('get user data from view user',data); // TODO: DEV Only reminder to be removed
               self.loader = false;
               if (data.id) {
-                this.appStorage.saveToken(res.token);
-                this.appStorage.saveUserData(data).then(() => {
+                this.appStorage.loginUserInStorage(data, res.token).then(() => {
                   this.events.publish("refreshStorage");
                   this.events.publish("changeRoot", UserHome[data.role]);
                 });

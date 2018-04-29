@@ -21,7 +21,7 @@ import { FilePath } from "@ionic-native/file-path";
 import { File } from "@ionic-native/file";
 import { AppstorageProvider } from "../../providers/appstorage/appstorage";
 import { UserData } from "../../providers/types/interface";
-
+import { Geolocation, Geoposition } from '@ionic-native/geolocation';
 @IonicPage()
 @Component({
   selector: "page-signup",
@@ -36,6 +36,7 @@ export class SignupPage {
   formMasks: any = {
     mobile: [/\d/, /\d/, /\d/, " ", /\d/, /\d/, /\d/, " ", /\d/, /\d/, /\d/]
   };
+  location: any;
 
   constructor(
     public navCtrl: NavController,
@@ -51,7 +52,8 @@ export class SignupPage {
     public filePath: FilePath,
     public toastCtrl: ToastController,
     public appStorage: AppstorageProvider,
-    public events: Events
+    public events: Events,
+    public geolocation: Geolocation
   ) {
     this.signupForm = this.formBuilder.group({
       role: ["user", Validators.required],
@@ -64,9 +66,7 @@ export class SignupPage {
         "",
         [Validators.required, Validators.pattern(this.Vari.EMAIL_REGEXP)]
       ],
-      phone: [
-        "",
-        [
+      phone: ["",[
           Validators.required,
           Validators.pattern(this.Vari.NUMBER_REGXP),
           Validators.minLength(9),
@@ -76,7 +76,8 @@ export class SignupPage {
       address: ["", Validators.required],
       agreeCondition: [false, Validators.required],
       vehicle: [""],
-      c_code: ["966"]
+      c_code: ["966"],
+      location:['']
     });
   }
 
@@ -120,9 +121,9 @@ export class SignupPage {
           console.log('Register Response',res); //TODO: reminder to remove this line
           this.loader = false;
           if (res.id) {
+            await this.appStorage.clearEntries();
             this.appUtils.AppToast("تم التسجيل بنجاح");
-            await this.appStorage.saveUserData(res);
-            //this.events.publish("changeRoot", "LoginPage");
+            await this.appStorage.registerUserInStorage(res);
             this.events.publish("refreshStorage");
             this.navCtrl.setRoot("LoginPage");
           } else {
@@ -335,5 +336,14 @@ export class SignupPage {
       position: "top"
     });
     toast.present();
+  }
+  public getLocation() {
+    return this.geolocation
+      .getCurrentPosition()
+      .then((data: Geoposition) => this.signupForm.get('location').setValue(JSON.stringify({ lat: data.coords.latitude, lng: data.coords.longitude })))
+      .then(d => {
+        console.log(d);
+        console.log(this.signupForm.value);
+      })
   }
 }

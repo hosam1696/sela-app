@@ -1,14 +1,14 @@
 page-feedbacks {
   ion-content {
     &.content {
-      background-color: rgba(0,0,0,0.2) !important;
+      background-color: rgba(0,0,0,0.4) !important;
     }
     .close-btn {
       position: absolute;
       left:0;
       top: 0;
       ion-icon {
-        color: rgb(139, 139, 139) !important;
+        color: rgb(85, 84, 84) !important;
       }
     }
     .rating {

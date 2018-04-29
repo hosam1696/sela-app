@@ -56,7 +56,15 @@ export class MyApp {
     this.platform.ready()
       .then(() => {
 
-      this.appStorage.getUserData()
+        this.appStorage.userLogStatus
+          .then(logStatus => {
+            console.log('logging status', logStatus);
+            if (logStatus) {
+              return this.appStorage.getUserData()
+            } else {
+              this.rootPage = 'LoginPage';
+            }
+          })
         .then((data: UserData) => {
           console.log('App component',data);
           this.rootPage = data.id ? UserHome[data.role] : 'LoginPage'
