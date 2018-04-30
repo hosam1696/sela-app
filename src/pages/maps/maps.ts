@@ -2,8 +2,8 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { NavParams, IonicPage, NavController } from 'ionic-angular';
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
 import { Place } from './place.model';
-import { PlaceNearMap } from '../../providers/types/interface';
 import {AreasProvider} from "../../providers/areas/areas";
+import { AppUtilFunctions } from '../../providers/utilfuns';
 
 declare let google;
 type LatLng = [number, number]|{lat:number,lng:number};
@@ -15,7 +15,7 @@ type LatLng = [number, number]|{lat:number,lng:number};
 
 export class MapsPage {
   @ViewChild('map') mapElement: ElementRef;
-  map: google.maps.Map;
+  map: any;
   appMarkers: any[] = [];
   mapPlaces: Place[] = [];
   userlatlng: LatLng;
@@ -34,6 +34,7 @@ export class MapsPage {
   constructor(public navCtrl: NavController,
     public geolocation: Geolocation,
     public areasProvider: AreasProvider,
+    public appUtils: AppUtilFunctions,
     public navParams: NavParams) {
   }
 
@@ -59,7 +60,7 @@ export class MapsPage {
     this.areasProvider.getNearestDelegates(userlatlng)
       .subscribe(data=>{
         console.log('nearest branch',data);
-        let delegate = {...data.branch, location :{lat:Number(data.branch.lat), lng: Number(data.branch.lng)}, type: 'user',title: data.branch.name, vicinity: data.branch.address};
+        let delegate = { ...data.branch, location: { lat: Number(data.branch.lat), lng: Number(data.branch.lng) }, type: 'user', title: data.branch.name, vicinity: data.branch.name};
           //new Place(data.id,{lat:data.lat, lng:data.lng}, data.name, 'user' /* make it user icon for now */, data.address, data.rating||this.defaultRating );/*init a default rating*/
         this.mapPlaces.push(delegate);
         this.orderDestination.delegate = delegate;
@@ -227,6 +228,16 @@ export class MapsPage {
       this.restaurantAddress = this.orderDestination.restaurant.vicinity || this.orderDestination.restaurant.address
     }
     console.log('Restaurant ', this.orderDestination.restaurant);
+  }
+
+  requestOrder() {
+    if (!this.orderDestination.restaurant) {
+      this.appUtils.AppToast('يرجى اختيار المطعم اولاً',{position:'center'})
+    } else if (!this.orderDestination.delegate) {
+      this.appUtils.AppToast('يرجى اختيار المندوب اولا', { position: 'center' })
+    } else {
+      this.openPage('RequestOrderPage', { pageData: this.orderDestination, userLocation: this.userlatlng })
+    }
   }
 
 }

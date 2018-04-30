@@ -5,11 +5,19 @@
 </ion-header>
 
 <ion-content padding>
+  <p text-center *ngIf="!messages.length">
+    ابدأ المحادثة الان
+  </p>
 
+  <ion-list *ngFor="let message of messages">
+    <ion-item  [@messageState]="state">
+      {{message.content}}
+    </ion-item>
+  </ion-list>
 </ion-content>
 
 <ion-footer>
-    <button ion-button mini icon-only>
+    <button ion-button mini icon-only no-margin (click)="sendMessage()">
         <ion-icon name="send" ></ion-icon>
       </button>
   <ion-input dir="rtl" placeholder="اكتب رسالتك"></ion-input>

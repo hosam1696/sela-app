@@ -23,16 +23,16 @@
   <section margin-top class="ordered-deliverd">
     <ion-icon name="checkmark-circle"></ion-icon>
     <p> تم ارسال طلبيتك بنجاح الى</p>
-    <div class="deligator">
+    <div class="deligator" *ngIf="orderSides&&orderSides.delegate">
         <div class="user-avatar">
           <img src="assets/imgs/profile-alt.png" alt="">
-          <p no-margin>اسم المندوب</p>
+          <p no-margin>{{orderSides.delegate.name}}</p>
         </div>
         <div class="contact">
-          <button ion-button color="secondary" (click)="openPage('ChatPage')">
+          <button ion-button color="secondary" (click)="openPage('ChatPage', {id: orderSides.delegate.id})">
             <ion-icon name="chatbubbles" color="light"></ion-icon>
             مراسلة</button>
-          <button ion-button color="secondary" (click)="dialNumber()">
+          <button ion-button color="secondary" (click)="dialNumber(orderSides.delegate.phone)">
             <ion-icon name="call" color="light"></ion-icon>
             اتصال</button>
         </div>

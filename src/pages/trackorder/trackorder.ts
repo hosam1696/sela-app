@@ -12,7 +12,7 @@ declare let google;
 export class TrackorderPage {
 
   @ViewChild('map') mapElement: ElementRef;
-  map: google.maps.Map;
+  map: any;
   localUser: UserData;
   token: string;
   userlatlng: any;
@@ -89,7 +89,7 @@ export class TrackorderPage {
   }
 
   initMap(userLatlng, deligatorLocation = { lat: 31.0367994, lng:31.366104800000016} ) {
-    
+
     let pointA = new google.maps.LatLng(this.userlatlng.lat, this.userlatlng.lng),
       pointB = new google.maps.LatLng(deligatorLocation.lat, deligatorLocation.lng),
     myOptions = {
@@ -160,6 +160,6 @@ private calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, p
     }
   });
   }
-  
+
 
 }

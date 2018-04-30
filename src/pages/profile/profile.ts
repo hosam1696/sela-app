@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import {
   Events,
-  IonicPage, ModalController,
+  IonicPage,
   NavController,
   NavParams
 } from "ionic-angular";

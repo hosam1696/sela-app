@@ -3,6 +3,7 @@ import { IonicPageModule } from 'ionic-angular';
 import { MapsPage } from './maps';
 import { Ionic2RatingModule} from "ionic2-rating";
 import {AreasProvider} from "../../providers/areas/areas";
+import { AppUtilFunctions } from '../../providers/utilfuns';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import {AreasProvider} from "../../providers/areas/areas";
     Ionic2RatingModule
   ],
   providers: [
-    AreasProvider
+    AreasProvider,
+    AppUtilFunctions
   ]
 })
 export class MapsPageModule {}

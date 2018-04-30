@@ -2,11 +2,9 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { UserData } from '../../../providers/types/interface';
 import { AppstorageProvider } from '../../../providers/appstorage/appstorage';
-import {orderType} from "../../../providers/types/enums";
 import {OrdersProvider} from "../../../providers/orders/orders";
 import { AppUtilFunctions } from '../../../providers/utilfuns';
 import { UsersProviders } from '../../../providers/users';
-
 //type orderType = 'normal' | 'rapid';
 
 @IonicPage()
@@ -28,7 +26,7 @@ export class RequestOrderPage {
     public appStorage: AppstorageProvider,
     public ordersProvider: OrdersProvider,
     public appUtils: AppUtilFunctions,
-    public userProvider: UsersProviders
+    public userProvider: UsersProviders,
   ) {
     this.orderDistination = this.navParams.get('pageData');
     this.userLocation = this.navParams.get('userLocation');
@@ -72,12 +70,18 @@ export class RequestOrderPage {
 
     console.log('order', orderObject);
     [this.loader, this.disableBtns] = Array(2).fill(true);
+    setTimeout(() => {
+      [this.loader, this.disableBtns] = Array(2).fill(false);
+      this.navCtrl.push('DeliverystatusPage', { order: {id: 15, notes: 'sfsdfsdf'}, orderDistination: this.orderDistination });
+
+    }, 2000);
+    /*
     this.ordersProvider.requestOrder(orderObject)
     .subscribe(data => {
       console.log(data);
       if (data.id) {
         [this.loader, this.disableBtns] = Array(2).fill(false);
-        this.navCtrl.push('DeliverystatusPage', {order: data});
+        this.navCtrl.push('DeliverystatusPage', { order: data, orderDistination: this.orderDistination});
       }
     },()=>{
 
@@ -88,11 +92,7 @@ export class RequestOrderPage {
         .subscribe(data=>{
           console.log(data);
         })
-      /*this.userProvider.userLogin({phone: this.localUser.phone, password: '123456'})
-        .subscribe(token=>{
-          this.token = token;
-          this.sendOrder(type);
-        })*/
-    });
+      
+    });*/
   }
 }

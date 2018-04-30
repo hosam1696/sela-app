@@ -4,6 +4,7 @@ import { DeliverystatusPage } from './deliverystatus';
 import { OrdersProvider } from '../../providers/orders/orders';
 import {AppstorageProvider} from "../../providers/appstorage/appstorage";
 import {AppUtilFunctions} from "../../providers/utilfuns";
+import { CallNumber } from '@ionic-native/call-number';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import {AppUtilFunctions} from "../../providers/utilfuns";
   providers: [
     OrdersProvider,
     AppstorageProvider,
-    AppUtilFunctions
+    AppUtilFunctions,
+    CallNumber
   ]
 })
 export class DeliverystatusPageModule {}

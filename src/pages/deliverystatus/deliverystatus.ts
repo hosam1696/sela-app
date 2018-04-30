@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { OrdersProvider } from '../../providers/orders/orders';
 import {AppstorageProvider} from "../../providers/appstorage/appstorage";
 import {AppUtilFunctions} from "../../providers/utilfuns";
+import { CallNumber } from '@ionic-native/call-number';
 
 @IonicPage()
 @Component({
@@ -12,18 +13,21 @@ import {AppUtilFunctions} from "../../providers/utilfuns";
 export class DeliverystatusPage {
   order: any;
   token: string;
+  orderSides: any;
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public orderProvider: OrdersProvider,
               public storageProvider: AppstorageProvider,
-              public appUtils: AppUtilFunctions
+              public appUtils: AppUtilFunctions,
+              public callNumber: CallNumber
             ) {
   }
 
   async ionViewDidLoad() {
     this.order = this.navParams.get('order');
+    this.orderSides = this.navParams.get('orderDistination');
     this.token = await this.storageProvider.getToken();
-    console.log('Order Details ', this.order)
+    console.log('Order Details ', this.order, this.orderSides)
   }
 
   openPage(page: string, params:any = {}) {
@@ -34,8 +38,9 @@ export class DeliverystatusPage {
     }
   }
 
-  dialNumber() {
+  dialNumber(phone:string):void {
     // use call plugin to make phone call
+    this.callNumber.callNumber(phone, true);
   }
 
   cancelOrder() {

@@ -7,6 +7,7 @@ import { Push } from '@ionic-native/push';
 import {FilePath} from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -42,6 +43,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   imports: [
     HttpClientModule,
     BrowserModule,
+    BrowserAnimationsModule,
     IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp,{
       scrollAssist: false,
