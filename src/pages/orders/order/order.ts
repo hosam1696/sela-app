@@ -16,14 +16,17 @@ export class OrderPage {
   orderNumber: number;
   token: string;
   loader: boolean = false;
+  delegateUser: any;
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-    public ordersProvider: OrdersProvider,
+              public ordersProvider: OrdersProvider,
               public appProvider: AppstorageProvider
               ) {
       this.localUser = this.navParams.get('localUser');
       this.orderNumber = this.navParams.get('orderNumber')||1;
-      this.order = this.navParams.get('order');
+    this.order = this.navParams.get('order');
+    this.delegateUser = this.navParams.get('delegate');
+    console.log(this.navParams.data);
   }
 
   async ionViewDidLoad() {
@@ -46,6 +49,7 @@ export class OrderPage {
       .subscribe(data=>{
         console.log('order Data',data);
         this.order = data;
+        this.delegateUser = this.navParams.get('delegate');
       })
   }
 

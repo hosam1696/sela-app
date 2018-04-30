@@ -15,20 +15,21 @@ export class TrackorderPage {
   map: any;
   localUser: UserData;
   token: string;
+  delagateUser: any;
   userlatlng: any;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-
     public modalCtrl: ModalController,
     public geolocation: Geolocation,
     public appStorage: AppstorageProvider, ) {
   }
 
   async ionViewDidLoad() {
-
+    this.delagateUser = this.navParams.get('delegate');
     [this.localUser, this.token] = await Promise.all([this.appStorage.getUserData(), this.appStorage.getToken()]);
     this.getUserLocation();
     //this.initMap();
+    console.log(this.delagateUser);
   }
 
   public openModal() {

@@ -23,8 +23,8 @@ page-deliverystatus {
                 padding-bottom: 2rem;
                 border-bottom: 1px solid #dedede;
                 img {
-                    min-width: 80px;
-                    min-height: 80px;
+                    min-width: 70px;
+                    min-height: 70px;
                     background-color: #ccc;
                     max-width: 80px;
                     border-radius: 50%;
@@ -36,7 +36,9 @@ page-deliverystatus {
                     justify-content: center;
                     button {
                         width: 100%;
-                        background-color: #adadad;
+                        box-shadow: none !important;
+                        border:1px solid #eee;
+                        background-color: #fff;
                         ion-icon {
                             margin-left: 8px;
                         }
@@ -51,6 +53,7 @@ page-deliverystatus {
             button {
                 border-radius: 10px;
                 padding: 2rem 3.5rem;
+                box-shadow: none !important;
               }
           }
     }

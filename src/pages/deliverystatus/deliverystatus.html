@@ -26,14 +26,14 @@
     <div class="deligator" *ngIf="orderSides&&orderSides.delegate">
         <div class="user-avatar">
           <img src="assets/imgs/profile-alt.png" alt="">
-          <p no-margin>{{orderSides.delegate.name}}</p>
+          <p no-margin><b>{{orderSides.delegate.name}}</b></p>
         </div>
         <div class="contact">
-          <button ion-button color="secondary" (click)="openPage('ChatPage', {id: orderSides.delegate.id})">
-            <ion-icon name="chatbubbles" color="light"></ion-icon>
+          <button ion-button color="light" (click)="openPage('ChatPage', {delegate: orderSides.delegate})">
+            <ion-icon name="chatbubbles" color="primary"></ion-icon>
             مراسلة</button>
-          <button ion-button color="secondary" (click)="dialNumber(orderSides.delegate.phone)">
-            <ion-icon name="call" color="light"></ion-icon>
+          <button ion-button color="light" (click)="dialNumber(orderSides.delegate.phone)">
+            <ion-icon name="call" color="primary"></ion-icon>
             اتصال</button>
         </div>
     </div>
@@ -41,7 +41,7 @@
 
   <section class="actions-btns">
     <!-- TODO: change the static data sent to order Page-->
-    <button ion-button (click)="openPage('OrderPage', {orderNumber: 1, order: {id:order.id}})">عرض الطلب</button>
+    <button ion-button (click)="openPage('OrderPage', {orderNumber: 1, order: {id:order.id},deligate:orderSides.delegate})">عرض الطلب</button>
     <button ion-button color="danger" (click)="cancelOrder()">الغاء الطلب</button>
   </section>
 </ion-content>

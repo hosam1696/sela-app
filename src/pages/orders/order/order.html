@@ -47,11 +47,11 @@
          {{order.payment_option | translate}}
       </p>
     </div>
-    <div class="form-group">
+    <div class="form-group" *ngIf="delegateUser">
       <label>
          المندوب
       </label>
-      <p>اسم المندوب</p>
+      <p>{{delegateUser.name}}</p>
     </div>
     <div margin-top class="form-group">
       <label>
@@ -62,6 +62,6 @@
   </div>
 
   <p text-center class="order-track-btn" *ngIf="order&&order.user_id">
-    <button ion-button (click)="openPage('TrackorderPage')" color="secondary" >تتبع الطلب</button>
+    <button ion-button (click)="openPage('TrackorderPage', {delegate:delegateUser})" color="secondary" >تتبع الطلب</button>
   </p>
  </ion-content>

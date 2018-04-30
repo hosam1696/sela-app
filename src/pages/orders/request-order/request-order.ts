@@ -70,12 +70,12 @@ export class RequestOrderPage {
 
     console.log('order', orderObject);
     [this.loader, this.disableBtns] = Array(2).fill(true);
-    setTimeout(() => {
+    /*setTimeout(() => {
       [this.loader, this.disableBtns] = Array(2).fill(false);
       this.navCtrl.push('DeliverystatusPage', { order: {id: 15, notes: 'sfsdfsdf'}, orderDistination: this.orderDistination });
 
-    }, 2000);
-    /*
+    }, 2000);*/
+    
     this.ordersProvider.requestOrder(orderObject)
     .subscribe(data => {
       console.log(data);
@@ -93,6 +93,6 @@ export class RequestOrderPage {
           console.log(data);
         })
       
-    });*/
+    });
   }
 }

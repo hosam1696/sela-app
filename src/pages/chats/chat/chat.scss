@@ -3,12 +3,48 @@ page-chat {
 
     ion-footer {
         display: flex;
+        background-color: #fff;
         ion-input {
             background: #fff
         }
-
+        textarea {
+            box-shadow: none;
+            border: none;
+            width: 100%;
+            padding: 4px 10px;
+        }
         button {
             height: 50px !important;
+            box-shadow: none !important;
+            width: 50px;
+            border-radius: 0 !important
+        }
+    }
+
+    ion-content {
+        ion-list {
+            ion-item {
+                width: 86% !important;
+                border-radius: 10px;
+                border: 1px solid #eee !important;
+                background-color: $primary !important;
+
+                &.receiver {
+                    margin-right: 14%;
+                         background-color: #fff !important;
+
+                         ion-label {
+                             color: #555 !important
+
+                         }
+                        
+                }
+                ion-label {
+                        white-space: normal !important;
+                        line-height: 1.2;
+                        color: #fff !important
+                }
+            }
         }
     }
 }

@@ -73,7 +73,7 @@ export class ProfilePage {
         let userData: UserData = data[0];
         console.log(status, userData);//TODO: remove this line
         if (data.status) {
-          this.appUtils.AppToast("تم تعديل البيانات بنجاح");
+          this.appUtils.AppToast("تم تعديل البيانات بنجاح", {position:'middle', cssClass:'centered'});
           userData.token = this.localUser.token;
           this.appStorage.saveUserData(userData)
             .then((result) => {

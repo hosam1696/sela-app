@@ -30,7 +30,8 @@ import {AngularFireModule, FirebaseAppConfig} from "angularfire2";
 
 const firebaseinit:FirebaseAppConfig = {
   apiKey: 'AIzaSyB81z_X21CPaxUprsoJdDtds71yhhwfE9w',
-  projectId: 'sellah-82474'
+  projectId: 'sellah-82474',
+  databaseURL: 'https://sellah-82474.firebaseio.com/'
 };
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');

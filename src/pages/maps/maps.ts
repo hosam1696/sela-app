@@ -60,7 +60,7 @@ export class MapsPage {
     this.areasProvider.getNearestDelegates(userlatlng)
       .subscribe(data=>{
         console.log('nearest branch',data);
-        let delegate = { ...data.branch, location: { lat: Number(data.branch.lat), lng: Number(data.branch.lng) }, type: 'user', title: data.branch.name, vicinity: data.branch.name};
+        let delegate = { ...data.branch, location: { lat: Number(data.branch.lat), lng: Number(data.branch.lng) }, type: 'delegate', title: data.branch.name, vicinity: data.branch.name};
           //new Place(data.id,{lat:data.lat, lng:data.lng}, data.name, 'user' /* make it user icon for now */, data.address, data.rating||this.defaultRating );/*init a default rating*/
         this.mapPlaces.push(delegate);
         this.orderDestination.delegate = delegate;
@@ -140,7 +140,7 @@ export class MapsPage {
             let marker = new google.maps.Marker({
               map: this.map,
               position: placeLoc,
-              icon: 'assets/imgs/res-pin.png',
+              icon: 'assets/imgs/rest-pin.png',
               animation: google.maps.Animation.DROP,
             });
 
@@ -169,7 +169,7 @@ export class MapsPage {
 
     this.mapPlaces.push(new Place(0, this.userlatlng, 'موقعى', 'user'));
     if (this.initMap) {
-      this.mapPlaces.push(new Place(this.initMap.id,this.initMap.location, this.initMap.title, 'res', this.initMap.address, this.initMap.rating));
+      this.mapPlaces.push(new Place(this.initMap.id,this.initMap.location, this.initMap.title, 'rest', this.initMap.address, this.initMap.rating));
       this.setRestaurant(this.initMap);
     }
     console.log(this.mapPlaces);
@@ -222,7 +222,7 @@ export class MapsPage {
   }
 
   private setRestaurant(restaurant: Place | any) {
-    if (restaurant.type != 'user') {
+    if (restaurant.type != 'user' && restaurant.type != 'delegate') {
       this.orderDestination.restaurant = restaurant;
       this.restaurantName = this.orderDestination.restaurant.title;
       this.restaurantAddress = this.orderDestination.restaurant.vicinity || this.orderDestination.restaurant.address
@@ -232,9 +232,9 @@ export class MapsPage {
 
   requestOrder() {
     if (!this.orderDestination.restaurant) {
-      this.appUtils.AppToast('يرجى اختيار المطعم اولاً',{position:'center'})
+      this.appUtils.AppToast('يرجى اختيار المطعم اولاً', { position: 'middle', cssClass:'centered'})
     } else if (!this.orderDestination.delegate) {
-      this.appUtils.AppToast('يرجى اختيار المندوب اولا', { position: 'center' })
+      this.appUtils.AppToast('يرجى اختيار المندوب اولا', { position: 'middle', cssClass: 'centered' })
     } else {
       this.openPage('RequestOrderPage', { pageData: this.orderDestination, userLocation: this.userlatlng })
     }

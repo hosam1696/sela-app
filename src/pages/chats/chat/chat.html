@@ -9,17 +9,24 @@
     ابدأ المحادثة الان
   </p>
 
-  <ion-list *ngFor="let message of messages">
-    <ion-item  [@messageState]="state">
-      {{message.content}}
-    </ion-item>
+  <ion-list no-lines #chatList>
+
+  <!--<ion-item margin-bottom [class.receiver]="message.type=='receiver'" [@messageState]="message.state" *ngFor="let message of messages">
+    {{message.content}}
+  </ion-item>-->
+  <ion-item margin-bottom [class.receiver]="msg.user_id!=localUser.id" *ngFor="let msg of firebaseMsgs|async">
+    {{msg.message}}
+  </ion-item>
   </ion-list>
 </ion-content>
 
 <ion-footer>
-    <button ion-button mini icon-only no-margin (click)="sendMessage()">
+    <button ion-button mini icon-only no-margin color="secondary" (click)="sendMessage()">
         <ion-icon name="send" ></ion-icon>
       </button>
-  <ion-input dir="rtl" placeholder="اكتب رسالتك"></ion-input>
+<textarea #enteredMsg rows="1" (input)="watchHeight($event)" type="text" placeholder="اكتب رسالتك"></textarea>
+
+
+
 
 </ion-footer>

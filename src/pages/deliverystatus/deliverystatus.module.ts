@@ -5,6 +5,7 @@ import { OrdersProvider } from '../../providers/orders/orders';
 import {AppstorageProvider} from "../../providers/appstorage/appstorage";
 import {AppUtilFunctions} from "../../providers/utilfuns";
 import { CallNumber } from '@ionic-native/call-number';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { CallNumber } from '@ionic-native/call-number';
     OrdersProvider,
     AppstorageProvider,
     AppUtilFunctions,
-    CallNumber
+    CallNumber,
+    AngularFireDatabase
   ]
 })
 export class DeliverystatusPageModule {}
