@@ -9,12 +9,12 @@
     ابدأ المحادثة الان
   </p>
 
-  <ion-list no-lines #chatList>
+  <ion-list no-lines #chatList *ngIf="localUser">
 
   <!--<ion-item margin-bottom [class.receiver]="message.type=='receiver'" [@messageState]="message.state" *ngFor="let message of messages">
     {{message.content}}
   </ion-item>-->
-  <ion-item margin-bottom [class.receiver]="msg.user_id!=localUser.id" *ngFor="let msg of firebaseMsgs|async">
+  <ion-item margin-bottom  [class.receiver]="msg.user_id!=localUser.id" [@messageState]="msg.state" *ngFor="let msg of messages">
     {{msg.message}}
   </ion-item>
   </ion-list>

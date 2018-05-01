@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, OnInit, AfterViewInit } from '@angular/core';
+import {Component, ViewChild, ElementRef, AfterViewInit} from '@angular/core';
 import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
 import {
   trigger,
@@ -22,27 +22,27 @@ enum toggleMsgState{
     animations: [
       trigger('messageState', [
         state('inactive', style({
-          transform: 'translateX(120%)'
+          transform: 'translateY(20px)'
         })),
         state('active', style({
           transform: 'translateX(0)'
         })),
         transition('inactive => active', animate('200ms ease-in')),
+        // transition('void => active', animate('200ms ease-in', style({transform: 'translateY(10px)'}))),
         transition('active => inactive', animate('100ms ease-out'))
       ])
     ]
 })
-export class ChatPage implements OnInit, AfterViewInit {
-  @ViewChild('chatList') chatList: ElementRef;
+export class ChatPage  implements AfterViewInit{
   @ViewChild(Content) chatContent: Content;
   @ViewChild('enteredMsg') enteredMsg: ElementRef;
   messages: any[] = [];
   state: string = 'inactive';
   contentHeight: number;
-  firebaseMsgs: Observable<any[]>;
   fbChats: any;
   localUser: UserData;
   delegateUser: any;
+  msgChanges: Observable<any>;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public db: AngularFireDatabase,
@@ -51,33 +51,39 @@ export class ChatPage implements OnInit, AfterViewInit {
   }
 
   async ionViewDidLoad() {
+    this.delegateUser = this.navParams.get('delegate');
     this.messages = [
       { content: 'first',state: 'active',type:'sender' },
       { content: 'second', state: 'active', type:'receiver' },
       { content: 'third', state: 'active', type: 'sender' },
       { content: 'forth', state: 'active', type: 'receiver' }
     ];
-    this.delegateUser = this.navParams.get('delegate');
-    this.localUser = await this.appStorage.getUserData();
-    console.log(this.db.list('/chats'));
+    this.localUser = await  this.appStorage.getUserData();
     let chatId = (()=>{
         let delegateId= this.delegateUser.id;
         let userId = this.localUser.id;
-      return 'chat-'+userId+delegateId
+      return userId+'-'+delegateId
     })();
-    this.fbChats = this.db.list('/chats/'+chatId);
-    this.firebaseMsgs = this.db.list('/chats/'+chatId).valueChanges();
+    this.fbChats = this.db.list(`/chats/${chatId}`);
+    console.log('chat Id', chatId);
+    this.msgChanges = this.db.list(`/chats/${chatId}`).valueChanges();
+
+    this.msgChanges.subscribe(data=>{
+      this.messages = data;
+      this.messages = data.map(msg=>({...msg, state: 'active'}));
+      this.chatContent.scrollToBottom(100);
+      console.log('fb messages', this.messages);
+    })
 
   }
-  ngOnInit() {
 
-  }
   ngAfterViewInit() {
-    console.log(this.chatList.nativeElement.scrollHeight, this.chatList.nativeElement);
-    this.contentHeight = this.chatContent.contentHeight;
-    console.log(this.contentHeight, this.chatContent.scrollHeight);
-
+    this.chatContent.scrollToBottom();
   }
+  ionViewWillLeave() {
+    //this.msgChanges.unsubsribe()
+  }
+
   sendMessage() {
     /*this.messages.push({ type:'sender',content: 'new content sdfsdfsd ds df shg agaj ga yhgu guyas guyas ' + Math.random(), state: 'inactive' });
     setTimeout(() => {
@@ -89,11 +95,13 @@ export class ChatPage implements OnInit, AfterViewInit {
       delegate_name: this.delegateUser.name,
       message: this.enteredMsg.nativeElement.value,
       user_id: this.localUser.id,
-      user_name: this.localUser.name
+      user_name: this.localUser.name,
+      state: 'inactive'
+    }).then(()=> {
+      this.chatContent.scrollToBottom(0);
     });
     console.log('entered value', this.enteredMsg.nativeElement.value);
     this.enteredMsg.nativeElement.value = '';
-    this.chatContent.scrollTo(0, this.chatList.nativeElement.scrollHeight - this.contentHeight)
   }
 
 
