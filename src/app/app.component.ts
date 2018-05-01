@@ -66,7 +66,6 @@ export class MyApp {
             }
           })
         .then((data: UserData) => {
-          console.log('App component',data);
           this.rootPage = data.id ? UserHome[data.role] : 'LoginPage'
         }).catch(() => {
         this.rootPage = 'LoginPage'
@@ -162,7 +161,7 @@ export class MyApp {
     } else if (typeof page == 'string') {
       this.nav.push(page)
     } else {
-      console.log(page);
+
       this.nav.push(page.component, page.params || {})
     }
   }

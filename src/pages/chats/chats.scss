@@ -2,8 +2,28 @@ page-chats {
   ion-content {
     ion-list {
       ion-item {
+        ion-avatar {
+          margin: 0 8px;
+          min-width: 50px !important;
+          img {
+            border: 2px solid $primary;
+            width: 50px !important;
+            min-width: 50px !important;
+            height: 50px !important;
+          }
+        }
         ion-label {
-          margin: 13px 8px 13px 8px !important
+          margin: 13px 8px 13px 8px !important;
+          display: flex;
+          .msg-details {
+            width: 100%;
+            p {
+              &:first-child {
+                display: flex;
+                justify-content: space-between;
+              }
+            }
+          }
         }
       }
     }

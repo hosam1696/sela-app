@@ -29,7 +29,7 @@
           <p no-margin><b>{{orderSides.delegate.name}}</b></p>
         </div>
         <div class="contact">
-          <button ion-button color="light" (click)="openPage('ChatPage', {delegate: orderSides.delegate})">
+          <button ion-button color="light" (click)="openPage('ChatPage', {receiver: orderSides.delegate})">
             <ion-icon name="chatbubbles" color="primary"></ion-icon>
             مراسلة</button>
           <button ion-button color="light" (click)="dialNumber(orderSides.delegate.phone)">

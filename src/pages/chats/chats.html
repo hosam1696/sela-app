@@ -4,14 +4,27 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content padding-vertical>
 
-    <ion-list margin-top>
-      <ion-item no-padding (click)="opencChat({id:52, name: 'Hosam Elnabawy'})">
-        رسالة 1
-      </ion-item>
-      <ion-item no-padding (click)="opencChat({id:86, name: 'fahd Elshamy'})">
-        رسالة 2
+    <p text-center *ngIf="!loader&&!allChats?.length">
+      لا يوجد رسائل
+    </p>
+
+    <p text-center *ngIf="loader">
+      <ion-spinner></ion-spinner>
+    </p>
+
+    <ion-list margin-top *ngIf="localUser">
+
+      <ion-item *ngFor="let msg of allChats" no-padding (click)="openChat({id:localUser.role == 'user'?msg.delegate_id:msg.user_id, name: localUser.role=='user'?msg.delegate_name:msg.user_name})">
+        <ion-avatar>
+          <img src="assets/imgs/profile-alt.png" alt="">
+        </ion-avatar>
+        <div class="msg-details">
+          <p><b>{{localUser.role=='user'?msg.delegate_name:msg.user_name}}</b>
+          <span>{{msg.date|timeSince}} ago</span></p>
+          <p>{{msg.message}}</p>
+        </div>
       </ion-item>
     </ion-list>
 </ion-content>

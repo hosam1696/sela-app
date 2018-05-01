@@ -30,6 +30,7 @@ page-chat {
                 border: 1px solid #eee !important;
                 background-color: $primary !important;
 
+
                 &.receiver {
                     margin-right: 14%;
                          background-color: #fff !important;
@@ -49,7 +50,9 @@ page-chat {
                   position: relative;
                   overflow:visible !important;
                   p {
-                    color: #fff !important
+                    color: #fff !important;
+                    white-space: pre-wrap;
+                    line-height: 1.3 !important;
                   }
                   span {
                     font-size: 10px;
