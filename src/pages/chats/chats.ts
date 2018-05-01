@@ -12,7 +12,8 @@ interface  Msg {
   message: string,
   state?: string,
   user_id: number,
-  user_name: string
+  user_name: string,
+  key?:string
 }
 
 @IonicPage()
@@ -61,8 +62,14 @@ export class ChatsPage {
     filteredKeys.forEach(key=>{
       this.db.list('/chats/'+key)
         .valueChanges().subscribe(d=>{
-        console.log('last entry',last(d));
-        this.allChats.push(last(d));
+          const lastEntry = last(d);
+        console.log('last entry',lastEntry);
+        const foundedChat = this.allChats.find(chat=>chat.key == key);
+        if (foundedChat) {
+          this.allChats.splice(this.allChats.indexOf(foundedChat),1,foundedChat)
+        } else {
+          this.allChats.push({...last(d), key});
+        }
         if (this.allChats.length>0) {
           this.loader = false;
         }
