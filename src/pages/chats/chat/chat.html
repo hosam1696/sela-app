@@ -4,18 +4,22 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <p text-center *ngIf="!messages.length">
+<ion-content padding >
+  <div margin-top text-center *ngIf="!messages.length">
+    <p text-center>
+      <ion-icon name="ios-create-outline"></ion-icon>
+    </p>
     ابدأ المحادثة الان
-  </p>
+  </div>
 
-  <ion-list no-lines #chatList *ngIf="localUser">
+  <ion-list no-lines #chatList *ngIf="localUser&&messages.length">
 
   <!--<ion-item margin-bottom [class.receiver]="message.type=='receiver'" [@messageState]="message.state" *ngFor="let message of messages">
     {{message.content}}
   </ion-item>-->
   <ion-item margin-bottom  [class.receiver]="msg.user_id!=localUser.id" [@messageState]="msg.state" *ngFor="let msg of messages">
-    {{msg.message}}
+    <p>{{msg.message}}</p>
+    <span>{{msg.date|timeSince}} ago</span>
   </ion-item>
   </ion-list>
 </ion-content>

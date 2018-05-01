@@ -17,8 +17,8 @@ export class ChatsPage {
     console.log('ionViewDidLoad ChatsPage');
   }
 
-  opencChat(delegate) {
-    this.navCtrl.push('ChatPage', {delegate})
+  opencChat(receiver) {
+    this.navCtrl.push('ChatPage', {receiver})
   }
 
 }

@@ -1,4 +1,4 @@
-import {Component, ViewChild, ElementRef, AfterViewInit} from '@angular/core';
+import {Component, ViewChild, ElementRef, OnChanges} from '@angular/core';
 import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
 import {
   trigger,
@@ -33,7 +33,7 @@ enum toggleMsgState{
       ])
     ]
 })
-export class ChatPage  implements AfterViewInit{
+export class ChatPage  implements  OnChanges{
   @ViewChild(Content) chatContent: Content;
   @ViewChild('enteredMsg') enteredMsg: ElementRef;
   messages: any[] = [];
@@ -41,8 +41,9 @@ export class ChatPage  implements AfterViewInit{
   contentHeight: number;
   fbChats: any;
   localUser: UserData;
-  delegateUser: any;
+  receiver: any;
   msgChanges: Observable<any>;
+  firstLoad: boolean = true;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public db: AngularFireDatabase,
@@ -51,7 +52,7 @@ export class ChatPage  implements AfterViewInit{
   }
 
   async ionViewDidLoad() {
-    this.delegateUser = this.navParams.get('delegate');
+    this.receiver = this.navParams.get('receiver');
     this.messages = [
       { content: 'first',state: 'active',type:'sender' },
       { content: 'second', state: 'active', type:'receiver' },
@@ -60,9 +61,9 @@ export class ChatPage  implements AfterViewInit{
     ];
     this.localUser = await  this.appStorage.getUserData();
     let chatId = (()=>{
-        let delegateId= this.delegateUser.id;
+        let receiverId= this.receiver.id;
         let userId = this.localUser.id;
-      return userId+'-'+delegateId
+      return this.localUser.role == 'user'?userId+'-'+receiverId:receiverId+'-'+userId
     })();
     this.fbChats = this.db.list(`/chats/${chatId}`);
     console.log('chat Id', chatId);
@@ -71,17 +72,26 @@ export class ChatPage  implements AfterViewInit{
     this.msgChanges.subscribe(data=>{
       this.messages = data;
       this.messages = data.map(msg=>({...msg, state: 'active'}));
-      this.chatContent.scrollToBottom(100);
-      console.log('fb messages', this.messages);
+      //Hack for scrolling to bottom
+      if (this.chatContent&&this.firstLoad) {
+        setTimeout(()=>{
+          this.chatContent.scrollToBottom();
+          this.firstLoad = false;
+        },0);
+
+      }
     })
 
   }
 
-  ngAfterViewInit() {
-    this.chatContent.scrollToBottom();
-  }
+
   ionViewWillLeave() {
     //this.msgChanges.unsubsribe()
+  }
+  ngOnChanges(changes) {
+    if (changes.messages.length) {
+      //this.chatContent.scrollToBottom()
+    }
   }
 
   sendMessage() {
@@ -91,8 +101,8 @@ export class ChatPage  implements AfterViewInit{
     }, 100);*/
     this.fbChats.push({
       date: Date.now(),
-      delegate_id: this.delegateUser.id,
-      delegate_name: this.delegateUser.name,
+      delegate_id: this.receiver.id,
+      delegate_name: this.receiver.name,
       message: this.enteredMsg.nativeElement.value,
       user_id: this.localUser.id,
       user_name: this.localUser.name,
@@ -102,12 +112,13 @@ export class ChatPage  implements AfterViewInit{
     });
     console.log('entered value', this.enteredMsg.nativeElement.value);
     this.enteredMsg.nativeElement.value = '';
+    this.enteredMsg.nativeElement.style.height = 'auto';
   }
 
 
   toggleState() {
     let message = this.messages[this.messages.length - 1];
-    console.log(this.messages[this.messages.length - 1])
+    console.log(this.messages[this.messages.length - 1]);
     message.state = toggleMsgState[message.state];
   }
 

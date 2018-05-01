@@ -41,7 +41,7 @@
 
   <section class="actions-btns">
     <!-- TODO: change the static data sent to order Page-->
-    <button ion-button (click)="openPage('OrderPage', {orderNumber: 1, order: {id:order.id},deligate:orderSides.delegate})">عرض الطلب</button>
+    <button ion-button (click)="openPage('OrderPage', {orderNumber: 1, order: {id:order.id},receiver:orderSides.delegate})">عرض الطلب</button>
     <button ion-button color="danger" (click)="cancelOrder()">الغاء الطلب</button>
   </section>
 </ion-content>

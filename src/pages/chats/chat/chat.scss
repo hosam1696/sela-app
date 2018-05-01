@@ -11,7 +11,8 @@ page-chat {
             box-shadow: none;
             border: none;
             width: 100%;
-            padding: 4px 10px;
+            padding:10px;
+          line-height: 2;
         }
         button {
             height: 50px !important;
@@ -34,15 +35,29 @@ page-chat {
                          background-color: #fff !important;
 
                          ion-label {
+                             color: #555 !important;
+                           p {
                              color: #555 !important
-
+                           }
                          }
-                        
+
                 }
                 ion-label {
                         white-space: normal !important;
                         line-height: 1.2;
-                        color: #fff !important
+                        color: #fff !important;
+                  position: relative;
+                  overflow:visible !important;
+                  p {
+                    color: #fff !important
+                  }
+                  span {
+                    font-size: 10px;
+                    direction: ltr;
+                    position: absolute;
+                    bottom: -8px;
+                    left: -6px;
+                  }
                 }
             }
         }
