@@ -40,7 +40,7 @@
        <span> طلبية {{i+1}}</span>
         <span>
           <ion-icon name="egg" [color]="order.status==2?'danger':(order.status==1?'green':'light')"></ion-icon>&nbsp;
-          <span [innerHTML]="order.status==2?'تم الالغاء':(order.status == 1?'تم التوصليل والتسليم':'فى انتظار استلام المندوب')"></span>
+          <span [innerHTML]="getStatus(order)"></span>
         </span>
       </p>
       <div class="request-body">

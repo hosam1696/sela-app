@@ -28,6 +28,11 @@ page-orders {
           display: flex;
           justify-content: space-between;
           padding: 12px 8px;
+          p {
+            &:first-of-type {
+              white-space: pre-wrap;
+            }
+          }
         }
       }
     }

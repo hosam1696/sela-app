@@ -58,5 +58,17 @@ export class OrdersPage {
   public openPage(page: string, order, orderNumber) {
     this.navCtrl.push(page, {order, localUser: this.localUser, orderNumber})
   }
+  public getStatus(order:Order) {
+    switch (order.status) {
+      case 0:
+        return this.localUser.role == 'user'?'فى انتظار موافقة المندوب':'فى انتظار موافقتك';
+      case 1:
+        return this.localUser.role == 'user' ?'يقوم المندوب بالتوصبل':'فى مرحلة توصيل الطلبية';
+      case 2:
+        return 'تم التوصبل';
+      case 3:
+        return 'تم الالغاء'
+    }
+  }
 
 }

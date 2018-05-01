@@ -57,11 +57,16 @@
       <label>
         حالة الطلبية
       </label>
-      <p>{{order.status==2?'تم الالغاء':(order.status == 1?'تم التسليم':'فى مرحلة الاعداد')}}</p>
+      <p>{{getStatus(order)}}</p>
     </div>
   </div>
+  <section class="actions-btns order-track-btn" *ngIf="localUser&&localUser.role!='user'&&order&&order.user_id">
 
-  <p text-center class="order-track-btn" *ngIf="order&&order.user_id">
-    <button ion-button (click)="openPage('TrackorderPage', {delegate:delegateUser})" color="secondary" >تتبع الطلب</button>
-  </p>
+    <button ion-button (click)="changeOrderStatus(1)" *ngIf="order.status<1" color="secondary" >الموافقة على تسليم الطلبية</button>
+
+    <button ion-button (click)="changeOrderStatus(3)" *ngIf="order.status<=1" color="secondary" >رفض الطلب</button>
+
+    <button ion-button *ngIf="order.status>=1"(click)="openPage('TrackorderPage', {delegate:delegateUser})" color="secondary" >تتبع الطلب</button>
+  </section>
+
  </ion-content>

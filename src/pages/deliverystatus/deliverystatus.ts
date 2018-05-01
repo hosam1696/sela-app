@@ -49,7 +49,7 @@ export class DeliverystatusPage {
 
   cancelOrder() {
     // change status of the order;
-    this.orderProvider.updateOrderStatus({id: this.order.id, token: this.token})
+    this.orderProvider.updateOrderStatus({id: this.order.id, statue: 2,token: this.token})
       .subscribe(data=>{
         console.log(data);
         if (data.user_id) {

@@ -37,7 +37,7 @@ export class OrderPage {
     } else {
       console.warn('you have to pass an order')
     }
-    
+
   }
 
   openPage(page:string, params:any = {}) {
@@ -53,4 +53,27 @@ export class OrderPage {
       })
   }
 
+  changeOrderStatus(status: number) {
+    let orderData = {
+      id: this.order.id,
+      status: this.order.status,
+      token: this.token
+    };
+    this.ordersProvider.updateOrderStatus(orderData)
+      .subscribe(result=>{
+        console.log(result);
+      })
+  }
+  public getStatus(order:Order) {
+    switch (order.status) {
+      case 0:
+        return this.localUser.role == 'user'?'فى انتظار موافقة المندوب':'فى انتظار موافقتك';
+      case 1:
+        return this.localUser.role == 'user' ?'يقوم المندوب بالتوصبل':'فى مرحلة توصيل الطلبية';
+      case 2:
+        return 'تم التوصبل';
+      case 3:
+        return 'تم الالغاء'
+    }
+  }
 }
