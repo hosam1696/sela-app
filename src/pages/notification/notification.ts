@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the NotificationPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { UserData } from '../../providers/types/interface';
+import { AppstorageProvider } from '../../providers/appstorage/appstorage';
+import { UsersProviders } from '../../providers/users';
 
 @IonicPage()
 @Component({
@@ -14,12 +10,25 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'notification.html',
 })
 export class NotificationPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  localUser: UserData;
+  notificationId: number;
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    public appStorage: AppstorageProvider,
+    public userProvider: UsersProviders
+  ) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad NotificationPage');
+  async ionViewDidLoad() {
+    this.notificationId = this.navParams.get('id');
+    this.localUser = await this.appStorage.getUserData();
+  }
+
+  getNotification(notificationId: number) {
+    this.userProvider.showNotification(notificationId)
+      .subscribe(data => {
+        console.log('show notification data', data)
+      })
   }
 
 }

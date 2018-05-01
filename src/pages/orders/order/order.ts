@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {OrdersProvider} from "../../../providers/orders/orders";
 import {AppstorageProvider} from "../../../providers/appstorage/appstorage";
 import {Order, UserData} from "../../../providers/types/interface";
+import { AppUtilFunctions } from '../../../providers/utilfuns';
 
 
 @IonicPage()
@@ -20,7 +21,8 @@ export class OrderPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public ordersProvider: OrdersProvider,
-              public appProvider: AppstorageProvider
+              public appProvider: AppstorageProvider,
+              public appUtils: AppUtilFunctions
               ) {
       this.localUser = this.navParams.get('localUser');
       this.orderNumber = this.navParams.get('orderNumber')||1;
@@ -56,12 +58,17 @@ export class OrderPage {
   changeOrderStatus(status: number) {
     let orderData = {
       id: this.order.id,
-      status: this.order.status,
+      status: status,
       token: this.token
     };
     this.ordersProvider.updateOrderStatus(orderData)
       .subscribe(result=>{
         console.log(result);
+        if (result.status == status) {
+          this.appUtils.AppToast('تم التغيير بنجاح', { position: 'middle', duration: 1500 }, () => {
+            this.navCtrl.pop();
+          })
+        }
       })
   }
   public getStatus(order:Order) {

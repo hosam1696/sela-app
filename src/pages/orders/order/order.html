@@ -66,7 +66,7 @@
 
     <button ion-button (click)="changeOrderStatus(3)" *ngIf="order.status<=1" color="secondary" >رفض الطلب</button>
 
-    <button ion-button *ngIf="order.status>=1"(click)="openPage('TrackorderPage', {delegate:delegateUser})" color="secondary" >تتبع الطلب</button>
+    <button ion-button *ngIf="order.status>=1&&order.status<3"(click)="openPage('TrackorderPage', {delegate:delegateUser})" color="secondary" >تتبع الطلب</button>
   </section>
 
  </ion-content>

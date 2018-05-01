@@ -72,6 +72,16 @@ export class UsersProviders {
   sendDeviceToken(deviceToken: string) {
     return this.api.post('deviceToken'/* dummy routes to be changed later */, {deviceToken})
   }
+
+  getNotifications(userType: string) {
+    const route = userType == 'user' ? 'userNotifications' : 'notifications';
+    return this.api.get(route);
+  }
+
+  showNotification(id: number) {
+    return this.api.get('notification/' + id);
+  }
+
 }
 
 

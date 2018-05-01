@@ -26,7 +26,7 @@
   <section class="notifications" [hidden]="hideNotification" clickOutside (clickOutsideEvent)="fireEvent()">
     <ion-list no-lines>
       <!-- Notification is Static for now-->
-      <ion-item class="transparent-bg" (click)="openPage('NotificationPage')">
+      <ion-item class="transparent-bg" (click)="openPage('NotificationPage', {id: 1})">
         لا يوجد اشعارارت حتى الان
       </ion-item>
     </ion-list>

@@ -7,7 +7,7 @@ import {AreasProvider} from "../../providers/areas/areas";
 import {Geolocation, Geoposition} from "@ionic-native/geolocation";
 import {AppstorageProvider} from "../../providers/appstorage/appstorage";
 import { orderBy } from 'lodash';
-import { PlaceNearMap } from '../../providers/types/interface';
+import { PlaceNearMap, UserData } from '../../providers/types/interface';
 declare let google: any;
 
 
@@ -26,6 +26,7 @@ export class HomePage {
   allRestaurants: any[];
   nearbyRestaurants: { featured: any[], locnear: PlaceNearMap[] } = {featured: [], locnear: []};
   activeRestaurants: any[];
+  localUser: UserData;
   constructor(public navCtrl: NavController,
               public appUtils: AppUtilFunctions,
               public userProvider: UsersProviders,
@@ -37,15 +38,9 @@ export class HomePage {
     //this.appStorage.clearEntries() // Dev Only clearing local storage
   }
 
-  ionViewDidLoad() {
-    // Get Client  current location
-    // this.getLocation()
-    //   .then(() => {
-    //     // Get restaurants
-    //     this.switchPlaces();
-    //   },()=>{
-    //     this.switchPlaces()
-    //   })
+  async ionViewDidLoad() {
+    this.localUser = await this.appStorage.getUserData();
+    this.getNotifications(this.localUser.role);
     this.switchPlaces()
 
   }
@@ -77,6 +72,13 @@ export class HomePage {
   ionViewWillLeave() {
     this.hideNotification = true;
     this.notificationIsOpen = false
+  }
+
+  getNotifications(userRole: string) {
+    this.userProvider.getNotifications(userRole)
+      .subscribe(data => {
+        console.log('notifications data', data);
+      })
   }
 
   fireEvent(event) {

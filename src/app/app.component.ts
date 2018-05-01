@@ -31,7 +31,7 @@ export class MyApp {
               public alertCtrl: AlertController,
               public appStorage: AppstorageProvider,
               public userProvider: UsersProviders,
-              public fcm: FcmProvider
+    public firebase: FcmProvider
   ) {
     this.initializeApp();
     //this.appStorage.clearEntries()
@@ -41,7 +41,7 @@ export class MyApp {
       {title: 'MyOrders', component: 'OrdersPage', icon: 'cart', params: {'userData':this.appStorage._USER_DATA}},
       {title: 'Chats', component: 'ChatsPage', icon: 'chatbubbles'},
       {title: 'Settings', component: 'SettingsPage', icon: 'settings'},
-      {title: 'Cart', component: 'CartPage', icon: 'cart'},
+      //{title: 'Cart', component: 'CartPage', icon: 'cart'},
       { title: 'ContactUs', component: 'ContactusPage', icon: 'call'},
       //{title: 'Login', component: 'LoginPage', icon: 'log-in', params: {openAsPage: true}},
       {title: 'Signup', component: 'SignupPage', icon: 'log-in'},
@@ -124,33 +124,33 @@ export class MyApp {
 
   private handleDeviceNotifications() {
 
-  }
-    /*
-      // Get Device Token
-      this.firebase.getToken()
-        .then(token=>{
-          // save the device token in the data base
-          this.sendDeviceToken(token);
-        });
+  
+    
+    // Get Device Token
+    this.firebase.getToken()
+      .then((token:any) => {
+        // save the device token in the data base
+        this.sendDeviceToken(token);
+      });
 
-      // When the token is refreshed
-      this.firebase.onTokenRefresh()
-        .subscribe(token=>{
-            this.sendDeviceToken(token)
-        });
+    // When the token is refreshed
+    /*this.firebase.onTokenRefresh()
+      .subscribe(token => {
+        this.sendDeviceToken(token)
+      });*/
 
-      // this.firebase.onNotificationOpen()
+    // this.firebase.onNotificationOpen()
 
-    */
+  }    
 
-/*
+
   private sendDeviceToken(token:string) {
     this.userProvider.sendDeviceToken(token)
       .subscribe(status=>{
         console.log('Device Token Status', status);
         // may we save the token in the storage
       })
-  }*/
+  }
 
   public openPage(page: MenuPage & string): void {
 
