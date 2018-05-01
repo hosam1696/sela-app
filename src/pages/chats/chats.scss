@@ -1,3 +1,11 @@
 page-chats {
-
+  ion-content {
+    ion-list {
+      ion-item {
+        ion-label {
+          margin: 13px 8px 13px 8px !important
+        }
+      }
+    }
+  }
 }

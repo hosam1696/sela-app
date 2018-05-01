@@ -39,8 +39,8 @@ export class MyApp {
     this.pages = [
       {title: 'Home', component: 'HomePage', icon: 'home'},
       {title: 'MyOrders', component: 'OrdersPage', icon: 'cart', params: {'userData':this.appStorage._USER_DATA}},
+      {title: 'Chats', component: 'ChatsPage', icon: 'chatbubbles'},
       {title: 'Settings', component: 'SettingsPage', icon: 'settings'},
-      //{title: 'Wallet', component: 'WalletPage', icon: 'card'},
       {title: 'Cart', component: 'CartPage', icon: 'cart'},
       { title: 'ContactUs', component: 'ContactusPage', icon: 'call'},
       //{title: 'Login', component: 'LoginPage', icon: 'log-in', params: {openAsPage: true}},

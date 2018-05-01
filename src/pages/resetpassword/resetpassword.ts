@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild, AfterViewInit} from '@angular/core';
 import {IonicPage, NavController, NavParams, Slides} from 'ionic-angular';
 import {ResetActiveSlide} from "../../providers/types/enums";
 import {UsersProviders} from "../../providers/users";
@@ -10,7 +10,7 @@ import {AppUtilFunctions} from "../../providers/utilfuns";
   selector: 'page-resetpassword',
   templateUrl: 'resetpassword.html',
 })
-export class ResetpasswordPage {
+export class ResetpasswordPage implements AfterViewInit{
   @ViewChild(Slides) resetSlide: Slides;
   activeSlide: ResetActiveSlide|string = ResetActiveSlide.phone;
   phoneInput: string| any = '';
@@ -22,8 +22,14 @@ export class ResetpasswordPage {
   }
 
   changeSlide(num: number):void {
+    this.resetSlide.lockSwipes(false);
     this.activeSlide = num;
-    this.resetSlide.slideTo(num)
+    this.resetSlide.slideTo(num);
+    this.resetSlide.lockSwipes(true);
+
+  }
+  ngAfterViewInit() {
+    this.resetSlide.lockSwipes(true);
   }
 
   resetPassword() {

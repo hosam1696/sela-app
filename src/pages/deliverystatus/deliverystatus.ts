@@ -4,7 +4,6 @@ import { OrdersProvider } from '../../providers/orders/orders';
 import {AppstorageProvider} from "../../providers/appstorage/appstorage";
 import {AppUtilFunctions} from "../../providers/utilfuns";
 import { CallNumber } from '@ionic-native/call-number';
-import { AngularFireDatabase } from 'angularfire2/database';
 import { UserData } from '../../providers/types/interface';
 
 @IonicPage()
@@ -23,7 +22,6 @@ export class DeliverystatusPage {
               public storageProvider: AppstorageProvider,
               public appUtils: AppUtilFunctions,
               public callNumber: CallNumber,
-              public db: AngularFireDatabase
             ) {
   }
 
@@ -33,7 +31,7 @@ export class DeliverystatusPage {
     this.token = await this.storageProvider.getToken();
     this.localUser = await this.storageProvider.getUserData();
     console.log('Order Details ', this.order, this.orderSides);
-    //this.db.list('/chats').push(`room-${this.orderSides.delegate.id}-${this.localUser.id}`);
+
   }
 
   openPage(page: string, params:any = {}) {

@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
-import { AppAPI } from "../api";
+import {AppAPI} from "../api";
 
 @Injectable()
 
 export class ChatProvider {
-    constructor() {
+    constructor(public api:AppAPI) {
+
+    }
+
+    getuserchats(id, role) {
 
     }
 }

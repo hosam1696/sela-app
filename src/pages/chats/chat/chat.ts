@@ -60,14 +60,17 @@ export class ChatPage implements OnInit, AfterViewInit {
     this.delegateUser = this.navParams.get('delegate');
     this.localUser = await this.appStorage.getUserData();
     console.log(this.db.list('/chats'));
-    this.fbChats = this.db.list('/chats');
-    this.firebaseMsgs = this.db.list('/chats').valueChanges();
-    let messages = this.db.list('/18/data');
-    let users = this.db.list('/28');
-    console.log(users.query, messages.query, this.fbChats.query);
+    let chatId = (()=>{
+        let delegateId= this.delegateUser.id;
+        let userId = this.localUser.id;
+      return 'chat-'+userId+delegateId
+    })();
+    this.fbChats = this.db.list('/chats/'+chatId);
+    this.firebaseMsgs = this.db.list('/chats/'+chatId).valueChanges();
+
   }
   ngOnInit() {
-    
+
   }
   ngAfterViewInit() {
     console.log(this.chatList.nativeElement.scrollHeight, this.chatList.nativeElement);
