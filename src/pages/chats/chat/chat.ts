@@ -111,7 +111,8 @@ export class ChatPage implements OnChanges {
         message: msg,
         user_id: this.localUser.role == 'user'?this.localUser.id:this.receiver.id,
         user_name: this.localUser.name,
-        state: 'inactive'
+        state: 'inactive',
+        user_send_id: this.localUser.id
       }).then(() => {
         this.chatContent.scrollToBottom(0);
       });

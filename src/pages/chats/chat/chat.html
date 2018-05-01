@@ -17,7 +17,7 @@
   <!--<ion-item margin-bottom [class.receiver]="message.type=='receiver'" [@messageState]="message.state" *ngFor="let message of messages">
     {{message.content}}
   </ion-item>-->
-  <ion-item margin-bottom  [class.receiver]="msg.user_id==localUser.id" [@messageState]="msg.state" *ngFor="let msg of messages">
+  <ion-item margin-bottom  [class.receiver]="localUser.id != msg.user_send_id" [@messageState]="msg.state" *ngFor="let msg of messages">
     <p>{{msg.message}}</p>
     <span>{{msg.date|timeSince}} ago</span>
   </ion-item>

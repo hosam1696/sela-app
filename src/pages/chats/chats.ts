@@ -13,7 +13,8 @@ interface  Msg {
   state?: string,
   user_id: number,
   user_name: string,
-  key?:string
+  key?:string,
+  user_send_id?:number
 }
 
 @IonicPage()
