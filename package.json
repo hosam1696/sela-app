@@ -42,7 +42,7 @@
     "angular2-text-mask": "^8.0.5",
     "angularfire2": "^5.0.0-rc.5-next",
     "call-number": "^1.0.1",
-    "cordova-android": "7.1.0",
+    "cordova-android": "6.3.0",
     "cordova-ios": "4.5.4",
     "cordova-plugin-camera": "^4.0.3",
     "cordova-plugin-device": "^2.0.2",
@@ -60,6 +60,7 @@
     "ionic-angular": "3.9.2",
     "ionic2-rating": "^1.2.2",
     "ionicons": "3.0.0",
+    "mx.ferreyra.callnumber": "~0.0.2",
     "rxjs": "5.5.8",
     "sw-toolbox": "3.6.0",
     "zone.js": "0.8.20"
@@ -89,7 +90,8 @@
       "mx.ferreyra.callnumber": {}
     },
     "platforms": [
-      "ios"
+      "ios",
+      "android"
     ]
   }
 }

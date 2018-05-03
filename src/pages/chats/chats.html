@@ -1,10 +1,11 @@
-<img class="stacked-img-header" src="assets/imgs/logo-head.png" width="86" alt="">
+<!--<img class="stacked-img-header" src="assets/imgs/logo-head.png" width="86" alt="">-->
 <ion-header no-border>
   <ion-navbar color="primary" class="header-bg">
+    <ion-title>الرسائل</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding-vertical>
+<ion-content no-padding>
 
     <p text-center *ngIf="!loader&&!allChats?.length">
       لا يوجد رسائل
@@ -14,7 +15,7 @@
       <ion-spinner></ion-spinner>
     </p>
 
-    <ion-list margin-top *ngIf="localUser">
+    <ion-list *ngIf="localUser">
 
       <ion-item *ngFor="let msg of allChats" no-padding (click)="openChat({id:localUser.role == 'user'?msg.delegate_id:msg.user_id, name: localUser.role=='user'?msg.delegate_name:msg.user_name})">
         <ion-avatar>

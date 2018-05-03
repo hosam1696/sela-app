@@ -107,10 +107,10 @@ export class ChatPage implements OnChanges {
       this.fbChats.push({
         date: Date.now(),
         delegate_id: this.localUser.role == 'user'?this.receiver.id:this.localUser.id,
-        delegate_name: this.receiver.name,
+        delegate_name: this.localUser.role == 'user'?this.receiver.name:this.localUser.name,
         message: msg,
         user_id: this.localUser.role == 'user'?this.localUser.id:this.receiver.id,
-        user_name: this.localUser.name,
+        user_name: this.localUser.role == 'user'?this.localUser.name:this.receiver.name,
         state: 'inactive',
         user_send_id: this.localUser.id
       }).then(() => {

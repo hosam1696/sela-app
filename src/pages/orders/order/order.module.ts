@@ -4,6 +4,7 @@ import { OrderPage } from './order';
 import {OrdersProvider} from "../../../providers/orders/orders";
 import { TranslateModule } from '@ngx-translate/core';
 import { AppstorageProvider } from '../../../providers/appstorage/appstorage';
+import { AppUtilFunctions } from '../../../providers/utilfuns';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { AppstorageProvider } from '../../../providers/appstorage/appstorage';
   ],
   providers: [
     OrdersProvider,
-    AppstorageProvider
+    AppstorageProvider,
+    AppUtilFunctions
   ]
 })
 export class OrderPageModule {}
