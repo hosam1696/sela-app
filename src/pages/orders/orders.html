@@ -5,9 +5,6 @@
       <ion-icon class="bill-icon" name="notifications"></ion-icon>
     </button>
     <ion-buttons end>
-      <button ion-button icon-only (click)="openPage('MapsPage')">
-        <ion-icon name="search"></ion-icon>
-      </button>
       <button ion-button icon-only class="cart-button" (click)="openPage('CartPage')">
         <ion-icon name="cart">
           <!--<ion-badge color="secondary">0</ion-badge>-->
@@ -39,7 +36,7 @@
       <p class="header-bg request-num">
        <span> طلبية {{i+1}}</span>
         <span>
-          <ion-icon name="egg" [color]="order.status==2?'danger':(order.status==1?'green':'light')"></ion-icon>&nbsp;
+          <ion-icon name="egg" [color]="order.status==3?'danger':(order.status==1?'green':'light')"></ion-icon>&nbsp;
           <span [innerHTML]="getStatus(order)"></span>
         </span>
       </p>

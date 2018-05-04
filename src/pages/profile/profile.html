@@ -6,7 +6,7 @@
     </button>
 
     <ion-buttons end>
-      <button ion-button icon-only (click)="openPage('MapsPage')">
+      <button ion-button icon-only *ngIf="localUser&&localUser.role=='user'" (click)="openPage('MapsPage')">
         <ion-icon name="search"></ion-icon>
       </button>
     </ion-buttons>
@@ -34,7 +34,7 @@
  
   <ion-grid>
     <ion-row>
-      <ion-col>
+      <ion-col text-center>
         <ion-chip (click)="changePageMode()">
           <ion-icon name="man"></ion-icon>
           <ion-label>تعديل البيانات</ion-label>
@@ -42,7 +42,7 @@
       </ion-col>
 
       <!--show this if the user enters his profile-->
-      <ion-col>
+      <ion-col text-center>
         <ion-chip (click)="logout()">
           <ion-icon name="log-out"></ion-icon>
           <ion-label>تسجيل الخروج</ion-label>

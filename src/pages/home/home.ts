@@ -6,7 +6,6 @@ import {ResturantCategories} from '../../providers/types/enums';
 import {AreasProvider} from "../../providers/areas/areas";
 import {Geolocation, Geoposition} from "@ionic-native/geolocation";
 import {AppstorageProvider} from "../../providers/appstorage/appstorage";
-import { orderBy } from 'lodash';
 import { PlaceNearMap, UserData } from '../../providers/types/interface';
 declare let google: any;
 
@@ -154,7 +153,7 @@ export class HomePage {
             }
           });
           console.log('finalResult', finalResult)
-          this.nearbyRestaurants.locnear = orderBy(finalResult, 'distance');
+          this.nearbyRestaurants.locnear = finalResult.sort((a, b) => a.distance < b.distance);
         }
       });
 

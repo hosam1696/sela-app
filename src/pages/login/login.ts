@@ -71,7 +71,7 @@ export class LoginPage {
             console.log(res); // TODO: DEV Only reminder to be removed
             let self = this;
             this.appStorage.saveToken(res.token);
-            this.appUtils.AppToast("تم الدخول بنجاح");
+            this.appUtils.AppToast("تم الدخول بنجاح. التحويل للصفحة الشخصية", {position: 'top'});
             this.usersproviders.getUserData(res.token).subscribe((data:UserData|any) => {
               console.log('get user data from view user',data); // TODO: DEV Only reminder to be removed
               self.loader = false;
@@ -104,6 +104,8 @@ export class LoginPage {
             this.loader = false;
             this.appUtils.AppToast("خطأ فى الخادم");
           }
+        }, () => {
+          this.loader = false;
         }
       );
     }

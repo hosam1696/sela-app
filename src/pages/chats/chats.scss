@@ -22,6 +22,9 @@ page-chats {
                 display: flex;
                 justify-content: space-between;
               }
+              span {
+                direction: ltr
+              }
             }
           }
         }

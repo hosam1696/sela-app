@@ -75,6 +75,8 @@ export class ChatsPage {
           this.loader = false;
         }
         console.log('All chats', this.allChats);
+        }, err => {
+          this.loader = false;
       });
     });
 

@@ -1,15 +1,12 @@
 import {Component, ViewChild} from '@angular/core';
-import {AlertController, AlertOptions, Events, Nav, Platform, ToastController} from 'ionic-angular';
+import {AlertController, AlertOptions, Events, Nav, Platform} from 'ionic-angular';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
-import {HomePage} from "../pages/home/home";
 import {TranslateService} from '@ngx-translate/core';
 import {AppstorageProvider} from "../providers/appstorage/appstorage";
 import {MenuPage, UserData} from "../providers/types/interface";
 import {UsersProviders} from "../providers/users";
-import {ContactusPage} from "../pages/contactus/contactus";
 import {FcmProvider} from "../providers/fcm/fcm.provider";
-import {tap} from "rxjs/operators";
 import { UserHome } from '../providers/types/enums';
 
 
@@ -71,7 +68,7 @@ export class MyApp {
         this.rootPage = 'LoginPage'
       });
 
-      this.statusBar.styleDefault();
+      this.statusBar.backgroundColorByHexString('#f4f4f4');
       this.splashScreen.hide();
       this.handleDeviceNotifications()
     });

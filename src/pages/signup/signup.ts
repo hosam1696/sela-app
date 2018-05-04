@@ -37,7 +37,7 @@ export class SignupPage {
     mobile: [/\d/, /\d/, /\d/, " ", /\d/, /\d/, /\d/, " ", /\d/, /\d/, /\d/]
   };
   location: any;
-
+  locationText: string = 'الموقع الحالى';
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -123,7 +123,7 @@ export class SignupPage {
           this.loader = false;
           if (res.id) {
             await this.appStorage.clearEntries();
-            this.appUtils.AppToast("تم التسجيل بنجاح");
+            this.appUtils.AppToast("تم التسجيل بنجاح", {position:'top'});
             await this.appStorage.registerUserInStorage(res);
             this.events.publish("refreshStorage");
             this.navCtrl.setRoot("LoginPage");
@@ -330,20 +330,14 @@ export class SignupPage {
       );
   }*/
 
-  public showToast(msg: string): void {
-    let toast = this.toastCtrl.create({
-      message: msg,
-      duration: 3000,
-      position: "top"
-    });
-    toast.present();
-  }
   public getLocation() {
+    this.locationText = '.....';
     return this.geolocation
       .getCurrentPosition()
       .then((data: Geoposition) => {
         this.signupForm.get('lat').setValue(data.coords.latitude);
         this.signupForm.get('lng').setValue(data.coords.longitude);
+        this.locationText = 'تم حفظ موقعك';
       })
       .then(d => {
         console.log(d);

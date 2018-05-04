@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import {HttpClient } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
 import { AppAPI } from './api';
 // import { Network } from '@ionic-native/network';

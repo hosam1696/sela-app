@@ -118,7 +118,7 @@ export class MapsPage {
       ]
     },
       request = {
-        location: this.userlatlng,
+        location: new google.maps.LatLng((<any>this.userlatlng).lat, (<any>this.userlatlng).lng),
         radius: 500,
         type: 'restaurant' // types of places we want to search for
       };
@@ -130,10 +130,12 @@ export class MapsPage {
     this.loader = false;
 
     // search places
-    if (!this.initMap) { // if user do not selected ant restaurant
+    if (!this.initMap) { // if user do not selected any restaurant
+      //this.appUtils.AppToast(JSON.stringify(request))
       let service = new google.maps.places.PlacesService(this.map);
       service.nearbySearch(request, (results, status) => {
         console.log(results);
+        this.appUtils.AppToast('Places number -> '+ results.length,{position:'top'});
         if (status === google.maps.places.PlacesServiceStatus.OK) {
           let makeMarker = (place) => {
             let placeLoc = place.geometry.location;

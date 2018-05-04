@@ -60,11 +60,11 @@
       <p>{{getStatus(order)}}</p>
     </div>
   </div>
-  <section class="actions-btns order-track-btn" *ngIf="localUser&&localUser.role!='user'&&order&&order.user_id">
+  <section class="actions-btns order-track-btn" *ngIf="localUser&&order&&order.user_id">
 
-    <button ion-button (click)="changeOrderStatus(1)" *ngIf="order.status<1" color="secondary" >الموافقة على تسليم الطلبية</button>
+    <button ion-button (click)="changeOrderStatus(1)" *ngIf="order.status<1&&localUser.role!='user'" color="secondary" >الموافقة على تسليم الطلبية</button>
 
-    <button ion-button (click)="changeOrderStatus(3)" *ngIf="order.status<=1" color="secondary" >رفض الطلب</button>
+    <button ion-button (click)="changeOrderStatus(3)" *ngIf="order.status<=1" color="danger" >رفض الطلب</button>
 
     <button ion-button *ngIf="order.status>=1&&order.status<3"(click)="openPage('TrackorderPage', {delegate:delegateUser})" color="secondary" >تتبع الطلب</button>
   </section>
