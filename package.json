@@ -42,11 +42,6 @@
     "angular2-text-mask": "^8.0.5",
     "angularfire2": "^5.0.0-rc.5-next",
     "call-number": "^1.0.1",
-<<<<<<< HEAD
-=======
-    "cordova-android": "7.1.0",
-    "cordova-android-support-gradle-release": "^1.4.2",
->>>>>>> fix google places errors in home and maps page
     "cordova-ios": "4.5.4",
     "cordova-plugin-camera": "^4.0.3",
     "cordova-plugin-camera-preview": "^0.9.0",
@@ -91,9 +86,6 @@
       "cordova-sqlite-storage": {},
       "cordova-plugin-firebase": {},
       "mx.ferreyra.callnumber": {},
-      "cordova-android-support-gradle-release": {
-        "ANDROID_SUPPORT_VERSION": "27.0.0"
-      }
     },
     "platforms": []
   }
