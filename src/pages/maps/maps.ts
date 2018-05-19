@@ -116,12 +116,7 @@ export class MapsPage {
           ]
         }
       ]
-    },
-      request = {
-        location: new google.maps.LatLng((<any>this.userlatlng).lat, (<any>this.userlatlng).lng),
-        radius: 500,
-        type: 'restaurant' // types of places we want to search for
-      };
+    };
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
 
     this.infoWindow = new google.maps.InfoWindow();
@@ -132,42 +127,8 @@ export class MapsPage {
     // search places
     if (!this.initMap) { // if user do not selected any restaurant
       //this.appUtils.AppToast(JSON.stringify(request))
-      let service = new google.maps.places.PlacesService(this.map);
-      service.nearbySearch(request, (results, status) => {
-        console.log(results);
-        this.appUtils.AppToast('Places number -> '+ results.length,{position:'top'});
-        if (status === google.maps.places.PlacesServiceStatus.OK) {
-          let makeMarker = (place) => {
-            let placeLoc = place.geometry.location;
-            let marker = new google.maps.Marker({
-              map: this.map,
-              position: placeLoc,
-              icon: 'assets/imgs/rest-pin.png',
-              animation: google.maps.Animation.DROP,
-            });
-
-            google.maps.event.addListener(marker, 'click', () => {
-              console.log('marker clicked', marker, place);
-              let htmlContent = `
-                <b>&nbsp;&nbsp;  ${place.name || place.title}</b><br>
-                ${(place.vicinity || place.address).split(',').join('<br>')}
-              `;
-              this.infoWindow.setContent(htmlContent);
-              this.infoWindow.open(this.map, marker);
-              this.orderDestination.restaurant = { ...place, title: place.name, location: { lat: place.geometry.location.lat(), lng: place.geometry.location.lng()}};
-              this.restaurantName = this.orderDestination.restaurant.title;
-              this.restaurantAddress = this.orderDestination.restaurant.vicinity
-            });
-          };
-          for (let i = 0; i < results.length; i++) {
-            makeMarker(results[i]);
-          }
-        }
-
-      });
+      this.getGoogleServices()
     }
-
-
 
     this.mapPlaces.push(new Place(0, this.userlatlng, 'موقعى', 'user'));
     if (this.initMap) {
@@ -179,6 +140,50 @@ export class MapsPage {
       this.makeMarker(place, this.map)
     });
 
+  }
+
+  private getGoogleServices(radius: number = 500, type: string = 'restaurant') {
+    
+    const request = {
+      location: new google.maps.LatLng((<any>this.userlatlng).lat, (<any>this.userlatlng).lng),
+      radius,
+      type // types of places we want to search for
+    }
+    let service = new google.maps.places.PlacesService(this.map);
+    service.nearbySearch(request, (results, status) => {
+      console.log('Places Results', results);
+      //this.appUtils.AppToast('Places number -> '+ results.length,{position:'top'});
+      if (status === google.maps.places.PlacesServiceStatus.OK) {
+        let makeMarker = (place) => {
+          let placeLoc = place.geometry.location;
+          let marker = new google.maps.Marker({
+            map: this.map,
+            position: placeLoc,
+            icon: 'assets/imgs/rest-pin.png',
+            animation: google.maps.Animation.DROP,
+          });
+
+          google.maps.event.addListener(marker, 'click', () => {
+            console.log('marker clicked', marker, place);
+            let htmlContent = `
+                <b>&nbsp;&nbsp;  ${place.name || place.title}</b><br>
+                ${(place.vicinity || place.address).split(',').join('<br>')}
+              `;
+            this.infoWindow.setContent(htmlContent);
+            this.infoWindow.open(this.map, marker);
+            this.orderDestination.restaurant = { ...place, title: place.name, location: { lat: place.geometry.location.lat(), lng: place.geometry.location.lng() } };
+            this.restaurantName = this.orderDestination.restaurant.title;
+            this.restaurantAddress = this.orderDestination.restaurant.vicinity
+          });
+        };
+        for (let i = 0; i < results.length; i++) {
+          makeMarker(results[i]);
+        }
+      } else {
+        this.getGoogleServices(radius += 500);
+      }
+
+    });
   }
 
   // make markers

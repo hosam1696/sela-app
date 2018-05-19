@@ -26,6 +26,9 @@ export class HomePage {
   nearbyRestaurants: { featured: any[], locnear: PlaceNearMap[] } = {featured: [], locnear: []};
   activeRestaurants: any[];
   localUser: UserData;
+  map: any;
+  defaultRadius: number = 500;
+  defaultSearchPlaces: string = 'restaurant';
   constructor(public navCtrl: NavController,
               public appUtils: AppUtilFunctions,
               public userProvider: UsersProviders,
@@ -130,32 +133,7 @@ export class HomePage {
           this.nearbyRestaurants.featured = Array.isArray(data) ? data : [data];
         });
       // Get restaurants from Google Maps
-      const latLng = this.userLocation;
-      const mapOptions = {center: latLng,zoom: 19,mapTypeId: google.maps.MapTypeId.ROADMAP,fullscreenControl: false,};
-      //TODO: Add feature to load more places by increasing the raduis value
-      const request = {location: this.userLocation,radius: 500,type: 'restaurant'};
-      const map = new google.maps.Map(this.mapElement, mapOptions);
-      const service = new google.maps.places.PlacesService(map);
-      service.nearbySearch(request, (results, status) => {
-        if (status === google.maps.places.PlacesServiceStatus.OK) {
-          console.log('Google maps restaurants', results);
-          //TODO: sort result places based on the current user position
-          let finalResult = results.map(place => {
-            let location = { lat: place.geometry.location.lat(), lng: place.geometry.location.lng() }
-            return {
-              location,
-              distance: this.distanceTo(location),
-              icon: place.icon,
-              id: place.place_id,
-              rating: place.rating,
-              address: place.vicinity,
-              title: place.name
-            }
-          });
-          console.log('finalResult', finalResult)
-          this.nearbyRestaurants.locnear = finalResult.sort((a, b) => a.distance < b.distance);
-        }
-      });
+      this.getGooglePlaces();
 
     } else {
       //TODO: reminder for removing this line in production
@@ -183,6 +161,43 @@ export class HomePage {
         console.log(d);
       })
   }
+  private initMap() {
+    const mapOptions = { center: this.userLocation, zoom: 19, mapTypeId: google.maps.MapTypeId.ROADMAP, fullscreenControl: false, };
+    //TODO: Add feature to load more places by increasing the raduis value
+    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+  }
+
+  private getGooglePlaces() {
+    this.initMap();
+    const service = new google.maps.places.PlacesService(this.map);
+    this.getNearByServices(service);
+  }
+
+  private getNearByServices(service: any, radius: number = this.defaultRadius, type: string = this.defaultSearchPlaces) {
+    const request = { location: new google.maps.LatLng(this.userLocation.lat, this.userLocation.lng), radius, type };
+    service.nearbySearch(request, (results, status) => {
+      console.info(status);
+      if (status === google.maps.places.PlacesServiceStatus.OK) {
+        let finalResult = results.map(place => {
+          let location = { lat: place.geometry.location.lat(), lng: place.geometry.location.lng() };
+          return {
+            location,
+            distance: this.distanceTo(location),
+            icon: place.icon,
+            id: place.place_id,
+            rating: place.rating,
+            address: place.vicinity,
+            title: place.name
+          };
+        });
+        console.log('finalResult', results, finalResult);
+        this.nearbyRestaurants.locnear = finalResult.sort((a, b) => a.distance > b.distance);
+      } else if (status === 'ZERO_RESULTS') {
+        this.getNearByServices(service, this.defaultRadius+=500)
+      }
+    });
+  }
+
   trackByFn(index, item) {
     return index; // or item.id
   }
