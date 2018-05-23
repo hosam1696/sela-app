@@ -42,6 +42,7 @@
     "angular2-text-mask": "^8.0.5",
     "angularfire2": "^5.0.0-rc.5-next",
     "call-number": "^1.0.1",
+    "cordova-android": "7.1.0",
     "cordova-ios": "4.5.4",
     "cordova-plugin-camera": "^4.0.3",
     "cordova-plugin-camera-preview": "^0.9.0",
@@ -86,7 +87,11 @@
       "cordova-sqlite-storage": {},
       "cordova-plugin-firebase": {},
       "mx.ferreyra.callnumber": {},
+      "call-number": {}
     },
-    "platforms": []
+    "platforms": [
+      "ios",
+      "android"
+    ]
   }
 }

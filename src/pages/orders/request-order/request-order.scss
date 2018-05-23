@@ -59,6 +59,7 @@ page-request-order {
     &.page-footer {
       display: flex;
       button {
+        overflow: hidden !important;
         width: 50%;
         border-radius: 0 !important;
         p {

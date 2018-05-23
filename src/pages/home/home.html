@@ -88,19 +88,9 @@
     <!-- Nearest slide-->
     <ion-slide>
       <ion-list no-lines margin-horizontal>
-        <!-- Loading component for nearby Restaurant -->
-        <ion-item margin-bottom *ngFor="let i of [1,2,3]" [hidden]="nearbyRestaurants.locnear.length||nearbyRestaurants.featured.length">
-          <ion-avatar class="loading">
-            <img src="" alt="">
-          </ion-avatar>
-          <div class="result-actions loading">
-            <p></p>
-            <p></p>
-          </div>
-        </ion-item>
+
         <!-- Real Data From Data base -->
-        <ion-item margin-bottom *ngFor="let restaurant of nearbyRestaurants?.featured;trackBy: trackByFn"
-                  (click)="openPage('MapsPage', {pageData:restaurant})">
+        <ion-item margin-bottom *ngFor="let restaurant of nearbyRestaurants?.featured;trackBy: trackByFn" (click)="openPage('MapsPage', {pageData:restaurant})">
           <ion-avatar>
             <img src="assets/imgs/rest-alt.png" alt="">
           </ion-avatar>
@@ -113,7 +103,20 @@
             </p>
           </div>
         </ion-item>
-        <ion-item margin-bottom *ngFor="let restaurant of nearbyRestaurants?.locnear;trackBy: trackByFn"
+
+        <!-- Loading component for nearby Restaurant -->
+        <ng-template [ngIf]="nearbyRestaurants.locnear.length<1">
+          <ion-item margin-bottom *ngFor="let i of [1,2,3]" >
+            <ion-avatar class="loading">
+              <img src="" alt="">
+            </ion-avatar>
+            <div class="result-actions loading">
+              <p></p>
+              <p></p>
+            </div>
+          </ion-item>
+        </ng-template>
+        <ion-item margin-bottom *ngFor="let restaurant of nearbyRestaurants.locnear;trackBy: trackByFn"
                   (click)="openPage('MapsPage', {pageData:restaurant})">
           <ion-avatar>
             <img [src]="restaurant.icon || 'assets/imgs/rest-alt.png'" alt="">
