@@ -81,20 +81,26 @@ page-home {
           max-height: 95px;
           ion-avatar {
             min-width: 70px !important;
+            max-width: 70px !important;
+            max-height: 70px !important;            
             align-items: center;
             display: flex;
+            border: 2px solid $primary;
+            border-radius: 50% !important;
+            overflow: hidden;
+            img {
+              width: 7rem !important;
+              height: 7rem !important;
+              transform: scale(0.8);
+              border-radius: 0 !important
+            }
             &.loading {
+              border: none;
               img {
                 border-color: transparent;
                 background-color: #eee;
                 border-radius: 50% !important
               }
-            }
-            img {
-              width: 7rem !important;
-              height: 7rem !important;
-              border: 2px solid $primary;
-              border-radius: 50% !important
             }
           }
           ion-label {
@@ -129,7 +135,7 @@ page-home {
               color: #9D9D9D
             }
             p {
-              margin: 0;
+              //margin: 0;
               &:first-of-type{
                 color: #555;
                 font-weight: bold;
