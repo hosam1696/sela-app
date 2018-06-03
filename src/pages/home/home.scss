@@ -81,6 +81,8 @@ page-home {
           max-height: 95px;
           ion-avatar {
             min-width: 70px !important;
+            max-width: 70px !important;
+            max-height: 70px !important;            
             align-items: center;
             display: flex;
             border: 2px solid $primary;

@@ -90,7 +90,7 @@
       <ion-list no-lines margin-horizontal>
 
         <!-- Real Data From Data base -->
-        <ion-item margin-bottom *ngFor="let restaurant of nearbyRestaurants?.featured;trackBy: trackByFn" (click)="openPage('MapsPage', {pageData:restaurant})">
+        <ion-item margin-bottom *ngFor="let restaurant of nearbyRestaurants.featured;trackBy: trackByFn" (click)="openPage('MapsPage', {pageData:restaurant})">
           <ion-avatar>
             <img src="assets/imgs/rest-alt.png" alt="">
           </ion-avatar>

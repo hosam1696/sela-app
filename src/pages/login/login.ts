@@ -34,7 +34,7 @@ export class LoginPage {
     navParams: NavParams
   ) {
     this.loginForm = this.formBuilder.group({
-      phone: ["", Validators.required],
+      emailorphone: ["", Validators.required],
       password: ["", Validators.required]
     });
 
@@ -56,14 +56,21 @@ export class LoginPage {
     this.navCtrl.push("HomePage");
   }
   onSubmit() {
-    if (this.loginForm.controls.phone.hasError("required")) {
-      this.appUtils.AppToast("الرجاء إدخال رقم الموبابل");
+    if (this.loginForm.controls.emailorphone.hasError("required")) {
+      this.appUtils.AppToast("يرجى ادخال برديك الالكترونى أو رقم الهاتف");
     } else if (this.loginForm.controls.password.hasError("required")) {
       this.appUtils.AppToast("الرجاء إدخال  كلمة المرور");
     } else {
+      const loginData: any = {};
+      let emailOrPhoneVal = this.loginForm.get('emailorphone').value;
       this.loader = true;
-
-      this.usersproviders.userLogin(this.loginForm.value).subscribe(
+      if (/^\d+$/.test(emailOrPhoneVal)) {
+        loginData.phone = emailOrPhoneVal;
+      } else {
+        loginData.email = emailOrPhoneVal;
+      }
+      loginData.password = this.loginForm.get('password').value;
+      this.usersproviders.userLogin(loginData).subscribe(
         res => {
           if (res.error) {
             this.appUtils.AppToast("البيانات غير متطابقة");
