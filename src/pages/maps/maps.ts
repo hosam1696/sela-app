@@ -4,7 +4,7 @@ import { Geolocation, Geoposition } from '@ionic-native/geolocation';
 import { Place } from './place.model';
 import {AreasProvider} from "../../providers/areas/areas";
 import { AppUtilFunctions } from '../../providers/utilfuns';
-
+import { AppstorageProvider } from '../../providers/appstorage/appstorage';
 declare let google;
 type LatLng = [number, number]|{lat:number,lng:number};
 @IonicPage()
@@ -31,10 +31,12 @@ export class MapsPage {
   restaurantName: string = '';
   restaurantAddress: string = '';
   nearbyDeligators: any[];
+  userLogged: boolean = true;
   constructor(public navCtrl: NavController,
     public geolocation: Geolocation,
     public areasProvider: AreasProvider,
     public appUtils: AppUtilFunctions,
+    public storage: AppstorageProvider,
     public navParams: NavParams) {
   }
 
@@ -43,7 +45,7 @@ export class MapsPage {
     console.log('Restaurant Location', this.initMap);
     this.userlatlng = this.navParams.get('userLocation');
     console.log('maps params user location', this.userlatlng);
-
+    this.storage.getUserData().then(data => this.userLogged = Boolean(data && data.id))
     if (this.userlatlng) {
       this.loadMap(this.userlatlng);
       this.getNearestDelegates([(<any>this.userlatlng).lat,(<any>this.userlatlng).lng])
@@ -238,13 +240,19 @@ export class MapsPage {
   }
 
   requestOrder() {
-    if (!this.orderDestination.restaurant) {
-      this.appUtils.AppToast('يرجى اختيار المطعم اولاً', { position: 'middle', cssClass:'centered'})
-    } else if (!this.orderDestination.delegate) {
-      this.appUtils.AppToast('يرجى اختيار المندوب اولا', { position: 'middle', cssClass: 'centered' })
+    if (this.userLogged) {
+
+      if (!this.orderDestination.restaurant) {
+        this.appUtils.AppToast('يرجى اختيار المطعم اولاً', { position: 'middle', cssClass:'centered'})
+      } else if (!this.orderDestination.delegate) {
+        this.appUtils.AppToast('يرجى اختيار المندوب اولا', { position: 'middle', cssClass: 'centered' })
+      } else {
+        this.openPage('RequestOrderPage', { pageData: this.orderDestination, userLocation: this.userlatlng })
+      }
     } else {
-      this.openPage('RequestOrderPage', { pageData: this.orderDestination, userLocation: this.userlatlng })
+      console.error('you must log in');
+      this.appUtils.AppToast('يجب التسجيل أولا لاستكمال الطلب')
     }
   }
-
-}
+    
+  }

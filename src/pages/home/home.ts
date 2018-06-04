@@ -42,7 +42,7 @@ export class HomePage {
 
   async ionViewDidLoad() {
     this.localUser = await this.appStorage.getUserData();
-    this.getNotifications(this.localUser.role);
+    //this.getNotifications(this.localUser.role);
     this.switchPlaces()
 
   }

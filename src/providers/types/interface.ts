@@ -32,6 +32,7 @@ export interface MenuPage {
   icon: string,
   params?: any,
   noUserLogged?: boolean,
+  hide?:boolean
 }
 
 export interface PlaceNearMap {

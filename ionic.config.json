@@ -8,7 +8,7 @@
   "proxies": [
     {
       "path": "/api/",
-      "proxyUrl": "http://selah.methaq.net.sa"
+      "proxyUrl": "http://selah.rqmiyat.com/"
     },{
       "path": "/maps/",
       "proxyUrl": "http://maps.google.com"
