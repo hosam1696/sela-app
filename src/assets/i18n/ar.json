@@ -9,9 +9,14 @@
   "Wallet": "المحفظة",
   "CustomerName": "اسم العميل",
   "EditProfile" : "تعديل البيانات",
-  "ContactUs": "تواصل معنا",
+  "ContactUs":"اتصل بنا",
   "rapid": "سريع",
   "normal": "عادى",
   "cash on delivery": "الدفع عند الاستلام",
-  "Chats": "الرسائل"
+  "Chats": "الرسائل",
+  "Profile": "الملف الشخصى",
+  "help": "المساعدة",
+  "aboutus": "نبذة عنا",
+    "location": "الموقع",
+    "map": "الخريطة"
 }

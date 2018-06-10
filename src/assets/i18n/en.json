@@ -11,5 +11,10 @@
   "CustomerName": "Customer name",
   "EditProfile": "Edit Profile",
   "ContactUs": "Contact Us",
-  "Chats": "Chats"
+  "Chats": "Chats",
+  "Profile": "Profile",
+  "aboutus": "About us",
+  "help": "Help",
+  "location": "Location",
+  "map": "Map"
 }

@@ -1,18 +1,13 @@
 <ion-menu [content]="content">
   <ion-content>
-    <section class="user-section" menuToggle (click)="openPage('ProfilePage')">
-      <div class="user-img">
+    <section class="user-section" menuToggle (click)="userLogged?openPage('ProfilePage'):false">
+      <button ion-button clear large class="user-img">
         <img src="assets/imgs/profile-alt.png" alt="">
-      </div>
-      <div class="user-name">
-        <h2>{{ appStorage._USER_DATA?.name|| translate}}</h2>
-      </div>
+        <h4>{{ appStorage._USER_DATA?.name || 'داليا كامل'}}</h4>
+      </button>
     </section>
     <ion-list>
-      <button clear no-lines menuClose ion-item
-              *ngFor="let page of pages"
-              detail-none
-              (click)="openPage(page)">
+      <button clear no-lines menuClose ion-item *ngFor="let page of pages" detail-none [hidden]="page.hide" (click)="openPage(page)">
         <ion-icon [name]="page.icon"></ion-icon>
         <p>{{page.title | translate }}</p>
       </button>

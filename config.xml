@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.methaaq.sella" version="1.0.45" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>صلة</name>
+<widget id="com.methaaq.gawda" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>الجودة والنقاء</name>
     <description>never missed the services suround you</description>
     <author email="ceo@methaaq.com" href="http://methaq.com.sa/">Methaq Team</author>
     <content src="index.html" />

@@ -23,7 +23,7 @@ $dark: color($colors, dark);
 $danger: color($colors, danger);
 
 // File Variables
-$hero-img-width: 11rem;
+$hero-img-width: 6.5rem;
 
 * {
   font-family: 'jf-flat-regular', sans-serif
@@ -47,7 +47,8 @@ ion-menu {
 
   ion-content {
     &.content {
-      background-color: rgba(59, 174, 230, 0.86);
+      background-color: $primary;
+      background-image: linear-gradient(-135deg, #07a5d4 80%, #fff 80%);
       color: $light;
     }
     .page-title {
@@ -58,30 +59,43 @@ ion-menu {
     }
     .user-section {
       @extend %flex-center;
-      padding: 1.6rem;
+      padding: 1.2rem 1.2rem 0.6rem;
+      color: $light;
+      h4 {
+        color: $light;
+      }
       .user-img {
+        display: flex;
         min-height: $hero-img-width;
-        text-align: center;
+        justify-content: space-between;
+        padding: 0 0 1.4rem !important;
+        height: 7.5rem;
+        .button-inner {
+          justify-content: flex-start !important;
+        }
+
         img {
+          margin:  0 1rem;
           min-height: $hero-img-width;
           min-width: $hero-img-width;
           width: $hero-img-width;
           height: $hero-img-width;
           border-radius: 50%;
-          background-color: #fff;
+          background-color: #ccc;
+          border: 2px solid $light;
+          box-shadow: 0 5px  1px #555;
         }
       }
-      .user-name {
-        text-align: center;
-        h2 {
-          margin-top: 1rem !important;
-        }
-      }
+      
     }
     ion-list {
       button {
         background-color: transparent !important;
         color: $light !important;
+                p,
+                ion-icon {
+                  text-shadow: 2px 1px $primary;
+                }
         ion-label {
           margin-bottom: 0 !important;
           @extend %align-center
@@ -93,7 +107,6 @@ ion-menu {
           line-height: 1.2;
           text-align: center;
           border-radius: 50%;
-          border: 1.2px solid #2A7CAD;
           color: #fff !important;
           font-size: 2.8rem;
         }
