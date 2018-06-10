@@ -6,7 +6,11 @@ page-signup {
     }
   }
   ion-content {
+    &.content {
 
+      background: url(../assets/imgs/water-bg.png);
+      background-size: 100% 100%;
+    }
     .col {
       .form-group {
         width: 98%;
@@ -18,10 +22,10 @@ page-signup {
         height: 0;
       }
       .form-group {
-        padding: 12px 8px;
+        padding: 12px 10px;
         width: 100%;
-        border: 1px solid #ccc;
-        border-bottom: 2px solid $primary;
+        border-radius: 5px;
+        border: 1px solid $primary;
         margin-bottom: $form-margin;
         background-color: #fff;
         max-height: 45px;
@@ -82,7 +86,7 @@ page-signup {
           width: 100%;
           font-size: 1.6rem;
           &::placeholder {
-            color: #999 ;
+            color: $primary ;
           }
         }
       }

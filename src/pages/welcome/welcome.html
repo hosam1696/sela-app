@@ -1,18 +1,32 @@
+
+
 <!--
-  Generated template for the WelcomePage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
+<button ion-button navPop icon-only>
+          <ion-icon [name]="appLang=='ar'?'arrow-back':'arrow-forward'"></ion-icon>
+</button>
 -->
-<ion-header>
+<ion-content no-padding>
+  <section class="for-hero" text-center>
+    <img src="assets/imgs/glogo.png" width="100" height="100" alt="">
+  </section>
+  <ion-slides dir="rtl">
+    <ion-slide class="welcome-section" text-center>
+      <p text-center>اختر اللغة</p>
+      <button ion-button no-padding class="edit-btn" outline margin (click)="selectLang('ar')">
+        اللغة العربية
+      </button>
+      <button ion-button no-padding  class="edit-btn" margin (click)="selectLang('ar')">
+        English Language
+      </button>
+    </ion-slide>
+    <ion-slide class="welcome-section" text-center>
+      <p text-center>
+        أهلا بكم فى الجودة والنقاء
+      </p>
+      <button ion-button class="edit-btn" outline (click)="goTo('LoginPage')">تسجيل الدخول</button>
 
-  <ion-navbar>
-    <ion-title>welcome</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
-<ion-content padding>
+      <button ion-button class="edit-btn" (click)="goTo('LoginPage')">انشاء حساب</button>
+    </ion-slide>
+  </ion-slides>
 
 </ion-content>

@@ -40,6 +40,11 @@ $hero-img-width: 6.5rem;
 .centered {
   text-align: center;
 }
+.app-btn {
+  width: 60%;
+  max-width: 220px;
+  border-radius: 12px;
+}
 ion-menu {
   .menu-inner {
     background: transparent !important;
@@ -82,11 +87,11 @@ ion-menu {
           height: $hero-img-width;
           border-radius: 50%;
           background-color: #ccc;
-          border: 2px solid $light;
+          border: 2px solid #fff;
           box-shadow: 0 5px  1px #555;
         }
       }
-      
+
     }
     ion-list {
       button {

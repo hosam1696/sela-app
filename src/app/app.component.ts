@@ -57,7 +57,7 @@ export class MyApp {
 
     // refresh local storage event
     this.events.subscribe('refreshStorage', () => {
-      this.configPage();      
+      this.configPage();
       this.appStorage.getUserData();
     });
 
@@ -97,34 +97,48 @@ export class MyApp {
   }
 
   private configPage() {
-    this.appStorage.getUserData()
-      .then((data: UserData) => {
-        
-        if (data && data.id) {
-          this.userLogged = true;
-          this.rootPage = UserHome[data.role];
-        } else {
-          this.userLogged = false;
-          
-          this.rootPage = UserHome['user']; //'LoginPage'
-        }
-        this.pages = this._menuPages;
-      }).catch(() => {
-        this.rootPage = UserHome['user'];//'LoginPage'
-        this.pages = this._menuPages;
 
+    this.appStorage.isFirstLoad()
+      .then(loaded=>{
+        console.log('App loaded Before', loaded);
+        if (loaded == null) {
+          this.rootPage = 'WelcomePage';
+        this.appStorage.loadApp()
+          .then(loaded=>{
+            console.log('App load', loaded)
+          });
+        } else {
+          this.appStorage.getUserData()
+            .then((data: UserData) => {
+
+              if (data && data.id) {
+                this.userLogged = true;
+                this.rootPage = UserHome[data.role];
+              } else {
+                this.userLogged = false;
+
+                this.rootPage = UserHome['user']; //'LoginPage'
+              }
+              this.pages = this._menuPages;
+            }).catch(() => {
+            this.rootPage = UserHome['user'];//'LoginPage'
+            this.pages = this._menuPages;
+
+          });
+        }
       });
+
   }
   private get _menuPages() {
     return [
       { title: 'Home', component: 'HomePage', icon: 'ios-home-outline' },
-      {title: 'Profile', component: 'ProfilePage', icon: 'ios-person-outline'},
+      {title: 'Profile', component: 'ProfilePage', icon: 'ios-person-outline', hide: this.userLogged === false},
       { title: 'location', component: 'MapsPage', icon: 'ios-pin-outline' },
       { title: 'MyOrders', component: 'OrdersPage', icon: 'cart', hide: this.userLogged === false, params: { 'userData': this.appStorage._USER_DATA } },
       { title: 'Chats', component: 'ChatsPage', icon: 'ios-chatboxes-outline', hide: this.userLogged === false },
       { title: 'ContactUs', component: 'ContactusPage', icon: 'ios-call-outline' },
       {title: 'aboutus', component: 'AboutusPage', icon: 'ios-alert-outline' },
-      { title: 'help', component: 'HelpusPage', icon: 'ios-help-outline' },      
+      { title: 'help', component: 'HelpusPage', icon: 'ios-help-outline' },
       { title: 'Settings', component: 'SettingsPage', icon: 'ios-settings-outline' },
       //{title: 'Cart', component: 'CartPage', icon: 'cart'},
       { title: 'Login', component: 'LoginPage', icon: 'log-in', hide: this.userLogged === true, params: { openAsPage: true } },

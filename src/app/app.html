@@ -3,7 +3,10 @@
     <section class="user-section" menuToggle (click)="userLogged?openPage('ProfilePage'):false">
       <button ion-button clear large class="user-img">
         <img src="assets/imgs/profile-alt.png" alt="">
-        <h4>{{ appStorage._USER_DATA?.name || 'داليا كامل'}}</h4>
+        <h5>{{ appStorage._USER_DATA?.name}}</h5>
+        <button ion-button clear [hidden]="userLogged" (click)="openPage('LoginPage')">
+          {{'Login'|translate}}
+        </button>
       </button>
     </section>
     <ion-list>

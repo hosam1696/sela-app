@@ -4,13 +4,13 @@
     <button ion-button menuToggle>
       <ion-icon name="md-list"></ion-icon>
     </button>
+    <ion-title>{{'ContactUs' | translate}}</ion-title>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
 
-  <h4 margin class="contact-title">تواصل معنا</h4>
   <form [formGroup]="contactForm" (ngSubmit)="submitContact()">
 
     <div class="form-group" *ngIf="!localUser">

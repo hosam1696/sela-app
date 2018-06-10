@@ -14,7 +14,8 @@ page-login {
       align-items: center;
     }
     &.content {
-      background-color: #fff;
+      background: url(../assets/imgs/water-bg.png);
+      background-size: 100% 100%;
     }
     form {
       .form-group {
@@ -59,7 +60,7 @@ page-login {
           display: block;
         }
       }
-      
+
     }
     .social-login {
       text-align: center;

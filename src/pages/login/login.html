@@ -1,10 +1,10 @@
 <ion-content padding-horizontal>
   <nav class="top-nav" *ngIf='openAsPage'>
     <button ion-button clear icon-only (click)="closePage()">
-      <ion-icon name="arrow-forward" color="light"></ion-icon>
+      <ion-icon name="arrow-forward" color="primary"></ion-icon>
     </button>
   </nav>
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="loginForm" padding-horizontal (ngSubmit)="onSubmit()">
 
     <section class="for-hero" text-center>
       <img src="assets/imgs/glogo.png" width="100" height="100" alt="">
