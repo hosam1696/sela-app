@@ -1,26 +1,23 @@
 
 <ion-header no-border>
-  <ion-navbar color="primary" class="header-bg">
-    <button ion-button icon-only clear >
-      <ion-icon class="bill-icon" name="notifications"></ion-icon>
-    </button>
-
-    <ion-buttons end>
+  <ion-navbar color="primary" >
+    <ion-title>{{'Profile'|translate}}</ion-title>
+    <!--<ion-buttons end>
       <button ion-button icon-only *ngIf="localUser&&localUser.role=='user'" (click)="openPage('MapsPage')">
         <ion-icon name="search"></ion-icon>
       </button>
-    </ion-buttons>
+    </ion-buttons>-->
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content no-padding>
   <section class="user-section">
     <div class="user-img">
       <img src="assets/imgs/profile-alt.png" alt="">
-      <button ion-button icon-only type="button" mini round (click)="changeImage()">
-        <ion-icon name="add"></ion-icon>
+      <button ion-button icon-only type="button" color="light" mini round (click)="changeImage()">
+        <ion-icon name="add" color="primary"></ion-icon>
       </button>
     </div>
     <div class="user-name">
@@ -32,7 +29,7 @@
   </section>
 
  
-  <ion-grid>
+  <!--<ion-grid>
     <ion-row>
       <ion-col text-center>
         <ion-chip (click)="changePageMode()">
@@ -41,7 +38,6 @@
         </ion-chip>
       </ion-col>
 
-      <!--show this if the user enters his profile-->
       <ion-col text-center>
         <ion-chip (click)="logout()">
           <ion-icon name="log-out"></ion-icon>
@@ -50,10 +46,10 @@
       </ion-col>
     </ion-row>
 
-  </ion-grid>
+  </ion-grid>-->
 
 
-  <section class="profile-data" *ngIf="localUser">
+  <section padding class="profile-data" *ngIf="localUser">
     <!--  edit user details -->
     <form class="user-edit-details"
           [formGroup]="profileEditForm"
@@ -138,8 +134,13 @@
 
   </section>
 
+  <p text-center>
+    <button [hidden]="pageMode.editMode" ion-button class="edit-btn" (click)="changePageMode()">
+      تعديل
+    </button>
+    <button [hidden]="!pageMode.editMode" ion-button class="edit-btn" (click)="changePageMode()" (click)="submitForm()">
+      حفظ
+    </button>
+  </p>
 </ion-content>
 
-<ion-footer [hidden]="!pageMode.editMode">
-  <button ion-button no-margin  full type="submit" (click)="submitForm()">{{pageMode.editText|translate}}</button>
-</ion-footer>

@@ -127,12 +127,9 @@ ion-content {
   }
 }
 
-ion-header {
-  ion-navbar {
-    border-bottom: 2px solid $secondary;
-  }
+.toolbar-title {
+  font-size: 1.5rem
 }
-
 .transparent-bg {
   background: transparent;
   .toolbar-background {

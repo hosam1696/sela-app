@@ -1,9 +1,15 @@
 page-profile {
   ion-content {
     $hero-img-width: 9rem;
+    .edit-btn {
+      width: 60%;
+      max-width: 220px;
+      border-radius: 12px;
+    }
     .user-section {
       @extend %flex-center;
       padding: 1.6rem;
+      background-color: $primary;
       .user-img {
         min-height: $hero-img-width;
         text-align: center;
@@ -26,7 +32,7 @@ page-profile {
       }
       .user-name {
         text-align: center;
-        color: $primary;
+        color: $light;
         margin-top: 6px;
       }
     }
@@ -63,8 +69,9 @@ page-profile {
           background: #fff;
           border-radius: 10px;
           color: #696969;
-          padding: 6px;
+          padding: 10px;
           margin-bottom: 10px;
+          border: 1px solid $primary;
           &.mobile-group {
             align-items: center;
             height: 36px;
@@ -82,6 +89,7 @@ page-profile {
           label {
             width: 35%;
             position: relative;
+            color: $primary;
             &:after {
               content: ':';
               position: absolute;

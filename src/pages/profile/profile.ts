@@ -60,34 +60,36 @@ export class ProfilePage {
   }
 
   submitForm() {
-    let editUserData = {
-      ...this.profileEditForm.value,
-      id: this.localUser.id,
-      phone: this.profileEditForm.get("phone").value.replace(/\s/g, ""),
-      token: this.token,
-      name: this.concatWords('first_name', 'last_name')
-    };
+    if (this.profileEditForm.dirty && this.profileEditForm.valid) {
+      let editUserData = {
+        ...this.profileEditForm.value,
+        id: this.localUser.id,
+        phone: this.profileEditForm.get("phone").value.replace(/\s/g, ""),
+        token: this.token,
+        name: this.concatWords('first_name', 'last_name')
+      };
 
-    this.userProvider.updateUserInfo(editUserData).subscribe(
-      data => {
-        let userData: UserData = data[0];
-        console.log(status, userData);//TODO: remove this line
-        if (data.status) {
-          this.appUtils.AppToast("تم تعديل البيانات بنجاح", {position:'middle', cssClass:'centered'});
-          userData.token = this.localUser.token;
-          this.appStorage.saveUserData(userData)
-            .then((result) => {
-              console.info('saveUserData Result', result);//TODO: remove this line
-              this.localUser = result;
-              this.pageMode.editMode = false;
-              this.events.publish("refreshStorage");
-            });
+      this.userProvider.updateUserInfo(editUserData).subscribe(
+        data => {
+          let userData: UserData = data[0];
+          console.log(status, userData);//TODO: remove this line
+          if (data.status) {
+            this.appUtils.AppToast("تم تعديل البيانات بنجاح", { cssClass: 'centered' });
+            userData.token = this.localUser.token;
+            this.appStorage.saveUserData(userData)
+              .then((result) => {
+                console.info('saveUserData Result', result);//TODO: remove this line
+                this.localUser = result;
+                this.pageMode.editMode = false;
+                this.events.publish("refreshStorage");
+              });
+          }
+        },
+        err => {
+          console.warn(err);
         }
-      },
-      err => {
-        console.warn(err);
-      }
-    );
+      );
+    }
   }
 
   private concatWords(first: string = 'first_name', last: string= 'last_name'): string {
