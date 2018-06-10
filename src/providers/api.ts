@@ -4,8 +4,8 @@ import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 @Injectable()
 
 export class AppAPI {
-    public API_URL: string = 'http://selah.rqmiyat.com/api/';
-    public URL: string = 'http://selah.rqmiyat.com/';
+    public API_URL: string = 'http://selah.methaq.net.sa/api/';
+    public URL: string = 'http://selah.methaq.net.sa/';
     constructor(public http: HttpClient) {
     }
 

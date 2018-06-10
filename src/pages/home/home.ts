@@ -131,7 +131,6 @@ export class HomePage {
           data.lng = Number(data.lng);
           data = this.makePlace(data);
           this.nearbyRestaurants.featured = Array.isArray(data) ? data : [data];
-          console.log('this.nearby Restaurants', this.nearbyRestaurants);
         });
       // Get restaurants from Google Maps
       this.getGooglePlaces();
