@@ -1,7 +1,7 @@
 {
   "Home": "الرئيسية",
   "Settings": "الإعدادات",
-  "MyOrders": "طلباتى",
+  "MyOrders": "الطلبات",
   "Login":"تسجيل الدخول",
   "Logout": "تسجيل الخروج",
   "Signup": " تسجيل جديد",
@@ -18,5 +18,22 @@
   "help": "المساعدة",
   "aboutus": "نبذة عنا",
     "location": "الموقع",
-    "map": "الخريطة"
+    "map": "الخريطة",
+    "notifications": "الاشعارات",
+  "login": "دخول",
+  "createAccount":"انشاء حساب",
+  "youdonothaveaccount": "ليس لديك حساب؟",
+  "email": "البريد الالكترونى",
+  "password": "كلمة المرور",
+  "forgotPass": "نسيت كلمة المرور؟",
+  "name": "اسم المستخدم",
+  "searchplaces": "ابحث فى الأماكن",
+  "requestwater": "تسجيل طلب مياه",
+  "requesticeblock": "تسجيل طلب ثلج",
+  "litres": "عدد اللترات",
+  "cost": "التكلفة",
+  "confirmorder": "تأكيد الطلب",
+  "cancel": "الغاء",
+  "alreadyhaveaccount": "لديك حساب بالفعل؟ "
+
 }

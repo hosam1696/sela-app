@@ -8,10 +8,16 @@ page-login {
       left: 0
     }
     .for-hero {
-      display: flex;
-      justify-content: center;
+      text-align: center;
       height:40vh;
+      display: flex;
       align-items: center;
+      flex-direction: column;
+      justify-content: flex-end;
+      img {
+        display: block
+      }
+
     }
     &.content {
       background: url(../assets/imgs/water-bg.png);
@@ -40,6 +46,7 @@ page-login {
               input {
                 letter-spacing: 1px !important;
                 font-weight: bold;
+                text-align: center;
                 &::placeholder {
                   color: $primary !important;
                   font-size: 1.2rem;

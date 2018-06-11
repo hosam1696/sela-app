@@ -65,7 +65,7 @@ export class AppstorageProvider {
     _USER_DATA: UserData;
     localUserStatus: UserStatus;
     */
-    return this.storage.clear()
+    return this.storage.clear().then(()=>this.loadApp())
   }
 
 }

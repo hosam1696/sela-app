@@ -7,15 +7,15 @@
 -->
 <ion-content no-padding>
   <section class="for-hero" text-center>
-    <img src="assets/imgs/glogo.png" width="100" height="100" alt="">
+    <img src="assets/imgs/glogo.png" width="120" height="120" alt="">
+    <img src="assets/imgs/naqaa.png" width="130" alt="">
   </section>
   <ion-slides dir="rtl">
     <ion-slide class="welcome-section" text-center>
-      <p text-center>اختر اللغة</p>
-      <button ion-button no-padding class="edit-btn" outline margin (click)="selectLang('ar')">
+      <button ion-button no-padding class="edit-btn"  margin (click)="selectLang('ar')">
         اللغة العربية
       </button>
-      <button ion-button no-padding  class="edit-btn" margin (click)="selectLang('ar')">
+      <button ion-button no-padding  class="edit-btn" outline margin (click)="selectLang('en')">
         English Language
       </button>
     </ion-slide>
@@ -23,9 +23,9 @@
       <p text-center>
         أهلا بكم فى الجودة والنقاء
       </p>
-      <button ion-button class="edit-btn" outline (click)="goTo('LoginPage')">تسجيل الدخول</button>
+      <button ion-button class="edit-btn" outline (click)="goTo('LoginPage')">{{'Login'|translate}}</button>
 
-      <button ion-button class="edit-btn" (click)="goTo('LoginPage')">انشاء حساب</button>
+      <button ion-button class="edit-btn" (click)="goTo('SignupPage')">{{'createAccount'|translate}}</button>
     </ion-slide>
   </ion-slides>
 

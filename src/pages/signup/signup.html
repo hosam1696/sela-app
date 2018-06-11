@@ -7,80 +7,96 @@
   <form [formGroup]="signupForm" (ngSubmit)="submitForm()">
     <section class="for-hero" text-center>
       <img src="assets/imgs/glogo.png" width="100" height="100" alt="">
-    </section><br>
-
-    <div class="form-user-type">
-      <div class="user" [class.selected]="signupForm.getRawValue()['role'] == 'user'">
-        <label for="type2" >
-          <ion-icon name="man"></ion-icon>
-          <p>تسجيل عادى</p>
-        </label>
-        <input type="radio" id="type2" value="user" formControlName="role" >
-      </div>
-      <div class="user" [class.selected]="signupForm.getRawValue()['role'] == 'branch'">
-        <label for="type1" >
-          <ion-icon name="md-car"></ion-icon>
-          <p>تسجيل مندوب</p>
-        </label>
-        <input type="radio" id="type1" value="branch" formControlName="role" >
-      </div>
-
-    </div>
-    <ion-grid no-padding>
-      <ion-row>
-      <ion-col>
-        <div class="form-group" [class.invalid]="signupForm.controls['first_name'].invalid&&(signupForm.controls['first_name'].touched||signupForm.controls['first_name'].dirty)">
-          <input type="text" placeholder="الاسم الأول" formControlName="first_name" autocomplete="true" name="form_first_name">
-        </div>
-        <div class="form-group">
-          <input type="text" placeholder="الاسم الأخير" formControlName="last_name" autocomplete="true" name="form_last_name">
-        </div>
-      </ion-col>
-      <ion-col>
-        <div class="form-group upload-image" >
-          <ion-icon name="image" (click)="pickImage()"></ion-icon>
-          <p>رفع صورة</p>
-        </div>
-      </ion-col>
-      </ion-row>
-    </ion-grid>
-
-    <div class="form-group phone-number" >
-      <span>+966</span>
-      <input type="tel" [textMask]="{mask: formMasks.mobile}" placeholder="رقم الجوال 9 ارقام" formControlName="phone">
+      <img src="assets/imgs/naqaa.png" width="130" alt="">
+      <p>First Time? Create an account and start Getting Orders</p>
+    </section>
+    <div class="form-group">
+      <ion-icon name="mail" color="primary"></ion-icon>
+      <ion-input [dir]="rightDir?'rtl':'ltr'" formControlName="email" type="email" placeholder="{{'email'|translate}}" item-end></ion-input>
     </div>
     <div class="form-group">
-      <input type="email" email placeholder="البريد الالكترونى" formControlName="email" autocomplete="true" name="form_email">
-    </div>
-    <div class="form-group" [hidden]="signupForm.getRawValue()['role'] == 'user'">
-      <input type="text" placeholder="نوع المركبة" formControlName="vehicle" autocomplete="true" name="form_vehicle">
+      <ion-icon name="ios-person-outline" color="primary"></ion-icon>
+      <ion-input [dir]="rightDir?'rtl':'ltr'" formControlName="name" type="text" placeholder="{{'name'|translate}}" item-end></ion-input>
     </div>
     <div class="form-group">
-      <input type="text" placeholder="العنوان" formControlName="address" autocomplete="true" name="form_address">
+      <ion-icon name="lock" color="primary"></ion-icon>
+      <ion-input [dir]="rightDir?'rtl':'ltr'" formControlName="password" type="password" placeholder="{{'password'|translate}}" item-end></ion-input>
     </div>
-    <div class="form-group location-group" (click)="getLocation()" [hidden]="signupForm.getRawValue()['role'] == 'user'">
-      <div>
-        <span>{{locationText}}</span>
-        <ion-icon name="checkmark-circle" [color]="signupForm.getRawValue()['lat']?'secure':'light'"></ion-icon>
-      </div>
-    </div>
-    <div class="form-group">
-      <input type="password" placeholder="كلمة المرور" formControlName="password" autocomplete="false">
-    </div>
-    <div class="form-group">
-      <input type="password" placeholder=" تأكيد كلمة المرور" formControlName="confirm_password" autocomplete="false" >
-    </div>
+    <!--<div class="form-user-type">-->
+      <!--<div class="user" [class.selected]="signupForm.getRawValue()['role'] == 'user'">-->
+        <!--<label for="type2" >-->
+          <!--<ion-icon name="man"></ion-icon>-->
+          <!--<p>تسجيل عادى</p>-->
+        <!--</label>-->
+        <!--<input type="radio" id="type2" value="user" formControlName="role" >-->
+      <!--</div>-->
+      <!--<div class="user" [class.selected]="signupForm.getRawValue()['role'] == 'branch'">-->
+        <!--<label for="type1" >-->
+          <!--<ion-icon name="md-car"></ion-icon>-->
+          <!--<p>تسجيل مندوب</p>-->
+        <!--</label>-->
+        <!--<input type="radio" id="type1" value="branch" formControlName="role" >-->
+      <!--</div>-->
 
-    <div class="terms-action">
-      <ion-checkbox id="agree-terms" formControlName="agreeCondition" ></ion-checkbox>
-      <label for="agree-terms">أوافق على الشروط والأحكام</label>
-    </div>
+    <!--</div>-->
+    <!--<ion-grid no-padding>-->
+      <!--<ion-row>-->
+      <!--<ion-col>-->
+        <!--<div class="form-group" [class.invalid]="signupForm.controls['first_name'].invalid&&(signupForm.controls['first_name'].touched||signupForm.controls['first_name'].dirty)">-->
+          <!--<input type="text" placeholder="الاسم الأول" formControlName="first_name" autocomplete="true" name="form_first_name">-->
+        <!--</div>-->
+        <!--<div class="form-group">-->
+          <!--<input type="text" placeholder="الاسم الأخير" formControlName="last_name" autocomplete="true" name="form_last_name">-->
+        <!--</div>-->
+      <!--</ion-col>-->
+      <!--<ion-col>-->
+        <!--<div class="form-group upload-image" >-->
+          <!--<ion-icon name="image" (click)="pickImage()"></ion-icon>-->
+          <!--<p>رفع صورة</p>-->
+        <!--</div>-->
+      <!--</ion-col>-->
+      <!--</ion-row>-->
+    <!--</ion-grid>-->
+
+    <!--<div class="form-group phone-number" >-->
+      <!--<span>+966</span>-->
+      <!--<input type="tel" [textMask]="{mask: formMasks.mobile}" placeholder="رقم الجوال 9 ارقام" formControlName="phone">-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+      <!--<input type="email" email placeholder="البريد الالكترونى" formControlName="email" autocomplete="true" name="form_email">-->
+    <!--</div>-->
+    <!--<div class="form-group" [hidden]="signupForm.getRawValue()['role'] == 'user'">-->
+      <!--<input type="text" placeholder="نوع المركبة" formControlName="vehicle" autocomplete="true" name="form_vehicle">-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+      <!--<input type="text" placeholder="العنوان" formControlName="address" autocomplete="true" name="form_address">-->
+    <!--</div>-->
+    <!--<div class="form-group location-group" (click)="getLocation()" [hidden]="signupForm.getRawValue()['role'] == 'user'">-->
+      <!--<div>-->
+        <!--<span>{{locationText}}</span>-->
+        <!--<ion-icon name="checkmark-circle" [color]="signupForm.getRawValue()['lat']?'secure':'light'"></ion-icon>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+      <!--<input type="password" placeholder="كلمة المرور" formControlName="password" autocomplete="false">-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+      <!--<input type="password" placeholder=" تأكيد كلمة المرور" formControlName="confirm_password" autocomplete="false" >-->
+    <!--</div>-->
+
+    <!--<div class="terms-action">-->
+      <!--<ion-checkbox id="agree-terms" formControlName="agreeCondition" ></ion-checkbox>-->
+      <!--<label for="agree-terms">أوافق على الشروط والأحكام</label>-->
+    <!--</div>-->
 
     <div class="form-submit" text-center>
-      <button ion-button color="secondary" class="app-btn" type="submit">تأكيد البيانات
-
+      <button ion-button color="secondary" class="app-btn" type="submit">
+        {{'createAccount'|translate}}
         <ion-spinner color="light" [hidden]="!loader" margin-horizontal></ion-spinner>
       </button>
+      <p class="have-account">
+        {{'alreadyhaveaccount'|translate}} &nbsp;<button clear  small ion-button no-margin no-padding (click)="navCtrl.pop()">{{'Login'|translate}}</button>
+      </p>
     </div>
   </form>
 </ion-content>

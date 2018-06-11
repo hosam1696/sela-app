@@ -13,7 +13,6 @@ import {UsersProviders} from "../../providers/users";
   ],
   imports: [
     IonicPageModule.forChild(ProfilePage),
-    Ionic2RatingModule,
     TextMaskModule,
     TranslateModule.forChild()
   ],

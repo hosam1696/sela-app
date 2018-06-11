@@ -4,7 +4,7 @@
       <button ion-button clear large class="user-img">
         <img src="assets/imgs/profile-alt.png" alt="">
         <h5>{{ appStorage._USER_DATA?.name}}</h5>
-        <button ion-button clear [hidden]="userLogged" (click)="openPage('LoginPage')">
+        <button ion-button clear [hidden]="userLogged" (click)="openPage({component:'LoginPage', params:{openAsPage:true}})">
           {{'Login'|translate}}
         </button>
       </button>

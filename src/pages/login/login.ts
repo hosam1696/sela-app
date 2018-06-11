@@ -4,14 +4,15 @@ import {
   NavController,
   ViewController,
   NavParams,
-  Events
+  Events, Platform
 } from "ionic-angular";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { UsersProviders } from "../../providers/users";
 import { AppUtilFunctions } from "../../providers/utilfuns";
 import { AppstorageProvider } from "../../providers/appstorage/appstorage";
 import {UserData} from "../../providers/types/interface";
-import { UserHome } from "../../providers/types/enums";
+import {thirdPartyMethods, UserHome} from "../../providers/types/enums";
+import {ThirdpartyloginProvider} from "../../providers/thirdpartylogin/thirdpartylogin";
 
 @IonicPage()
 @Component({
@@ -23,6 +24,7 @@ export class LoginPage {
   loader: boolean = false;
   openAsPage;
   boolean = false;
+  rightDir:boolean = true;
   constructor(
     private appStorage: AppstorageProvider,
     public appUtils: AppUtilFunctions,
@@ -31,7 +33,9 @@ export class LoginPage {
     public usersproviders: UsersProviders,
     public viewCtrl: ViewController,
     public events: Events,
-    navParams: NavParams
+    public  thirdParty: ThirdpartyloginProvider,
+    navParams: NavParams,
+    public platform: Platform
   ) {
     this.loginForm = this.formBuilder.group({
       emailorphone: ["", Validators.required],
@@ -52,12 +56,12 @@ export class LoginPage {
   toForgotPass() {
     this.navCtrl.push("ResetpasswordPage");
   }
-  goHomePage() {
-    this.navCtrl.push("HomePage");
+  ionViewDidLoad() {
+    this.rightDir = this.platform.isRTL;
   }
   onSubmit() {
     if (this.loginForm.controls.emailorphone.hasError("required")) {
-      this.appUtils.AppToast("يرجى ادخال برديك الالكترونى أو رقم الهاتف");
+      this.appUtils.AppToast("يرجى ادخال برديك الالكترونى");
     } else if (this.loginForm.controls.password.hasError("required")) {
       this.appUtils.AppToast("الرجاء إدخال  كلمة المرور");
     } else {
@@ -109,7 +113,7 @@ export class LoginPage {
                 `body was: ${err.error.body}`
             );
             this.loader = false;
-            this.appUtils.AppToast("خطأ فى الخادم");
+            this.appUtils.AppToast("خطأ فى السيرفر");
           }
         }, () => {
           this.loader = false;
@@ -117,4 +121,14 @@ export class LoginPage {
       );
     }
   }
+
+  thirdPartyLogin(method: thirdPartyMethods):void {
+    if (method === 'googleplus') {
+      this.thirdParty.googleLogin()
+    } else {
+      this.thirdParty.facebookLogin()
+    }
+  }
+
+
 }

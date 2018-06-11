@@ -3,6 +3,7 @@ import { IonicPageModule } from 'ionic-angular';
 import { OrdersPage } from './orders';
 import { OrdersProvider } from "../../providers/orders/orders";
 import {AppstorageProvider} from "../../providers/appstorage/appstorage";
+import {TranslateModule} from "@ngx-translate/core";
 
 @NgModule({
   declarations: [
@@ -10,6 +11,7 @@ import {AppstorageProvider} from "../../providers/appstorage/appstorage";
   ],
   imports: [
     IonicPageModule.forChild(OrdersPage),
+    TranslateModule
   ],
   providers: [
     OrdersProvider,

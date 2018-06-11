@@ -16,130 +16,83 @@ page-signup {
         width: 98%;
       }
     }
+    .for-hero {
+      text-align: center;
+      height:40vh;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content:flex-start;
+      img {
+        display: block
+      }
+      p {
+        width: 60%
+      }
+    }
     form {
-      input[type="radio"] {
-        width: 0;
-        height: 0;
-      }
       .form-group {
-        padding: 12px 10px;
-        width: 100%;
+        background: rgba(255,255,255, 0.35);
         border-radius: 5px;
-        border: 1px solid $primary;
-        margin-bottom: $form-margin;
-        background-color: #fff;
-        max-height: 45px;
-        min-height: 45px;
-        &.invalid {
-          border-bottom-color: $danger;
-        }
-        &.location-group {
-          padding: 0 8px;
-
-              &>div {
-                height: 45px;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                span {
-                  color: #919191;
-                }
-                ion-icon {
-                  font-size: 2.8rem
-                }
-
-              }
-        }
-        &.phone-number {
-          direction: ltr;
-          display: flex;
-          align-items: center;
-          input {
-            padding: 0 10px;
-          }
-          //static country code for now
-          span {
-            font-size: 1.4rem;
-          }
-        }
-        &.upload-image {
-          padding: 0;
-          height: calc(100% - 10px);
-          width: calc(100% - 10px);
-          transform: translateX(-10px);
-          display: flex;
-          justify-content: center;
-          flex-direction: column;
-          align-items: center;
-          color: #ccc;
-          max-height: calc(100% - 14px);
-          ion-icon {
-            font-size: 7rem;
-            color: #999;
-          }
-          p {
-            margin-top: 0
-          }
-        }
-        input {
-          border: none;
-          width: 100%;
-          font-size: 1.6rem;
-          &::placeholder {
-            color: $primary ;
-          }
-        }
-      }
-      .form-user-type {
         display: flex;
-        width: 100%;
-        margin: $form-margin auto;
-        justify-content: space-between;
-        * {
-          display: flex;
+        margin-bottom: 10px;
+        align-items: center;
+        padding: 2px;
+        max-height: 45px;
+        border: 1.2px solid $primary;
+
+        ion-icon {
+          margin: 0 4px;
+          width: 3.2rem;
+          height: 3.2rem;
+          line-height: 3.2rem;
+          text-align: center;
+          border-radius: 50%;
+          font-size: 2.25rem;
         }
-        .user {
-          width: 48.5%;
-          background-color: #fff;
-          transition: background-color 0.25s cubic-bezier(0.19, 1, 0.22, 1);
-          &:last-of-type {
-            width: 47%;
-          }
-          &.selected {
-            background: linear-gradient(to right, #3BBCF0, #3BBCF0);
-            p {
-              color: #fff !important;
-            }
-            ion-icon {
-              background-color: #053A4C;
-            }
-          }
-          label {
-            flex: 1;
-            ion-icon {
-              transition: background-color 0.25s linear;
-              background-color: #B2B2B2;
-              width: 25%;
-              justify-content: center !important;
-              color: #fff;
-              align-items: center !important;
-              font-size: 3rem
-            }
-            p {
-              font-weight: bold;
-              padding: 10px 5px 10px;
-              width: 75%;
-              margin: 0;
-              color: #b2b2b2 !important;
-              direction: rtl;
-              font-size: 15px
+        ion-input {
+          input {
+            letter-spacing: 1px !important;
+            font-weight: bold;
+            text-align: center;
+            &::placeholder {
+              color: $primary !important;
+              font-size: 1.2rem;
+              font-weight: 300;
             }
           }
         }
       }
       .form-submit {
-        margin: $form-margin auto
+        button {
+          width: 60%;
+          max-width: 220px;
+          border-radius: 12px;
+        }
+        .have-account {
+          display: inline-flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          text-align: center;
+          button {
+
+            border-radius: 0;
+            max-width: fit-content !important;
+            .button-inner {
+              border-bottom: 1px solid #555;
+              width: fit-content;
+              color: $dark !important;
+            }
+          }
+        }
       }
+      .outform-actions {
+        button {
+          display: block;
+        }
+      }
+
     }
     .terms-action {
           align-items: center;

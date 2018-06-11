@@ -1,27 +1,12 @@
 
 <ion-header no-border>
   <ion-navbar color="primary" class="header-bg">
-    <button ion-button icon-only clear >
-      <ion-icon class="bill-icon" name="notifications"></ion-icon>
-    </button>
-    <ion-buttons end>
-      <button ion-button icon-only class="cart-button" (click)="openPage('CartPage')">
-        <ion-icon name="cart">
-          <!--<ion-badge color="secondary">0</ion-badge>-->
-        </ion-icon>
-      </button>
-    </ion-buttons>
+    <ion-title>{{'orders'|translate}}</ion-title>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
-  <section margin-top text-center >
-    <ion-chip class="page-title">
-      <ion-icon name="basket"></ion-icon>
-      <ion-label>طلباتى</ion-label>
-    </ion-chip>
-  </section>
   <p text-center>
     <ion-spinner *ngIf="loader"></ion-spinner>
   </p>

@@ -5,8 +5,9 @@
       <ion-icon name="md-list"></ion-icon>
     </button>
 
+            <!-- (click)="hideNotification=!hideNotification;notificationIsOpen=!hideNotification"> -->
     <button ion-button icon-only clear
-            (click)="hideNotification=!hideNotification;notificationIsOpen=!hideNotification">
+    (click)="openPage('NotificationsPage')" >
       <ion-icon class="bill-icon" name="notifications"></ion-icon>
     </button>
     <ion-buttons end>
@@ -36,55 +37,28 @@
   </section>
 
   <section class="home-segments">
-    <h1>المطاعم</h1>
+    <h1>الرئيسية</h1>
 
     <div class="cat-segments">
       <!--<button no-margin ion-button clear (click)="changeHomeCategory('all')"
               [class.selected]="restaurant_category == 'all'">الكل
       </button>-->
       <button no-margin ion-button clear (click)="changeHomeCategory('nearby')"
-              [class.selected]="restaurant_category == 'nearby'"> المطاعم القريبة
+              [class.selected]="restaurant_category == 'nearby'">  أقرب المندوبين
       </button>
       <button no-margin ion-button clear (click)="changeHomeCategory('active')"
-              [class.selected]="restaurant_category == 'active'"> المطاعم النشيطة
+              [class.selected]="restaurant_category == 'active'"> أنشط المندوبين
       </button>
 
     </div>
   </section>
-  <!-- maps -->
-  <div #map></div>
+
   <!-- No Restaurant -->
   <p text-center margin *ngIf="allRestaurants&&!allRestaurants.length&&restaurant_category === 'all'">
-    لا يوجد مطاعم حاليا
+    لا يوجد مندوبين حاليا
   </p>
 
   <ion-slides dir="rtl">
-    <!-- All Restaurant Slide -->
-    <!--<ion-slide>
-      <ion-list no-lines margin-horizontal>
-        <ion-item margin-bottom *ngFor="let i of [1,2,3]" [hidden]="allRestaurants||allRestaurants?.length">
-          <ion-avatar class="loading">
-            <img src="" alt="">
-          </ion-avatar>
-          <div class="result-actions loading">
-            <p></p>
-            <p></p>
-          </div>
-        </ion-item>
-
-        <ion-item margin-bottom *ngFor="let restaurant of allRestaurants;trackBy: trackByFn"
-                  (click)="openPage('MapsPage', {pageData:restaurant})">
-          <ion-avatar>
-            <img src="assets/imgs/rest-alt.png" alt="">
-          </ion-avatar>
-          <div class="result-actions">
-            <p>{{restaurant.title}} </p>
-            <p [hidden]="!restaurant.address">{{restaurant.address}}</p>
-          </div>
-        </ion-item>
-      </ion-list>
-    </ion-slide> -->
-
     <!-- Nearest slide-->
     <ion-slide>
       <ion-list no-lines margin-horizontal>
@@ -105,7 +79,7 @@
         </ion-item>
 
         <!-- Loading component for nearby Restaurant -->
-        <ng-template [ngIf]="nearbyRestaurants.locnear.length<1">
+        <ng-template [ngIf]="nearbyRestaurants.featured.length<1">
           <ion-item margin-bottom *ngFor="let i of [1,2,3]" >
             <ion-avatar class="loading">
               <img src="" alt="">
@@ -116,20 +90,6 @@
             </div>
           </ion-item>
         </ng-template>
-        <ion-item margin-bottom *ngFor="let restaurant of nearbyRestaurants.locnear;trackBy: trackByFn"
-                  (click)="openPage('MapsPage', {pageData:restaurant})">
-          <ion-avatar>
-            <img [src]="restaurant.icon || 'assets/imgs/rest-alt.png'" alt="">
-          </ion-avatar>
-          <div class="result-actions">
-            <p>{{restaurant.title}}</p>
-            <p [hidden]="!restaurant.address">{{restaurant.address}}</p>
-            <p class="est-loc">
-              <ion-icon name="pin" color="primary"></ion-icon>
-              {{restaurant.distance | number:'.0-0'}} متر
-            </p>
-          </div>
-        </ion-item>
       </ion-list>
     </ion-slide>
 

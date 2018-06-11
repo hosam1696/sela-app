@@ -15,8 +15,8 @@ import {FormsModule} from "@angular/forms";
 import {HttpClient,HttpClientModule} from "@angular/common/http";
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import {AppUtilFunctions} from '../providers/utilfuns';
-import {MyVariabels} from'../providers/variables';
+import { AppUtilFunctions} from '../providers/utilfuns';
+import { MyVariabels} from'../providers/variables';
 import { Geolocation} from '@ionic-native/geolocation';
 import { AppAPI } from '../providers/api';
 import { AppstorageProvider } from '../providers/appstorage/appstorage';
@@ -27,6 +27,9 @@ import {Firebase} from "@ionic-native/firebase";
 import {FcmProvider} from "../providers/fcm/fcm.provider";
 import {AngularFirestoreModule} from "angularfire2/firestore";
 import {AngularFireModule, FirebaseAppConfig} from "angularfire2";
+import { ThirdpartyloginProvider } from '../providers/thirdpartylogin/thirdpartylogin';
+import { ConfigProvider } from '../providers/config/config';
+import {GooglePlus} from '@ionic-native/google-plus';
 
 const firebaseinit:FirebaseAppConfig = {
   apiKey: 'AIzaSyB81z_X21CPaxUprsoJdDtds71yhhwfE9w',
@@ -83,7 +86,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     AreasProvider,
     OrdersProvider,
     Firebase,
-    FcmProvider
+    FcmProvider,
+    ConfigProvider,
+    GooglePlus,
+    ThirdpartyloginProvider
   ]
 })
 export class AppModule {}

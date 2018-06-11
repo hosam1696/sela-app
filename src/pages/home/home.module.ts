@@ -12,7 +12,7 @@ import {AppstorageProvider} from "../../providers/appstorage/appstorage";
   ],
   imports: [
     IonicPageModule.forChild(HomePage),
-    DirectivesModule
+    DirectivesModule,
   ],
   providers: [
     UsersProviders,

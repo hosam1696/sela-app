@@ -2,13 +2,20 @@ page-welcome {
   ion-content {
     &.content {
       //background-color: #fff;
-      background-image: url(../assets/imgs/twoimgs.png);
+      background-image: url(../assets/imgs/login-splash.png);
+      background-size: cover;
     }
     .for-hero {
+      text-align: center;
+      height:50vh;
       display: flex;
-      justify-content: center;
-      height:40vh;
       align-items: center;
+      flex-direction: column;
+      justify-content: flex-end;
+      img {
+        display: block
+      }
+
     }
     .edit-btn {
       width: 60%;

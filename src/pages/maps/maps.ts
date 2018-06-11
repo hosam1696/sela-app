@@ -31,6 +31,7 @@ export class MapsPage {
   restaurantName: string = '';
   restaurantAddress: string = '';
   nearbyDeligators: any[];
+  mapLoaded: boolean = false;
   constructor(public navCtrl: NavController,
     public geolocation: Geolocation,
     public areasProvider: AreasProvider,
@@ -118,6 +119,32 @@ export class MapsPage {
       ]
     };
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+    // Create the search box and link it to the UI element.
+    const searchInput = document.getElementById('places-search');
+    let searchBox = new google.maps.places.SearchBox(searchInput);
+    this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(searchInput);
+    searchBox.addListener('places_changed',  ()=> {
+      let places = searchBox.getPlaces();
+
+      if (places.length == 0) {
+        return;
+      }
+      this.removeMarkers();
+      // For each place, get the icon, name and location.
+      let bounds = new google.maps.LatLngBounds();
+      places.forEach( (place)=> {
+        if (!place.geometry) {
+          console.log("Returned place contains no geometry");
+          return;
+        }
+        if (place.geometry.viewport) {
+          // Only geocodes have viewport.
+          bounds.union(place.geometry.viewport);
+        } else {
+          bounds.extend(place.geometry.location);
+        }     });
+      this.map.fitBounds(bounds);
+    });
 
     this.infoWindow = new google.maps.InfoWindow();
 
@@ -143,7 +170,7 @@ export class MapsPage {
   }
 
   private getGoogleServices(radius: number = 500, type: string = 'restaurant') {
-    
+
     const request = {
       location: new google.maps.LatLng((<any>this.userlatlng).lat, (<any>this.userlatlng).lng),
       radius,
@@ -245,6 +272,11 @@ export class MapsPage {
     } else {
       this.openPage('RequestOrderPage', { pageData: this.orderDestination, userLocation: this.userlatlng })
     }
+  }
+
+  private removeMarkers() {
+    this.appMarkers.forEach(marker=>marker.setMap(null));
+    this.appMarkers= [];
   }
 
 }

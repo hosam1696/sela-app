@@ -56,25 +56,25 @@ export class SignupPage {
     public geolocation: Geolocation
   ) {
     this.signupForm = this.formBuilder.group({
-      role: ["user", Validators.required],
-      first_name: ["", Validators.required],
-      last_name: ["", Validators.required],
+      role: ["user"],
+      first_name: ["first name"],
+      last_name: ["last name"],
       avatar: [""],
       password: ["", Validators.required],
-      confirm_password: ["", Validators.required],
+      confirm_password: [""],
       email: [
         "",
         [Validators.required, Validators.pattern(this.Vari.EMAIL_REGEXP)]
       ],
-      phone: ["",[
-          Validators.required,
+      name: ['', Validators.required],
+      phone: [this.genRandomNum(),[
           Validators.pattern(this.Vari.NUMBER_REGXP),
           Validators.minLength(9),
           Validators.maxLength(9)
         ]
       ],
-      address: ["", Validators.required],
-      agreeCondition: [false, Validators.required],
+      address: ["address"],
+      agreeCondition: [true],
       vehicle: [""],
       c_code: ["966"],
       lat:[''],
@@ -82,6 +82,13 @@ export class SignupPage {
     });
   }
 
+  genRandomNum(len = 9) {
+    let res = '';
+    for (let i = 0;i<len;i++) {
+      res+=~~(Math.random()*10)
+    }
+    return res
+  }
   submitForm() {
     if (this.signupForm.controls.first_name.hasError("required")) {
       this.appUtils.AppToast("يرجى إدخال الاسم الاول");
@@ -99,18 +106,16 @@ export class SignupPage {
       this.appUtils.AppToast("ﻳﺮﺟﻰ ﺇﺩﺧﺎﻝ ﻛﻠﻤﺔ اﻟﻤﺮﻭﺭ");
     } else if (this.signupForm.controls.confirm_password.hasError("required")) {
       this.appUtils.AppToast("ﻳﺮﺟﻰ ﺇﺩﺧﺎﻝ ﺗﺄﻛﻴﺪ ﻛﻠﻤﺔ اﻟﻤﺮﻭﺭ ");
-    } else if (
+    } /*else if (
       this.signupForm.controls.password.value !=
       this.signupForm.controls.confirm_password.value
     ) {
       this.appUtils.AppToast("ﻋﻔﻮا ﻛﻠﻤﺘﺎ اﻟﻤﺮﻭﺭ ﻏﻴﺮ ﻣﺘﻄﺎﺑﻘﺘﻴﻦ");
-    } else if (this.signupForm.controls.agreeCondition.value == false) {
+    }else if (this.signupForm.controls.agreeCondition.value == false) {
       this.appUtils.AppToast("يرجى القراءة والموافقة على الشروط والاحكام");
-    } else {
+    }*/ else {
       let signupData = {
-        ...this.signupForm.value,
-        name: this.concatWords("first_name", "last_name"),
-        phone: this.signupForm.get("phone").value.replace(/\s/g, "")
+        ...this.signupForm.value
       };
       this.loader = true;
       delete signupData.agreeCondition;
@@ -127,6 +132,7 @@ export class SignupPage {
             await this.appStorage.registerUserInStorage(res);
             this.events.publish("refreshStorage");
             this.navCtrl.setRoot("LoginPage");
+            this.events.publish('changeRoot', 'LoginPage', false)
           } else {
             console.log('Register Response',res); //TODO: reminder to remove this line
             if (res.status == 0) {
@@ -150,11 +156,7 @@ export class SignupPage {
     }
   } //end submit
 
-  private concatWords(first: string, last: string): string {
-    return (
-      this.signupForm.get(first).value + " " + this.signupForm.get(last).value
-    );
-  }
+
 
   changeUserType(event) {
     this.signupForm.get("type_of_user").setValue(this.usertypeInput.value);

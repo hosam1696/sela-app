@@ -8,23 +8,15 @@
     <button ion-button icon-only clear>
       <ion-icon class="bill-icon" name="notifications"></ion-icon>
     </button>
-    <!--<ion-buttons end>-->
-      <!--<button ion-button icon-only class="cart-button" (click)="getUserLocation()">-->
-        <!--<ion-icon name="locate">-->
-        <!--</ion-icon>-->
-      <!--</button>-->
-    <!--</ion-buttons>-->
   </ion-navbar>
 </ion-header>
 
 <ion-content>
   <div [hidden]="!loader" class="loader"><p></p></div>
+
+  <input id="places-search" [hidden]="loader" type="text" placeholder="{{'searchplaces'|translate}}">
+
   <div #map id="map" style="height:100%;"></div>
-  <!-- button to toggle the target box
-       [style.right]="orderInfoOpen?0:'100%'"
-      <button no-margin ion-button mini icon-only color="secondary" (click)="orderInfoOpen=!orderInfoOpen" >
-      <ion-icon [name]="orderInfoOpen?'ios-arrow-forward':'ios-arrow-back'" color="light"></ion-icon>
-    </button> -->
   <ion-slides dir="rtl" class="order-links" initialSlide="1">
     <ion-slide>
       <div class="delegate-pic">

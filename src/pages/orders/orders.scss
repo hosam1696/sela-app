@@ -1,11 +1,10 @@
 page-orders {
 
   ion-content {
-    .page-title {
-      background-color: #fff;
-      ion-label {
-        width: 100px;
-      }
+    &.content {
+      background-image: url(../assets/imgs/BG2.png);
+      background-size: cover;
+      background-color: $primary
     }
 
     ion-list  {

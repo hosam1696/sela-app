@@ -30,7 +30,6 @@ export class RequestOrderPage {
   ) {
     this.orderDistination = this.navParams.get('pageData');
     this.userLocation = this.navParams.get('userLocation');
-    this.rating = this.orderDistination.restaurant.rating || 4;
     console.log('Data from Maps', this.orderDistination, this.userLocation);
   }
 
@@ -75,7 +74,7 @@ export class RequestOrderPage {
       this.navCtrl.push('DeliverystatusPage', { order: {id: 15, notes: 'sfsdfsdf'}, orderDistination: this.orderDistination });
 
     }, 2000);*/
-    
+
     this.ordersProvider.requestOrder(orderObject)
     .subscribe(data => {
       console.log(data);
@@ -92,7 +91,7 @@ export class RequestOrderPage {
         .subscribe(data=>{
           console.log(data);
         })
-      
+
     });
   }
 }

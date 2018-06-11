@@ -27,3 +27,4 @@ export enum UserHome {
   'user' = 'HomePage',
   'branch' = 'Home2Page'
 }
+export type thirdPartyMethods = 'facebook'|'googleplus'

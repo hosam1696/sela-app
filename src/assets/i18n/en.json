@@ -16,5 +16,15 @@
   "aboutus": "About us",
   "help": "Help",
   "location": "Location",
-  "map": "Map"
+  "map": "Map",
+  "notifications": "Notifications",
+  "login": "Login",
+  "createAccount":"create account",
+  "youdonothaveaccount": "Don't have an account?",
+  "forgotPass": "Did you forgot your password?",
+  "name": "user name",
+  "searchplaces": "Search places",
+  "litres": "N.Litres",
+  "confirmorder": "confirm Order",
+  "alreadyhaveaccount": "Already have an account? "
 }

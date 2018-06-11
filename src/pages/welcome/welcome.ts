@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { IonicPage, NavController, NavParams, Events, Slides } from 'ionic-angular';
+import { ConfigProvider } from '../../providers/config/config';
 
 
 @IonicPage()
@@ -7,11 +8,17 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   selector: 'page-welcome',
   templateUrl: 'welcome.html',
 })
-export class WelcomePage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+export class WelcomePage  implements AfterViewInit{
+  @ViewChild(Slides) pageSlides:Slides;
+  constructor(public navCtrl: NavController,
+     public navParams: NavParams,
+      public events: Events,
+      public configProvider: ConfigProvider
+    ) {
   }
-
+  ngAfterViewInit() {
+    this.pageSlides.lockSwipes(true);
+  }
   ionViewDidLoad() {
     console.log('ionViewDidLoad WelcomePage');
   }
@@ -22,6 +29,12 @@ export class WelcomePage {
 
   selectLang(lang) {
     // save lang
+    this.events.publish('changeLang', lang);
+    this.configProvider.changeLang(lang);
+    this.pageSlides.lockSwipes(false);
+    this.pageSlides.slideNext();
+    this.pageSlides.lockSwipes(true);
+    
   }
 
 }

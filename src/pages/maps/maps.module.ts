@@ -4,6 +4,7 @@ import { MapsPage } from './maps';
 import { Ionic2RatingModule} from "ionic2-rating";
 import {AreasProvider} from "../../providers/areas/areas";
 import { AppUtilFunctions } from '../../providers/utilfuns';
+import {TranslateModule} from "@ngx-translate/core";
 
 @NgModule({
   declarations: [
@@ -11,7 +12,8 @@ import { AppUtilFunctions } from '../../providers/utilfuns';
   ],
   imports: [
     IonicPageModule.forChild(MapsPage),
-    Ionic2RatingModule
+    Ionic2RatingModule,
+    TranslateModule
   ],
   providers: [
     AreasProvider,

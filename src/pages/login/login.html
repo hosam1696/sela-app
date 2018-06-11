@@ -1,32 +1,33 @@
-<ion-content padding-horizontal>
-  <nav class="top-nav" *ngIf='openAsPage'>
-    <button ion-button clear icon-only (click)="closePage()">
-      <ion-icon name="arrow-forward" color="primary"></ion-icon>
+<ion-content padding>
+
+    <button ion-button navPop icon-only clear *ngIf='openAsPage'>
+      <ion-icon [name]="'arrow-back'"></ion-icon>
     </button>
-  </nav>
+
   <form [formGroup]="loginForm" padding-horizontal (ngSubmit)="onSubmit()">
 
     <section class="for-hero" text-center>
       <img src="assets/imgs/glogo.png" width="100" height="100" alt="">
+      <img src="assets/imgs/naqaa.png" width="130" alt="">
     </section>
 
     <div class="form-group">
       <ion-icon name="call" color="primary"></ion-icon>
       <!--<ion-input dir="rtl" formControlName="email" type="text" placeholder="البريد الالكترونى"></ion-input>-->
-      <ion-input dir="rtl" formControlName="emailorphone" type="text" placeholder="البريد الالكترونى " autocomplete="true" name="form_phone"></ion-input>
+      <ion-input [dir]="rightDir?'rtl':'ltr'" formControlName="emailorphone" type="text" placeholder="{{'email'|translate}}" autocomplete="true" name="form_phone"></ion-input>
     </div>
 
     <div class="form-group">
       <ion-icon name="lock" color="primary"></ion-icon>
-      <ion-input dir="rtl" formControlName="password" type="password" placeholder="كلمة المرور" item-end></ion-input>
+      <ion-input [dir]="rightDir?'rtl':'ltr'" formControlName="password" type="password" placeholder="{{'password'|translate}}" item-end></ion-input>
     </div>
 
 
 
     <div class="form-submit" text-center margin-top>
       <button ion-button color="secondary" type="submit">
-        تسجيل الدخول
-        <ion-spinner color="light" [hidden]="!loader" margin-right></ion-spinner>
+        {{'login'|translate}}
+        <ion-spinner color="light" [hidden]="!loader" margin-right margin-left></ion-spinner>
       </button>
     </div>
   </form>
@@ -34,20 +35,20 @@
   <div class="outform-actions">
 
     <button type="button" block ion-button no-padding clear color="dark" (click)="goSignup()">
-      ليس لديك حساب؟
-      &nbsp;<b>انشاء حساب</b>
+      {{'youdonothaveaccount'|translate}}
+      &nbsp;<b>{{'createAccount'|translate}}</b>
     </button>
     <button type="button" block ion-button no-padding clear color="dark" (click)="toForgotPass()">
-      هل نسيت كلمة المرور؟
+      {{'forgotPass'| translate}}
     </button>
 
   </div>
 
   <div class="social-login">
-    <button class="img-btn" no-padding no-margin ion-button clear>
+    <button class="img-btn" no-padding no-margin ion-button clear (click)="thirdPartyLogin('facebook')">
       <img src="assets/imgs/facebook.png" alt="">
     </button>
-<button class="img-btn"  no-padding no-margin ion-button clear>
+<button class="img-btn"  no-padding no-margin ion-button clear (click)="thirdPartyLogin('googleplus')">
   <img src="assets/imgs/google-plus.png" alt="">
 </button>
   </div>

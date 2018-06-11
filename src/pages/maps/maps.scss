@@ -4,6 +4,17 @@ page-maps {
       background-color: #eee;
       height: 100%;
     }
+    #places-search {
+      border-radius: 12px;
+      border: none;
+      font-size: 1.2rem;
+      padding: 12px;
+      width: 80%;
+      left: 10% !important;
+      top: 10px !important;
+      text-align: center;
+      font-family: 'jf-flat-regular', sans-serif
+    }
     #map {
       height: 100% !important;
       width: 100%;

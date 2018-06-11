@@ -1,51 +1,44 @@
 
 <ion-header no-border>
   <ion-navbar color="primary" class="header-bg">
-    <button ion-button icon-only clear >
-      <ion-icon class="bill-icon" name="notifications"></ion-icon>
-    </button>
-    <ion-buttons end *ngIf="loader">
-      <button ion-button>
-        <ion-spinner color="light"></ion-spinner>
-      </button>
-    </ion-buttons>
+    <ion-title>{{'requestwater'|translate}}</ion-title>
   </ion-navbar>
 </ion-header>
 
 
-<ion-content padding>
-  <section margin-top text-center >
-    <ion-chip class="page-title">
-      <ion-icon name="basket"></ion-icon>
-      <ion-label>طلبية</ion-label>
-    </ion-chip>
-  </section>
+<ion-content no-padding>
 
-  <section class="restaurant-id">
-    <p class="rest-name" text-centerm>{{orderDistination.restaurant.title}}</p>
-
-    <p class="rest-rating">
-      <rating [(ngModel)]="rating" readOnly="true" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star" nullable="false"></rating>
-    </p>
+  <section class="page-hero" text-center>
+    <div class="img-holder">
+      <img src="assets/imgs/tape-icon.png" width="100" height="80" alt="">
+    </div>
   </section>
 
   <section class="request-msg" margin-top>
-    <p class="header-bg">نص الطلبية</p>
-    <ion-textarea cols="30" rows="12" [(ngModel)]="orderRequests"></ion-textarea>
+    <div class="request-info">
+      <div class="request-quantity">
+        <ion-icon name="pin"></ion-icon>
+        <span>{{'litres'|translate}}</span>
+        <span>10 لتر</span>
+      </div>
+      <div class="request-cost">
+        <ion-icon name="pin"></ion-icon>
+        <span>{{'cost'|translate}}</span>
+        <span>50 ر.س</span>
+      </div>
+    </div>
+    <div class="request-location">
+      <ion-icon name="pin"></ion-icon>
+      <span>{{'location'|translate}}</span>
+      <span>السعودية - الرياض - المجاورة</span>
+    </div>
   </section>
-
+  <div class="action-btns" text-center>
+    <button ion-button no-padding class="edit-btn"  margin (click)="selectLang('ar')">
+      {{'confirmorder'|translate}}
+    </button>
+    <button ion-button no-padding  class="edit-btn" outline margin (click)="selectLang('en')">
+      {{'cancel'|translate}}
+    </button>
+  </div>
 </ion-content>
-
-<ion-footer class="page-footer">
-<button ion-button color="danger" no-margin (click)="requestOrder('rapid')" [disabled]="disableBtns">
-
-    <ion-icon name="ios-thunderstorm"></ion-icon>
-    <p>توصيل سريع</p>
-  </button>
-<button ion-button color="secondary" no-margin (click)="requestOrder('normal')" [disabled]="disableBtns">
-
-    <ion-icon name="md-car"></ion-icon>
-    <p>توصيل عادى</p>
-  </button>
-
-</ion-footer>
