@@ -10,14 +10,14 @@
       <div class="user" [class.selected]="signupForm.getRawValue()['role'] == 'user'">
         <label for="type2" >
           <ion-icon name="man"></ion-icon>
-          <p>تسجيل عادى</p>
+          <p>{{'Client Signup'|translate}}</p>
         </label>
         <input type="radio" id="type2" value="user" formControlName="role" >
       </div>
       <div class="user" [class.selected]="signupForm.getRawValue()['role'] == 'branch'">
         <label for="type1" >
           <ion-icon name="md-car"></ion-icon>
-          <p>تسجيل مندوب</p>
+          <p>{{'Delegate Signup'|translate}}</p>
         </label>
         <input type="radio" id="type1" value="branch" formControlName="role" >
       </div>
@@ -27,16 +27,16 @@
       <ion-row>
       <ion-col>
         <div class="form-group" [class.invalid]="signupForm.controls['first_name'].invalid&&(signupForm.controls['first_name'].touched||signupForm.controls['first_name'].dirty)">
-          <input type="text" placeholder="الاسم الأول" formControlName="first_name" autocomplete="true" name="form_first_name">
+          <input type="text" placeholder="{{'First Name' | translate}}" formControlName="first_name" autocomplete="true" name="form_first_name">
         </div>
         <div class="form-group">
-          <input type="text" placeholder="الاسم الأخير" formControlName="last_name" autocomplete="true" name="form_last_name">
+          <input type="text" placeholder="{{'Last Name' | translate}}" formControlName="last_name" autocomplete="true" name="form_last_name">
         </div>
       </ion-col>
       <ion-col>
         <div class="form-group upload-image" >
           <ion-icon name="image" (click)="pickImage()"></ion-icon>
-          <p>رفع صورة</p>
+          <p>{{'Upload Image'|translate}}</p>
         </div>
       </ion-col>
       </ion-row>
@@ -47,13 +47,13 @@
       <input type="tel" [textMask]="{mask: formMasks.mobile}" placeholder="رقم الجوال 9 ارقام" formControlName="phone">
     </div>
     <div class="form-group">
-      <input type="email" email placeholder="البريد الالكترونى" formControlName="email" autocomplete="true" name="form_email">
+      <input type="email" email placeholder="{{'Email Address'|translate}}" formControlName="email" autocomplete="true" name="form_email">
     </div>
     <div class="form-group" [hidden]="signupForm.getRawValue()['role'] == 'user'">
-      <input type="text" placeholder="نوع المركبة" formControlName="vehicle" autocomplete="true" name="form_vehicle">
+      <input type="text" placeholder="{{'Vehicle Type'|translate}}" formControlName="vehicle" autocomplete="true" name="form_vehicle">
     </div>
     <div class="form-group">
-      <input type="text" placeholder="العنوان" formControlName="address" autocomplete="true" name="form_address">
+      <input type="text" placeholder="{{'Address'|translate}}" formControlName="address" autocomplete="true" name="form_address">
     </div>
     <div class="form-group location-group" (click)="getLocation()" [hidden]="signupForm.getRawValue()['role'] == 'user'">
       <div>
@@ -62,20 +62,19 @@
       </div>
     </div>
     <div class="form-group">
-      <input type="password" placeholder="كلمة المرور" formControlName="password" autocomplete="false">
+      <input type="password" placeholder="{{'Password'|translate}}" formControlName="password" autocomplete="false">
     </div>
     <div class="form-group">
-      <input type="password" placeholder=" تأكيد كلمة المرور" formControlName="confirm_password" autocomplete="false" >
+      <input type="password" placeholder="{{'Confirm Password'| translate}}" formControlName="confirm_password" autocomplete="false" >
     </div>
 
     <div class="terms-action">
       <ion-checkbox id="agree-terms" formControlName="agreeCondition" ></ion-checkbox>
-      <label for="agree-terms">أوافق على الشروط والأحكام</label>
+      <label for="agree-terms">{{'Agree on Terms and Conditions'|translate}}</label>
     </div>
 
     <div class="form-submit" text-center>
-      <button ion-button color="secondary" type="submit">تأكيد البيانات
-
+      <button ion-button color="secondary" type="submit">{{'Confirm'|translate}}
         <ion-spinner color="light" [hidden]="!loader" margin-horizontal></ion-spinner>
       </button>
     </div>

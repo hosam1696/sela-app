@@ -5,7 +5,11 @@ page-login {
       padding: 8px 8px 0 8px;
       position: absolute;
       top: 0;
-      left: 0
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      flex-flow: row-reverse;
     }
     .for-hero {
       display: flex;
@@ -16,6 +20,7 @@ page-login {
     &.content {
       background-color: $primary;
     }
+
     form {
       .form-group {
             background: rgba(255,255,255, 0.35);
@@ -47,6 +52,19 @@ page-login {
                 }
               }
             }
+
+      }
+      ion-item {
+        background-color: transparent !important;
+        max-height: 30px !important;
+        ion-checkbox {
+          margin: 0 !important;
+        }
+        .item-inner {
+          border: none !important;
+          margin: 0 5px;
+          font-size: 1.4rem;
+        }
       }
       .form-submit {
         button {

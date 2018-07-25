@@ -32,7 +32,6 @@ export class MyApp {
   ) {
     this.initializeApp();
     //this.appStorage.clearEntries()
-
   }
 
   initializeApp() {
@@ -56,7 +55,7 @@ export class MyApp {
 
     // refresh local storage event
     this.events.subscribe('refreshStorage', () => {
-      this.configPage();      
+      this.configPage();
       this.appStorage.getUserData();
     });
 
@@ -98,14 +97,14 @@ export class MyApp {
   private configPage() {
     this.appStorage.getUserData()
       .then((data: UserData) => {
-        
-        if (data && data.id) {
-          this.userLogged = true;
-          this.rootPage = UserHome[data.role];
+        if (data&&data.saveLogin) {
+          [this.userLogged, this.rootPage] = [true, UserHome[data.role]];
         } else {
-          this.userLogged = false;
-          
-          this.rootPage = UserHome['user']; //'LoginPage'
+          if (data&&data.id) {
+            [this.userLogged, this.rootPage] = [true, UserHome[data.role]];
+            } else {
+            [this.userLogged, this.rootPage] = [false, UserHome['user']];
+          }
         }
         this.pages = this._menuPages;
       }).catch(() => {

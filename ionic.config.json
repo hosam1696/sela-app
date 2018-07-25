@@ -8,11 +8,10 @@
   "proxies": [
     {
       "path": "/api/",
-      "proxyUrl": "http://selah.rqmiyat.com/"
+      "proxyUrl": "http://192.254.222.156/~darsyapp/"
     },{
-      "path": "/maps/",
-      "proxyUrl": "http://maps.google.com"
-
+      "path": "/~darsyapp/",
+      "proxyUrl": "http://192.254.222.156/"
     }
   ]
 }

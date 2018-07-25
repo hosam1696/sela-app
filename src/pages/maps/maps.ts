@@ -144,13 +144,13 @@ export class MapsPage {
 
   }
 
-  private getGoogleServices(radius: number = 500, type: string = 'restaurant') {
-    
+  private getGoogleServices(radius: number = 500, type: string = 'overall') {
+
     const request = {
       location: new google.maps.LatLng((<any>this.userlatlng).lat, (<any>this.userlatlng).lng),
       radius,
-      type // types of places we want to search for
-    }
+      type // types of places we want to search for "food", "decor", "service", "restaurants" or "overall"
+    };
     let service = new google.maps.places.PlacesService(this.map);
     service.nearbySearch(request, (results, status) => {
       console.log('Places Results', results);
@@ -161,7 +161,6 @@ export class MapsPage {
           let marker = new google.maps.Marker({
             map: this.map,
             position: placeLoc,
-            icon: 'assets/imgs/rest-pin.png',
             animation: google.maps.Animation.DROP,
           });
 
@@ -193,13 +192,14 @@ export class MapsPage {
 
     let latLng = !Array.isArray(place.location) ? place.location : new google.maps.LatLng(...place.location); // Cairo;
     console.log('marker location', latLng);
-    let marker = new google.maps.Marker({
+    let markerOptions = {
       position: latLng,
       map: map,
       animation: google.maps.Animation.DROP,
       icon: 'assets/imgs/' + place.type + '-pin.png',
       title: place.title
-    });
+    };
+    let marker = new google.maps.Marker(markerOptions);
     this.appMarkers.push(marker);
     marker.addListener('click', () => {
       debounce(marker);
@@ -254,5 +254,5 @@ export class MapsPage {
       this.appUtils.AppToast('يجب التسجيل أولا لاستكمال الطلب')
     }
   }
-    
+
   }

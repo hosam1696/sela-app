@@ -23,7 +23,8 @@ export interface UserData {
   role: string,
   token:string,
   updated_at?:string,
-  vehicle?:string|null
+  vehicle?:string|null,
+  saveLogin?: boolean
 }
 
 export interface MenuPage {
@@ -70,5 +71,5 @@ export interface Branch {
   lat: string,
   lng: string,
   commercial_registry: string,
-  
+
 }

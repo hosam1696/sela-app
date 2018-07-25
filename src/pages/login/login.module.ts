@@ -4,6 +4,7 @@ import { LoginPage } from './login';
 import { TextMaskModule } from "angular2-text-mask";
 import {AppstorageProvider} from "../../providers/appstorage/appstorage";
 import {UsersProviders} from "../../providers/users";
+import {TranslateModule} from "@ngx-translate/core";
 
 @NgModule({
   declarations: [
@@ -12,6 +13,7 @@ import {UsersProviders} from "../../providers/users";
   imports: [
     IonicPageModule.forChild(LoginPage),
     TextMaskModule,
+    TranslateModule
   ],
   providers: [
     AppstorageProvider,

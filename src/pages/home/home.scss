@@ -50,14 +50,15 @@ page-home {
     }
 
     .home-segments {
-      width: 94%;
-      margin: -5rem auto 1rem;
+      width: 100%;
+      margin: 0 auto 1rem;
       background-color: #fff;
       position: relative;
       h1 {
         padding: 8px;
         font-weight: bold;
         border-bottom: 2px solid $primary;
+        display: none /* hide the toolbar title*/
       }
       ion-segment {
         ion-segment-button {
@@ -82,7 +83,7 @@ page-home {
           ion-avatar {
             min-width: 70px !important;
             max-width: 70px !important;
-            max-height: 70px !important;            
+            max-height: 70px !important;
             align-items: center;
             display: flex;
             border: 2px solid $primary;
@@ -91,7 +92,6 @@ page-home {
             img {
               width: 7rem !important;
               height: 7rem !important;
-              transform: scale(0.8);
               border-radius: 0 !important
             }
             &.loading {
@@ -163,6 +163,7 @@ page-home {
         color: $dark;
         font-weight: bold !important;
         border-radius: 0 !important;
+        height: 42px;
         flex:1;
         &.selected {
           border-bottom: 2px solid $primary !important;

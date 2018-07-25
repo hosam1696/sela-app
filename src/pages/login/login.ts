@@ -35,9 +35,9 @@ export class LoginPage {
   ) {
     this.loginForm = this.formBuilder.group({
       emailorphone: ["", Validators.required],
-      password: ["", Validators.required]
+      password: ["", Validators.required],
+      saveLogin: [false]
     });
-
     this.openAsPage = navParams.get("openAsPage");
   }
 
@@ -56,11 +56,13 @@ export class LoginPage {
     this.navCtrl.push("HomePage");
   }
   onSubmit() {
+    console.log(this.loginForm.get('saveLogin').value);
     if (this.loginForm.controls.emailorphone.hasError("required")) {
       this.appUtils.AppToast("يرجى ادخال برديك الالكترونى أو رقم الهاتف");
     } else if (this.loginForm.controls.password.hasError("required")) {
       this.appUtils.AppToast("الرجاء إدخال  كلمة المرور");
     } else {
+      const saveLogin = this.loginForm.get('saveLogin').value;
       const loginData: any = {};
       let emailOrPhoneVal = this.loginForm.get('emailorphone').value;
       this.loader = true;
@@ -77,13 +79,13 @@ export class LoginPage {
           } else {
             console.log(res); // TODO: DEV Only reminder to be removed
             let self = this;
-            this.appStorage.saveToken(res.token);
+            saveLogin&&this.appStorage.saveToken(res.token);
             this.appUtils.AppToast("تم الدخول بنجاح. التحويل للصفحة الشخصية", {position: 'top'});
             this.usersproviders.getUserData(res.token).subscribe((data:UserData|any) => {
               console.log('get user data from view user',data); // TODO: DEV Only reminder to be removed
               self.loader = false;
               if (data.id) {
-                this.appStorage.loginUserInStorage(data, res.token).then(() => {
+                this.appStorage.loginUserInStorage({...data, saveLogin}, res.token).then(() => {
                   this.events.publish("refreshStorage");
                   this.events.publish("changeRoot", UserHome[data.role]);
                 });

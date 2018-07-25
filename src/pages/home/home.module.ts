@@ -5,6 +5,7 @@ import {UsersProviders} from "../../providers/users";
 import {AreasProvider} from "../../providers/areas/areas";
 import {DirectivesModule} from "../../directives/directives.module";
 import {AppstorageProvider} from "../../providers/appstorage/appstorage";
+import { TranslateModule } from '../../../node_modules/@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import {AppstorageProvider} from "../../providers/appstorage/appstorage";
   ],
   imports: [
     IonicPageModule.forChild(HomePage),
-    DirectivesModule
+    DirectivesModule,
+    TranslateModule
   ],
   providers: [
     UsersProviders,
