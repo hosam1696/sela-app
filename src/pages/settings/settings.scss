@@ -6,5 +6,13 @@ page-settings {
         width: 100px;
       }
     }
+    .choose-lang {
+      button {
+        .button-inner {
+          display: flex;
+          justify-content: space-between;
+        }
+      }
+    }
   }
 }

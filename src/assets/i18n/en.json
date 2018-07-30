@@ -11,5 +11,12 @@
   "CustomerName": "Customer name",
   "EditProfile": "Edit Profile",
   "ContactUs": "Contact Us",
-  "Chats": "Chats"
+  "Chats": "Chats",
+  "تم الدخول بنجاح. التحويل للصفحة الرئيسية": "Login Successfully. Redirecting to the Home Page",
+  "الموقع المحدد": "Choosed Location",
+  "تم التسجيل بنجاح": "Signup successfully",
+  "البوم الصور": "Photo Album",
+  "الكاميرا": "Camera",
+  "اختر من": "Choose From"
+
 }

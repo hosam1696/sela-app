@@ -21,6 +21,7 @@ export class RequestOrderPage {
   rating: number;
   loader: boolean = false;
   disableBtns: boolean = false;
+  isUserPlace:boolean = false;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public appStorage: AppstorageProvider,
@@ -32,6 +33,7 @@ export class RequestOrderPage {
     this.userLocation = this.navParams.get('userLocation');
     this.rating = this.orderDistination.restaurant.rating || 4;
     console.log('Data from Maps', this.orderDistination, this.userLocation);
+    this.isUserPlace = (this.orderDistination.restaurant.title=='الموقع المحدد'||this.orderDistination.restaurant.title=='Choosed Location')
   }
 
   async ionViewDidLoad() {
@@ -51,7 +53,7 @@ export class RequestOrderPage {
     let orderObject = {
       status: 0,
       type: type,
-      branch_name: this.orderDistination.restaurant ? this.orderDistination.restaurant.title : '',
+      branch_name: this.orderDistination.restaurant ? this.isUserPlace?this.orderDistination.restaurant.vicinity.substr(0,30):this.orderDistination.restaurant.title : '',
       branch_loc: JSON.stringify(this.orderDistination.restaurant.location),
       notes: this.orderRequests,
       user_id: this.localUser.id,

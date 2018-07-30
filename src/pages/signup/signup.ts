@@ -22,6 +22,7 @@ import { File } from "@ionic-native/file";
 import { AppstorageProvider } from "../../providers/appstorage/appstorage";
 import { UserData } from "../../providers/types/interface";
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
+import { TranslateService } from "../../../node_modules/@ngx-translate/core";
 @IonicPage()
 @Component({
   selector: "page-signup",
@@ -52,6 +53,7 @@ export class SignupPage {
     public filePath: FilePath,
     public toastCtrl: ToastController,
     public appStorage: AppstorageProvider,
+    public translate: TranslateService,
     public events: Events,
     public geolocation: Geolocation
   ) {
@@ -123,7 +125,7 @@ export class SignupPage {
           this.loader = false;
           if (res.id) {
             await this.appStorage.clearEntries();
-            this.appUtils.AppToast("تم التسجيل بنجاح", {position:'top'});
+            this.appUtils.AppToast(this.translate.instant("تم التسجيل بنجاح"), {position:'top'});
             await this.appStorage.registerUserInStorage(res);
             this.events.publish("refreshStorage");
             this.navCtrl.setRoot("LoginPage");
@@ -164,10 +166,10 @@ export class SignupPage {
     // cameraImage defines we select to change (avatar | cover) image
 
     let actionSheetCtrl = this.actionCtrl.create({
-      title: "اختر من",
+      title: this.translate.instant("اختر من"),
       buttons: [
         {
-          text: "الكاميرا",
+          text: this.translate.instant("الكاميرا"),
           handler: () => {
             console.log("camera clicked");
 
@@ -176,7 +178,7 @@ export class SignupPage {
           }
         },
         {
-          text: "البوم الصور",
+          text: this.translate.instant("البوم الصور"),
           handler: () => {
             console.log("Photo Album clicked");
 

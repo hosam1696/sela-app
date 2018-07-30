@@ -4,7 +4,8 @@ import {
   NavController,
   ViewController,
   NavParams,
-  Events
+  Events,
+  AlertController
 } from "ionic-angular";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { UsersProviders } from "../../providers/users";
@@ -12,6 +13,7 @@ import { AppUtilFunctions } from "../../providers/utilfuns";
 import { AppstorageProvider } from "../../providers/appstorage/appstorage";
 import {UserData} from "../../providers/types/interface";
 import { UserHome } from "../../providers/types/enums";
+import { TranslateService } from "../../../node_modules/@ngx-translate/core";
 
 @IonicPage()
 @Component({
@@ -31,7 +33,9 @@ export class LoginPage {
     public usersproviders: UsersProviders,
     public viewCtrl: ViewController,
     public events: Events,
-    navParams: NavParams
+    navParams: NavParams,
+    public translate: TranslateService,
+    private alertCtrl: AlertController
   ) {
     this.loginForm = this.formBuilder.group({
       emailorphone: ["", Validators.required],
@@ -80,7 +84,7 @@ export class LoginPage {
             console.log(res); // TODO: DEV Only reminder to be removed
             let self = this;
             saveLogin&&this.appStorage.saveToken(res.token);
-            this.appUtils.AppToast("تم الدخول بنجاح. التحويل للصفحة الشخصية", {position: 'top'});
+            this.appUtils.AppToast(this.translate.instant('تم الدخول بنجاح. التحويل للصفحة الرئيسية'), {position: 'top'});
             this.usersproviders.getUserData(res.token).subscribe((data:UserData|any) => {
               console.log('get user data from view user',data); // TODO: DEV Only reminder to be removed
               self.loader = false;
@@ -111,12 +115,51 @@ export class LoginPage {
                 `body was: ${err.error.body}`
             );
             this.loader = false;
-            this.appUtils.AppToast("خطأ فى الخادم");
+            this.appUtils.AppToast("خطأ فى السيرفر");
           }
         }, () => {
           this.loader = false;
         }
       );
     }
+  }
+
+  overall() {
+
+  }
+
+  selectLang() {
+    let radioAlert = this.alertCtrl.create({
+      mode:'ios',
+      title: this.translate.instant('choose Language'),
+      inputs : [
+        {
+            type:'radio',
+            label:'العربية',
+            value:'ar'
+        },
+        {
+            type:'radio',
+            label:'English',
+            value:'en'
+        }],
+        buttons : [
+          {
+              text: this.translate.instant('Cancel'),
+              handler: data => {
+              console.log("cancel clicked");
+              }
+          },
+          {
+              text: this.translate.instant('Choose'),
+              handler: lang => {
+              console.log("selected Language", lang);
+              this.events.publish('changeLang', lang)
+              }
+          }]
+    });
+
+    radioAlert.present();
+
   }
 }

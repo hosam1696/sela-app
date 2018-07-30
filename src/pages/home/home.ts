@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {NavController, Slides, IonicPage} from 'ionic-angular'
+import {NavController, Slides, IonicPage, Platform} from 'ionic-angular'
 import {AppUtilFunctions} from '../../providers/utilfuns';//
 import {UsersProviders} from "../../providers/users";
 import {ResturantCategories} from '../../providers/types/enums';
@@ -28,12 +28,13 @@ export class HomePage {
   localUser: UserData;
   map: any;
   defaultRadius: number = 500;
-  defaultSearchPlaces: string = 'restaurant';
+  defaultSearchPlaces: string[] = ['restaurants', 'overall'];
   constructor(public navCtrl: NavController,
               public appUtils: AppUtilFunctions,
               public userProvider: UsersProviders,
               public appStorage: AppstorageProvider,
               public areasProvider: AreasProvider,
+              public platform: Platform,
               public geoLocation: Geolocation
   ) {
     this.restaurant_category = 'nearby';
@@ -174,7 +175,7 @@ export class HomePage {
     this.getNearByServices(service);
   }
 
-  private getNearByServices(service: any, radius: number = this.defaultRadius, type: string = this.defaultSearchPlaces) {
+  private getNearByServices(service: any, radius: number = this.defaultRadius, type: any = this.defaultSearchPlaces) {
     const request = { location: new google.maps.LatLng(this.userLocation.lat, this.userLocation.lng), radius, type };
     service.nearbySearch(request, (results, status) => {
       console.info(status);

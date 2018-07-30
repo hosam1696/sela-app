@@ -4,35 +4,23 @@
     <button ion-button menuToggle>
       <ion-icon name="md-list"></ion-icon>
     </button>
-
     <button ion-button icon-only clear>
       <ion-icon class="bill-icon" name="notifications"></ion-icon>
     </button>
-    <!--<ion-buttons end>-->
-      <!--<button ion-button icon-only class="cart-button" (click)="getUserLocation()">-->
-        <!--<ion-icon name="locate">-->
-        <!--</ion-icon>-->
-      <!--</button>-->
-    <!--</ion-buttons>-->
   </ion-navbar>
 </ion-header>
 
 <ion-content>
   <div [hidden]="!loader" class="loader"><p></p></div>
   <div #map id="map" style="height:100%;"></div>
-  <!-- button to toggle the target box
-       [style.right]="orderInfoOpen?0:'100%'"
-      <button no-margin ion-button mini icon-only color="secondary" (click)="orderInfoOpen=!orderInfoOpen" >
-      <ion-icon [name]="orderInfoOpen?'ios-arrow-forward':'ios-arrow-back'" color="light"></ion-icon>
-    </button> -->
   <ion-slides dir="rtl" class="order-links" initialSlide="1">
     <ion-slide>
       <div class="delegate-pic">
         <img src="assets/imgs/profile-alt.png" width="60" alt="">
         <div class="deligate-info">
-          <p *ngIf="orderDestination.delegate">اسم المندوب: <b>{{orderDestination.delegate.name}}</b></p>
-          <p *ngIf="!orderDestination.delegate">اسم المندوب</p>
-          <p class="rating">التقييم: <rating [(ngModel)]="defaultRating" readOnly="true" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half"
+          <p *ngIf="orderDestination.delegate">{{'Delegate Name'|translate}}: <b>{{orderDestination.delegate.name}}</b></p>
+          <p *ngIf="!orderDestination.delegate">{{'Delegate Name'|translate}}</p>
+          <p class="rating">{{'Rate'|translate}}: <rating [(ngModel)]="defaultRating" readOnly="true" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half"
             starIconName="star" nullable="false"></rating></p>
         </div>
       </div>
@@ -52,34 +40,35 @@
     <ion-slide class="destination-slide">
       <div class="anim-gr"><p></p></div>
       <div class="slide-sec">
-        <p class="order-dest block-dest-title">المندوب</p>
+        <p class="order-dest block-dest-title">{{'Delegate'|translate}}</p>
         <p class="block-dest-title" *ngIf="orderDestination.delegate">{{orderDestination.delegate.name}}</p>
-        <p class="block-dest-name block-dest-title" *ngIf="!orderDestination.delegate">لم يتم التحديد</p>
+        <p class="block-dest-name block-dest-title" *ngIf="!orderDestination.delegate">{{'Not Selected'|translate}}</p>
       </div>
       <p>
         <ion-icon name="ios-rewind"color="primary"></ion-icon>
       </p>
       <div class="slide-sec">
-        <p class="order-dest">المطعم</p>
+        <p class="order-dest">{{'Location'|translate}}</p>
 
-        <p *ngIf="orderDestination.restaurant" class="block-dest-title">{{restaurantName}}</p>
+        <p *ngIf="orderDestination.restaurant" class="block-dest-title-sm">{{restaurantAddress}}</p>
         <p *ngIf="!orderDestination.restaurant" class="block-dest-name">
-          لم يتم التحديد
+          {{'Not Selected'|translate}}
         </p>
         <!--<p *ngIf="orderDestination.restaurant&&!orderDestination.restaurant.name">لم يتم التحديد</p>-->
       </div>
     </ion-slide>
     <ion-slide>
-      <div class="delegate-pic no-border" no-lines>
+    
+      <div class="delegate-pic no-border" no-lines [class.ltr]="translate.currentLang == 'en'">
         <img src="assets/imgs/place-placeholder.png" width="60" alt="">
         <div class="deligate-info">
-          <p *ngIf="orderDestination.restaurant" class="block-dest-title">اسم المطعم: <b>{{restaurantName}}</b></p>
+          <p *ngIf="orderDestination.restaurant" class="block-dest-title">{{'Location Name'|translate}}: <b>{{restaurantName}}</b></p>
           <p *ngIf="!orderDestination.restaurant" class="block-dest-name">
-            لم يتم التحديد
+            {{'Not Selected'|translate}}
           </p>
-          <p *ngIf="orderDestination.restaurant" class="block-dest-address">العنوان: <b>{{restaurantAddress}}</b></p>
+          <p *ngIf="orderDestination.restaurant" class="block-dest-address">{{'Address'|translate}}: <b>{{restaurantAddress}}</b></p>
           <p class="rating" *ngIf="orderDestination.restaurant">
-            التقييم:
+            {{'Rate'|translate}}:
             <rating dir="rtl" [(ngModel)]="orderDestination.restaurant.rating||defaultRating" readOnly="true" max="5" emptyStarIconName="star-outline"
               halfStarIconName="star-half" starIconName="star" nullable="false"></rating>
           </p>
@@ -92,5 +81,5 @@
 </ion-content>
 
 <ion-footer no-margin>
-  <button full ion-button no-margin color="secondary" (click)="requestOrder()">اضافة طلبية</button>
+  <button full ion-button no-margin color="secondary" (click)="requestOrder()">{{'Add Order'|translate}}</button>
 </ion-footer>

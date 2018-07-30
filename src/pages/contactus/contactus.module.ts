@@ -4,6 +4,7 @@ import { ContactusPage } from './contactus';
 import {UsersProviders} from "../../providers/users";
 import {AppstorageProvider} from "../../providers/appstorage/appstorage";
 import {AppUtilFunctions} from "../../providers/utilfuns";
+import { TranslateModule } from '../../../node_modules/@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -11,6 +12,7 @@ import {AppUtilFunctions} from "../../providers/utilfuns";
   ],
   imports: [
     IonicPageModule.forChild(ContactusPage),
+    TranslateModule
   ],
   providers: [
     UsersProviders,

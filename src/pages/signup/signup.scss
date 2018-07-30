@@ -18,7 +18,7 @@ page-signup {
         height: 0;
       }
       .form-group {
-        padding: 12px 8px;
+        padding: 8px 8px 12px;
         width: 100%;
         border: 1px solid #ccc;
         border-bottom: 2px solid $primary;
@@ -68,7 +68,12 @@ page-signup {
           flex-direction: column;
           align-items: center;
           color: #ccc;
-          max-height: calc(100% - 14px);
+          max-height: calc(100% - 15px);
+          
+          &.ltr {
+            
+          transform: translateX(10px);
+          }
           ion-icon {
             font-size: 7rem;
             color: #999;
@@ -127,7 +132,9 @@ page-signup {
               width: 75%;
               margin: 0;
               color: #b2b2b2 !important;
-              direction: rtl;
+              overflow: hidden;
+              white-space: nowrap;
+              text-align: start;
               font-size: 15px
             }
           }

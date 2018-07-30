@@ -34,4 +34,9 @@ export class AppAPI {
         }
         return this.http.post<any>(this.API_URL + endpoint, body, {params: httpParams, headers: httpHeaders})
     }
+
+    getAddress(latitude, longitude) { 
+        let geocodeUrl = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+latitude+','+longitude+'&key=AIzaSyBQMQ8iGHbNyH6TlL7-gc8TJRNpURF0fWg';
+        return this.http.get(geocodeUrl)
+    }
 }

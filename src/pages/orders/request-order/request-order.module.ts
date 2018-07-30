@@ -6,6 +6,7 @@ import {OrdersProvider} from "../../../providers/orders/orders";
 import { AppUtilFunctions } from '../../../providers/utilfuns';
 import { Ionic2RatingModule } from 'ionic2-rating';
 import { UsersProviders } from '../../../providers/users';
+import { TranslateModule } from '../../../../node_modules/@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { UsersProviders } from '../../../providers/users';
   ],
   imports: [
     IonicPageModule.forChild(RequestOrderPage),
-    Ionic2RatingModule
+    Ionic2RatingModule,
+    TranslateModule
   ],
   providers: [
     AppstorageProvider,

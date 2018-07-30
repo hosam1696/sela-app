@@ -5,16 +5,6 @@
       <ion-icon class="bill-icon" name="notifications"></ion-icon>
     </button>
 
-    <ion-buttons end>
-      <button ion-button icon-only (click)="openPage('SearchPage')">
-        <ion-icon name="search"></ion-icon>
-      </button>
-      <button ion-button icon-only class="cart-button" (click)="openPage('CartPage')">
-        <ion-icon name="cart">
-          <!--<ion-badge color="secondary">0</ion-badge>-->
-        </ion-icon>
-      </button>
-    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -22,23 +12,28 @@
   <section margin-top text-center >
     <ion-chip class="page-title">
       <ion-icon name="settings"></ion-icon>
-      <ion-label>الاعدادات</ion-label>
+      <ion-label>{{'Settings'|translate}}</ion-label>
     </ion-chip>
   </section>
   <ion-list>
+    
     <ion-item-divider margin-top>
-      الخريطة
+      {{'Notifications'|translate}}
     </ion-item-divider>
     <ion-item>
-      <ion-label>عرض صندوق الواجهة </ion-label>
+      <ion-label>{{'Allow Notificatiosn'|translate}}</ion-label>
       <ion-checkbox></ion-checkbox>
     </ion-item>
     <ion-item-divider margin-top>
-      الاشعارات
+      {{'Language'|translate}}
     </ion-item-divider>
-    <ion-item>
-      <ion-label>تفعيل الاشعارات</ion-label>
-      <ion-checkbox></ion-checkbox>
+    <ion-item class="choose-lang">
+      <button ion-button clear block text-start [color]="appLang == 'ar'?'primary':'dark'" (click)="changeLang('ar')">العربية
+        <ion-icon name="checkmark" color="secure" *ngIf="appLang == 'ar'"></ion-icon>
+      </button>
+      <button ion-button clear block text-start [color]="appLang == 'en'?'primary':'dark'" (click)="changeLang('en')">English
+        <ion-icon name="checkmark" color="secure" *ngIf="appLang == 'en'"></ion-icon>
+      </button>
     </ion-item>
   </ion-list>
 </ion-content>

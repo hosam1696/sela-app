@@ -9,7 +9,13 @@ import { UsersProviders } from "../providers/users";
 import { FcmProvider } from "../providers/fcm/fcm.provider";
 import { UserHome } from '../providers/types/enums';
 
-
+export type DocumentDirection = 'ltr' | 'rtl';
+export enum AppDirLang {
+  'ar' = 'rtl',
+  'en' = 'ltr',
+  'rtl' = 'ar',
+  'ltr' = 'en'
+}
 @Component({
   templateUrl: 'app.html'
 })
@@ -23,7 +29,7 @@ export class MyApp {
   constructor(public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
-    public translateService: TranslateService,
+    public translate: TranslateService,
     public events: Events,
     public alertCtrl: AlertController,
     public appStorage: AppstorageProvider,
@@ -35,8 +41,10 @@ export class MyApp {
   }
 
   initializeApp() {
-    this.translateService.setDefaultLang('ar');
-    this.translateService.use('ar');
+    this.appStorage.getAppLang()
+      .then(lang=>{
+        this.setDefaultLang(lang?lang:'ar');
+      })
     this.platform.ready()
       .then(() => {
         this.configPage();
@@ -53,6 +61,13 @@ export class MyApp {
       this.rootPage = root
     });
 
+    // change language
+    this.events.subscribe('changeLang', lang=>{
+      this.appStorage.setAppLang(lang).then(saveLang=>{
+        this.setDefaultLang(saveLang);
+      })
+    });
+
     // refresh local storage event
     this.events.subscribe('refreshStorage', () => {
       this.configPage();
@@ -62,10 +77,10 @@ export class MyApp {
     // Log out user event
     this.events.subscribe('userLogout', () => {
       let options: AlertOptions = {
-        title: "هل ترغب فى تسجيل خروجك؟",
+        title: this.translate.instant('Do you Want to Logout?'),
         buttons: [
           {
-            text: "نعم",
+            text: "yes",
             handler: async () => {
               const token = await this.appStorage.getToken();
               this.userProvider.userLogout(token)
@@ -84,7 +99,7 @@ export class MyApp {
             }
           },
           {
-            text: "الغاء",
+            text: "cancel",
             handler: () => { }
           }
         ]
@@ -100,11 +115,8 @@ export class MyApp {
         if (data&&data.saveLogin) {
           [this.userLogged, this.rootPage] = [true, UserHome[data.role]];
         } else {
-          if (data&&data.id) {
-            [this.userLogged, this.rootPage] = [true, UserHome[data.role]];
-            } else {
             [this.userLogged, this.rootPage] = [false, UserHome['user']];
-          }
+            this.appStorage.storage.remove('localUserInfo')
         }
         this.pages = this._menuPages;
       }).catch(() => {
@@ -154,6 +166,12 @@ export class MyApp {
         console.log('Device Token Status', status);
         // may we save the token in the storage
       })
+  }
+
+  setDefaultLang(lang: 'en' | 'ar') {
+    this.translate.setDefaultLang(lang);
+    this.translate.use(lang);
+    this.platform.setDir(AppDirLang[lang] as DocumentDirection, true);
   }
 
   public openPage(page: MenuPage & string): void {

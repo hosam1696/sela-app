@@ -31,5 +31,40 @@ page-home2 {
         border-left-color: #ffffffed;
       }
     }
+    .upload-image {
+      padding: 0;
+      height: calc(100% - 10px);
+      width: calc(100% - 10px);
+      transform: translateX(-10px);
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      color: #ccc;
+      background-color: #fff;
+      border-radius: 5px;
+      padding: 8px 0;
+      &.ltr {
+        
+      transform: translateX(10px);
+      }
+      ion-icon {
+        font-size: 7rem;
+        color: #999;
+      }
+      p {
+        margin: 0;
+
+      }
+    }
+    input {
+      border: none;
+      width: 100%;
+      font-size: 1.6rem;
+      &::placeholder {
+        color: #999 ;
+      }
+    }
+  
   }
 }

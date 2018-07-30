@@ -29,6 +29,14 @@ export class AppstorageProvider {
     return user;
   }
 
+  getAppLang() {
+    return this.storage.get('appLang');
+  }
+  
+  setAppLang(lang) {
+    return this.storage.set('appLang', lang);
+  }
+
   public async loginUserInStorage(userData: UserData, token: string) {
     let user = await this.saveUserData(userData);
     let userLogged = await this.userLogged(true);

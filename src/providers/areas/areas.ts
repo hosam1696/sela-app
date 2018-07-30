@@ -23,4 +23,7 @@ export class AreasProvider {
   getActiveBranches() {
     return this.api.get('activeBranches')
   }
+  geoCodeAddress(lat, lng) {
+    return this.api.getAddress(lat, lng);
+  }
 }

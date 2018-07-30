@@ -19,14 +19,14 @@
   <section margin-top text-center >
     <ion-chip class="page-title">
       <ion-icon name="basket"></ion-icon>
-      <ion-label>طلباتى</ion-label>
+      <ion-label>{{'My Orders'|translate}}</ion-label>
     </ion-chip>
   </section>
   <p text-center>
     <ion-spinner *ngIf="loader"></ion-spinner>
   </p>
   <p text-center margin *ngIf="orders&&!orders.length">
-    لا يوجد طلبات
+    {{'No Orders'}}
   </p>
   <ion-list no-lines>
     <ion-item no-border no-padding margin-bottom
@@ -34,7 +34,7 @@
               *ngFor="let order of orders;let i = index"
     >
       <p class="header-bg request-num">
-       <span> طلبية {{i+1}}</span>
+       <span>{{'order'|translate}} {{i+1}}</span>
         <span>
           <ion-icon name="egg" [color]="order.status==3?'danger':(order.status==1?'green':'light')"></ion-icon>&nbsp;
           <span [innerHTML]="getStatus(order)"></span>

@@ -23,11 +23,13 @@
 </ion-header>
 
 <ion-content no-padding>
-  <section class="notifications" [hidden]="hideNotification" clickOutside (clickOutsideEvent)="fireEvent()">
+  <section class="notifications" [class.ltr]="platform.dir()=='ltr'" [hidden]="hideNotification" clickOutside (clickOutsideEvent)="fireEvent()">
     <ion-list no-lines>
       <!-- Notification is Static for now-->
-      <ion-item class="transparent-bg" (click)="openPage('NotificationPage', {id: 1})">
-        لا يوجد اشعارارت حتى الان
+      <ion-item [dir]="platform.dir()" class="transparent-bg" (click)="openPage('NotificationPage', {id: 1})">
+        <p text-center>
+            {{'No Notifications'|translate}}
+        </p>
       </ion-item>
     </ion-list>
   </section>
@@ -58,14 +60,12 @@
     لا يوجد مطاعم حاليا
   </p>
 
-  <ion-slides dir="rtl">
-
+  <ion-slides [dir]="platform.dir()">
     <!-- Nearest slide-->
     <ion-slide>
       <ion-list no-lines margin-horizontal>
-
         <!-- Real Data From Data base -->
-        <ion-item margin-bottom *ngFor="let restaurant of nearbyRestaurants.featured;trackBy: trackByFn" (click)="openPage('MapsPage', {pageData:restaurant})">
+        <ion-item [dir]="platform.dir()" margin-bottom *ngFor="let restaurant of nearbyRestaurants.featured;trackBy: trackByFn" (click)="openPage('MapsPage', {pageData:restaurant})">
           <ion-avatar>
             <img src="assets/imgs/place-placeholder.png" alt="">
           </ion-avatar>
@@ -91,7 +91,7 @@
             </div>
           </ion-item>
         </ng-template>
-        <ion-item margin-bottom *ngFor="let restaurant of nearbyRestaurants.locnear;trackBy: trackByFn"
+        <ion-item [dir]="platform.dir()" margin-bottom *ngFor="let restaurant of nearbyRestaurants.locnear;trackBy: trackByFn"
                   (click)="openPage('MapsPage', {pageData:restaurant})">
           <ion-avatar>
             <img [src]="'assets/imgs/place-placeholder.png'" alt="">
@@ -111,7 +111,7 @@
 
     <ion-slide>
       <ion-list no-lines margin-horizontal>
-        <ion-item margin-bottom *ngFor="let i of [1,2,3]" [hidden]="activeRestaurants&&activeRestaurants.length">
+        <ion-item [dir]="platform.dir()" margin-bottom *ngFor="let i of [1,2,3]" [hidden]="activeRestaurants&&activeRestaurants.length">
           <ion-avatar class="loading">
             <img src="" alt="">
           </ion-avatar>
@@ -120,7 +120,7 @@
             <p></p>
           </div>
         </ion-item>
-<ion-item margin-bottom  *ngFor="let restaurant of activeRestaurants;trackBy: trackByFn"
+<ion-item [dir]="platform.dir()" margin-bottom  *ngFor="let restaurant of activeRestaurants;trackBy: trackByFn"
 
   (click)="openPage('MapsPage', {pageData:restaurant})">
 

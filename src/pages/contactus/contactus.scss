@@ -2,7 +2,7 @@ page-contactus {
     ion-content {
       form {
         .form-group {
-          background: rgba(255, 255, 255, 0.35);
+          background-color: #fff;
           border-radius: 5px;
           display: flex;
           margin-bottom: 10px;
@@ -23,9 +23,10 @@ page-contactus {
           ion-input {
             input {
               &::placeholder {
-                color: #fff !important;
+                color: #ccc !important;
                 font-weight: bold;
                 letter-spacing: 1px !important;
+                font-size: 1.2rem;
               }
             }
           }

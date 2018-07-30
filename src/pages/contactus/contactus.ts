@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UserData} from "../../providers/types/interface";
 import {UsersProviders} from "../../providers/users";
@@ -18,6 +18,7 @@ export class ContactusPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public formBuilder: FormBuilder,
+              public platform: Platform,
               public userProvider: UsersProviders,
               public appStorage: AppstorageProvider,
               public appUtils: AppUtilFunctions

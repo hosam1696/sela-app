@@ -1,4 +1,4 @@
-<ion-menu [content]="content">
+<ion-menu [content]="content" [attr.side]="platform.dir()==='rtl'?'right':'left'">
   <ion-content>
     <section class="user-section" menuToggle (click)="userLogged?openPage('ProfilePage'):false">
       <div class="user-img">

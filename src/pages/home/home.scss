@@ -25,18 +25,31 @@ page-home {
       width: 90%;
       top: 10px;
       right: 5%;
-      background-color: rgba(255, 255, 255, 0.9);
+      background-color: rgb(255, 255, 255);
+      box-shadow: 0 20px 40px  -14px #ccc;
+      border: 1px solid #f6f6f6;
+      z-index: 9999;
+      &.ltr {
+        &:after {
+          left: 15%;
+        }
+      }
       &:after {
         content: '';
         background-color: transparent;
-        width: 0;
-        height: 0;
+        width: 12px;
+        height: 12px;
         position: absolute;
-        top: -23px;
+        top: -6px;
         right: 15%;
+        -webkit-transform: rotate(-90deg);
         transform: rotate(-90deg);
-        border: 12px solid transparent;
-        border-left-color: #ffffffed;
+        background-color: white;
+        border-left: 1px solid #f6f6f6;
+        border-top: 1px solid #f6f6f6;
+        transform: rotate(45deg);
+        // border-left-color: #fff;
+        // box-shadow: 1px 1px #ccc
       }
     }
 
@@ -85,6 +98,7 @@ page-home {
             max-width: 70px !important;
             max-height: 70px !important;
             align-items: center;
+            margin-top: 5px;
             display: flex;
             border: 2px solid $primary;
             border-radius: 50% !important;

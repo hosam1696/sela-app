@@ -84,6 +84,9 @@ page-maps {
               font-size: 1.2rem;
               margin-top: 4px !important;
             }
+            .block-dest-title-sm {
+              font-size: 1.2rem;
+            }
             .block-dest-address {
               text-align: start;
             }
@@ -95,6 +98,15 @@ page-maps {
           border-bottom: 1px solid #eee;
           padding: 4px 8px;
           //flex:1;
+          &.ltr {
+            flex-flow: row-reverse;
+            .deligate-info {
+              p {
+                width: 100%;
+                direction: ltr;
+              }
+            }
+          }
           &.no-border {
             border: none;
             padding: 8px;

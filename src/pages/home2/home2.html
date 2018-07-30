@@ -9,27 +9,70 @@
       <ion-icon name="md-list"></ion-icon>
     </button>
 
-    <button ion-button icon-only clear (click)="hideNotification=!hideNotification;notificationIsOpen=!hideNotification">
+    <ion-buttons end>
+
+      <button ion-button icon-only clear
+            (click)="hideNotification=!hideNotification;notificationIsOpen=!hideNotification">
       <ion-icon class="bill-icon" name="notifications"></ion-icon>
     </button>
-    <ion-buttons end>
-      <!--<button ion-button icon-only (click)="openPage('MapsPage')">
-        <ion-icon name="locate"></ion-icon>
-      </button> -->
       <button ion-button icon-only class="cart-button" (click)="openPage('CartPage')">
         <ion-icon name="cart">
           <!--<ion-badge color="secondary">0</ion-badge>-->
         </ion-icon>
       </button>
+      
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content no-padding>
-  <section class="hero" hidden>
-    <img class="hero-img" src="assets/imgs/hero-img.png" alt="">
-  </section>
+<ion-content padding>
+    <section class="notifications" [class.ltr]="platform.dir()=='ltr'" [hidden]="hideNotification" clickOutside (clickOutsideEvent)="fireEvent()">
+        <ion-list no-lines>
+          <!-- Notification is Static for now-->
+          <ion-item [dir]="platform.dir()" class="transparent-bg" (click)="openPage('NotificationPage', {id: 1})">
+            <p text-center>
+                {{'No Notifications'|translate}}
+            </p>
+          </ion-item>
+        </ion-list>
+      </section>
   <p text-center>
     الصفحة الرئيسية الخاصة بالمندوب
   </p>
+  <br>
+  <ion-grid no-padding>
+    <ion-row>
+      <ion-col>
+        <div class="form-group upload-image" >
+          <ion-icon name="image" (click)="pickImage()"></ion-icon>
+          <p>{{'Upload Image'|translate}}</p>
+          <span>الاستمارة</span>
+        </div>
+      </ion-col>
+    <ion-col>
+      <div class="form-group upload-image" >
+        <ion-icon name="image" (click)="pickImage()"></ion-icon>
+        <p>{{'Upload Image'|translate}}</p>
+        <span>الهوية</span>
+      </div>
+    </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <div class="form-group upload-image" >
+          <ion-icon name="image" (click)="pickImage()"></ion-icon>
+          <p>{{'Upload Image'|translate}}</p>
+          <span>الرخصة</span>
+        </div>
+      </ion-col>
+    <ion-col>
+      <div class="form-group upload-image" >
+        <ion-icon name="image" (click)="pickImage()"></ion-icon>
+        <p>{{'Upload Image'|translate}}</p>
+        <span>السيارة</span>
+      </div>
+    </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

@@ -58,7 +58,20 @@ page-login {
         background-color: transparent !important;
         max-height: 30px !important;
         ion-checkbox {
-          margin: 0 !important;
+          margin: 0 8px !important;
+          .checkbox-icon {
+            border-color: #e2fbf9 !important;
+            width: 20px !important;
+            height: 20px !important;
+            &.checkbox-checked {
+              
+            border-color: #e2fbf9 !important;
+            }
+            .checkbox-inner {
+              top: 2px !important;
+              left: 5px !important
+            }
+          }
         }
         .item-inner {
           border: none !important;
