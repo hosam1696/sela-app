@@ -53,11 +53,11 @@ export class DeliverystatusPage {
       .subscribe(data=>{
         console.log(data);
         if (data.user_id) {
-            this.appUtils.AppToast('تم الغاء طلبيتك', {duration:1000},()=>{
+            this.appUtils.appToast('تم الغاء طلبيتك', {duration:1000},()=>{
               this.navCtrl.popToRoot();
           });
         } else {
-          this.appUtils.AppToast('حدث خطأ فى التعديل')
+          this.appUtils.appToast('حدث خطأ فى التعديل')
         }
       })
 

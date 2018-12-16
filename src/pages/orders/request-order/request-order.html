@@ -1,7 +1,7 @@
 <img class="stacked-img-header" src="assets/imgs/logo-head.png" width="86" alt="">
 <ion-header no-border>
   <ion-navbar color="primary" class="header-bg">
-    <button ion-button icon-only clear >
+    <button ion-button icon-only clear>
       <ion-icon class="bill-icon" name="notifications"></ion-icon>
     </button>
     <ion-buttons end *ngIf="loader">
@@ -14,7 +14,7 @@
 
 
 <ion-content padding>
-  <section margin-top text-center >
+  <section margin-top text-center>
     <ion-chip class="page-title">
       <ion-icon name="basket"></ion-icon>
       <ion-label>{{'Order'|translate}}</ion-label>
@@ -24,11 +24,12 @@
   <section class="restaurant-id">
     <p class="rest-name" text-centerm>
       <span *ngIf="isUserPlace;else orderTitle">{{orderDistination.restaurant.vicinity}}</span>
-      <ng-template  #orderTitle>{{orderDistination.restaurant.title}}</ng-template>
+      <ng-template #orderTitle>{{orderDistination.restaurant.title}}</ng-template>
     </p>
 
     <p class="rest-rating">
-      <rating [(ngModel)]="rating" readOnly="true" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star" nullable="false"></rating>
+      <rating [(ngModel)]="rating" readOnly="true" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half"
+              starIconName="star" nullable="false"></rating>
     </p>
   </section>
 
@@ -40,15 +41,13 @@
 </ion-content>
 
 <ion-footer class="page-footer">
-<button ion-button color="danger" no-margin (click)="requestOrder('rapid')" [disabled]="disableBtns">
-
+  <button ion-button color="danger" hidden  no-margin (click)="requestOrder('rapid')" [disabled]="disableBtns">
     <ion-icon name="ios-thunderstorm"></ion-icon>
     <p>{{'Fast Delivery'|translate}}</p>
   </button>
-<button ion-button color="secondary" no-margin (click)="requestOrder('normal')" [disabled]="disableBtns">
-
+  <button ion-button color="secondary" large no-margin (click)="requestOrder('normal')" [disabled]="disableBtns">
     <ion-icon name="md-car"></ion-icon>
-    <p>{{'Normal Delivery'|translate}}</p>
+    <p>{{'Delivery'|translate}}</p>
   </button>
 
 </ion-footer>

@@ -45,7 +45,7 @@ export class RequestOrderPage {
 
      this.sendOrder(type);
     } else {
-      this.appUtils.AppToast('يرجى كتابة الطلبية')
+      this.appUtils.appToast('يرجى كتابة الطلبية')
     }
   }
 
@@ -88,7 +88,7 @@ export class RequestOrderPage {
     },()=>{
 
       [this.loader, this.disableBtns] = Array(2).fill(false);
-      this.appUtils.AppToast('DEV: Token Validation')
+      this.appUtils.appToast('DEV: Token Validation')
       // hardcoded solution for expired token
       this.userProvider.refrehToken(this.token)
         .subscribe(data=>{

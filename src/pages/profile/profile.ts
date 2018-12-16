@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import {
+  ActionSheetController,
   Events,
   IonicPage,
   NavController,
@@ -10,6 +11,8 @@ import { PageMode, UserData } from "../../providers/types/interface";
 import { AppstorageProvider } from "../../providers/appstorage/appstorage";
 import { UsersProviders } from "../../providers/users";
 import { AppUtilFunctions } from "../../providers/utilfuns";
+import {TranslateService} from "@ngx-translate/core";
+import {Camera, CameraOptions} from "@ionic-native/camera";
 
 @IonicPage()
 @Component({
@@ -34,6 +37,9 @@ export class ProfilePage {
     public formBuilder: FormBuilder,
     public appStorage: AppstorageProvider,
     public events: Events,
+    public translate: TranslateService,
+    public camera: Camera,
+    private actionCtrl: ActionSheetController,
     public userProvider: UsersProviders,
     public appUtils: AppUtilFunctions,
   ) {}
@@ -73,7 +79,7 @@ export class ProfilePage {
         let userData: UserData = data[0];
         console.log(status, userData);//TODO: remove this line
         if (data.status) {
-          this.appUtils.AppToast("تم تعديل البيانات بنجاح", {position:'middle', cssClass:'centered'});
+          this.appUtils.appToast("تم تعديل البيانات بنجاح", {position:'middle', cssClass:'centered'});
           userData.token = this.localUser.token;
           this.appStorage.saveUserData(userData)
             .then((result) => {
@@ -103,8 +109,56 @@ export class ProfilePage {
     return (this.pageMode.editMode = !this.pageMode.editMode);
   }
 
-  public changeImage() {
+  public changeImage(imgId) {
     // do image upload
+
+    let actionSheetCtrl = this.actionCtrl.create({
+      title: this.translate.instant("اختر من"),
+      buttons: [
+        {
+          text: this.translate.instant("الكاميرا"),
+          icon: "camera",
+          handler: () => {
+            console.log("camera clicked");
+            this.openCamera("CAMERA", imgId);
+          }
+        },
+        {
+          text: this.translate.instant("البوم الصور"),
+          icon: 'images',
+          handler: () => {
+            console.log("Photo Album clicked");
+            this.openCamera("PHOTOLIBRARY", imgId);
+          }
+        },
+        {
+          text: "الغاء",
+          role: "cancel",
+          handler: () => {
+            console.log("Cancel clicked");
+          }
+        }
+      ]
+    });
+
+    actionSheetCtrl.present();
+
+  }
+
+  private openCamera(type: string = "CAMERA", imgId) {
+    const cameraOptions: CameraOptions = {
+      quality: type == "CAMERA" ? 70 : 40,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      mediaType: this.camera.MediaType.PICTURE,
+      correctOrientation: true,
+      allowEdit: true,
+      sourceType: this.camera.PictureSourceType[type]
+    };
+    this.camera
+      .getPicture(cameraOptions)
+      .then(imageData => {
+        this.userProvider.uploadImage({[imgId]: imageData}, this.localUser.id)
+      })
   }
 
   public logout(): void {

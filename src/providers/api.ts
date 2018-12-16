@@ -1,12 +1,13 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
+import {TranslateService} from "@ngx-translate/core";
 
 @Injectable()
 
 export class AppAPI {
-    public API_URL: string = 'http://selah.rqmiyat.com/api/';
-    public URL: string = 'http://selah.rqmiyat.com/';
-    constructor(public http: HttpClient) {
+    public API_URL: string = 'http://app-sila.com/api/';
+    public URL: string = 'http://app-sila.com/';
+    constructor(public http: HttpClient, private translate: TranslateService) {
     }
 
     get(endpoint: string, params?: any) {
@@ -16,20 +17,26 @@ export class AppAPI {
                 httpParams = httpParams.set(param, params[param])
             }
         }
-        return this.http.get<any>(this.API_URL + endpoint, {params: httpParams})
+        return this.http.get<any>(this.API_URL + endpoint, {params: httpParams, headers: new HttpHeaders().set('x-localization', this.translate.currentLang)
+    })
     }
 
-    post(endpoint: string, params?: any, headers?: any, body?: any) {
+    post(endpoint: string, body?: any, params?: any, headers?: any) {
         let httpParams: HttpParams = new HttpParams({});
-        let httpHeaders: HttpHeaders = new HttpHeaders({}).set('Access-Control-Allow-Origin', '*');
+        let httpHeaders: HttpHeaders = new HttpHeaders({}).append('Access-Control-Allow-Origin', '*');
+        httpHeaders.append('x-localization', this.translate.currentLang);
         if (params) {
             for (let param in params) {
-                httpParams = httpParams.set(param, params[param])
+                if (params.hasOwnProperty(param)) {
+                    httpParams = httpParams.set(param, params[param])
+                }
             }
         }
         if (httpHeaders) {
             for (let header in headers) {
-                httpHeaders = httpHeaders.set(header, headers[header])
+                if (headers.hasOwnProperty(header)) {
+                    httpHeaders = httpHeaders.set(header, headers[header])
+                }
             }
         }
         return this.http.post<any>(this.API_URL + endpoint, body, {params: httpParams, headers: httpHeaders})

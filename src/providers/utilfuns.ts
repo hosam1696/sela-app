@@ -26,8 +26,14 @@ export class AppUtilFunctions {
         });
         alert.present();
     }
-    public AppToast(message:string, settings?:ToastOptions, callback?:any):void{
-        let toast = this.toastCtrl.create({message,...{duration: 2000, position:'top'}, ...settings});
+    public appToast(message:string, settings?:ToastOptions, callback?:any):void{
+        let toast = this.toastCtrl.create({
+          message, ...{
+            duration: 2000,
+            position: 'top',
+            cssClass: 'toast-sm'
+          }, ...settings
+        });
         toast.onDidDismiss(callback)
         toast.present();
     }

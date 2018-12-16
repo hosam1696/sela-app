@@ -1,3 +1,17 @@
 page-cart {
 
+  ion-content {
+    .no-cart {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      ion-icon {
+        font-size: 12rem;
+        color: #ccc;
+      }
+    }
+  }
 }

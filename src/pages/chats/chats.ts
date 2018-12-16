@@ -59,7 +59,9 @@ export class ChatsPage {
       return (role == 'user' && userId == id) || (role == 'branch' && delegateId == id)
     });
     console.log('filtered chats', filteredKeys);
+    if (filteredKeys.length) {
 
+    
     filteredKeys.forEach(key=>{
       this.db.list('/chats/'+key)
         .valueChanges().subscribe(d=>{
@@ -79,7 +81,9 @@ export class ChatsPage {
           this.loader = false;
       });
     });
-
+  } else {
+    this.loader = false;
+  }
   }
 
 }

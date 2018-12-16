@@ -8,6 +8,96 @@ page-home {
         }
     }
   ion-content {
+    .places-container {
+      margin: 1.5rem 1rem;
+      .places-id {
+        margin-bottom:  1rem;
+        .place-category {
+          display: inline-block;
+          text-align: center;
+          min-width: 90px;
+          padding: 5px;
+          font-size: 1.2rem;
+          border-radius: 10px;
+          color: #fff;
+          background-color: orangered;
+          &.color-blue {
+            background-color: $primary
+          }
+        }
+      }
+      .places-slides {
+        ion-item {
+          .item-inner {
+            padding: 0 !important;
+          }
+          &.item {
+            padding: 0 !important;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 0  !important;
+          }
+          ion-label {
+            margin: 0 !important;
+            ion-avatar {
+              border-radius: 0 !important;
+              min-height: 50px;
+              max-height: 60px;
+              background-color: #eee;
+              img {
+                width: 100%;
+                height: 100%;
+                max-height: 60px;
+                border-radius: 0;
+              }
+            }
+          }
+          .result-actions {
+            padding: 0 8px;
+            & > * {
+              font-size: 1.2rem;
+            }
+            .est-loc {
+              background-color: #fc7979;
+              color: #fff;
+              font-size: 1rem;
+              border-radius: 10px;
+              padding: 0 4px;
+              display: inline-block;
+              margin-bottom: 6px;
+            }
+          }
+      }
+    }
+      .places-list{
+        ion-item {
+          &.item {
+            padding: 0 !important;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 0 0 10px 0 !important;
+          }
+          ion-avatar {
+            margin: 0 !important;
+            height: 95px;
+            max-width: 95px;
+            width: 90px;
+            max-height: 100% !important;
+            border-radius: 0 !important;
+            border: none !important;
+          }
+          .result-actions {
+            .est-loc {
+              background-color: #fc7979;
+              color: #fff;
+              font-size: 1rem;
+              border-radius: 10px;
+              padding: 0 4px;
+            }
+          }
+        }
+      }
+    }
     .hero{
       min-height: 10rem;
       height: 12rem;
@@ -94,9 +184,10 @@ page-home {
           //padding: 8px !important;
           max-height: 95px;
           ion-avatar {
-            min-width: 70px !important;
-            max-width: 70px !important;
-            max-height: 70px !important;
+            // min-width: 70px !important;
+            // max-width: 70px !important;
+            // max-height: 70px !important;
+            // max-width: 70px !important;
             align-items: center;
             margin-top: 5px;
             display: flex;
@@ -104,8 +195,8 @@ page-home {
             border-radius: 50% !important;
             overflow: hidden;
             img {
-              width: 7rem !important;
-              height: 7rem !important;
+              width: 100% !important;
+              height: 100% !important;
               border-radius: 0 !important
             }
             &.loading {
@@ -113,7 +204,6 @@ page-home {
               img {
                 border-color: transparent;
                 background-color: #eee;
-                border-radius: 50% !important
               }
             }
           }
@@ -161,7 +251,8 @@ page-home {
 
             }
             .est-loc {
-              //margin-top: 6px;
+              margin-top: 6px;
+              margin-bottom: 6px;
               letter-spacing: 1px;
               color: $secondary;
             }

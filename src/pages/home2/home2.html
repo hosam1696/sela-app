@@ -2,77 +2,123 @@
   Home Page for Delegator User 
 -->
 
-<img class="stacked-img-header" src="assets/imgs/logo-head.png" width="86" alt="">
+<img hidden class="stacked-img-header" src="assets/imgs/logo-head.png" width="86" alt="">
+
 <ion-header no-border>
-  <ion-navbar color="primary" class="header-bg">
-    <button ion-button menuToggle>
-      <ion-icon name="md-list"></ion-icon>
-    </button>
+    <ion-navbar hidden color="primary" class="header-bg">
+        <button ion-button menuToggle>
+            <ion-icon name="md-list"></ion-icon>
+        </button>
 
-    <ion-buttons end>
-
-      <button ion-button icon-only clear
-            (click)="hideNotification=!hideNotification;notificationIsOpen=!hideNotification">
-      <ion-icon class="bill-icon" name="notifications"></ion-icon>
-    </button>
-      <button ion-button icon-only class="cart-button" (click)="openPage('CartPage')">
-        <ion-icon name="cart">
-          <!--<ion-badge color="secondary">0</ion-badge>-->
-        </ion-icon>
-      </button>
-      
-    </ion-buttons>
-  </ion-navbar>
+        <ion-buttons end>
+            <button ion-button icon-only clear
+                    (click)="hideNotification=!hideNotification;notificationIsOpen=!hideNotification">
+                <ion-icon class="bill-icon" name="notifications"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-    <section class="notifications" [class.ltr]="platform.dir()=='ltr'" [hidden]="hideNotification" clickOutside (clickOutsideEvent)="fireEvent()">
-        <ion-list no-lines>
-          <!-- Notification is Static for now-->
-          <ion-item [dir]="platform.dir()" class="transparent-bg" (click)="openPage('NotificationPage', {id: 1})">
-            <p text-center>
-                {{'No Notifications'|translate}}
-            </p>
-          </ion-item>
-        </ion-list>
-      </section>
-  <p text-center>
-    الصفحة الرئيسية الخاصة بالمندوب
-  </p>
-  <br>
-  <ion-grid no-padding>
-    <ion-row>
-      <ion-col>
-        <div class="form-group upload-image" >
-          <ion-icon name="image" (click)="pickImage()"></ion-icon>
-          <p>{{'Upload Image'|translate}}</p>
-          <span>الاستمارة</span>
+    <section class="reminder-container">
+        <div class="reminder-head">
+            <span>{{'Reminder'|translate}}</span>
         </div>
-      </ion-col>
-    <ion-col>
-      <div class="form-group upload-image" >
-        <ion-icon name="image" (click)="pickImage()"></ion-icon>
-        <p>{{'Upload Image'|translate}}</p>
-        <span>الهوية</span>
-      </div>
-    </ion-col>
-    </ion-row>
+        <div class="reminder-body" *ngIf="localUser?.account_active == '0'">
+            {{'reminder:activate:msg'|translate}}
+        </div>
+    </section>
 
-    <ion-row>
-      <ion-col>
-        <div class="form-group upload-image" >
-          <ion-icon name="image" (click)="pickImage()"></ion-icon>
-          <p>{{'Upload Image'|translate}}</p>
-          <span>الرخصة</span>
+    <section class="personal-info-container">
+        <p class="section-title">
+            {{'Personal'|translate}}
+        </p>
+
+        <ion-grid no-padding>
+            <ion-row>
+                <ion-col>
+                    <div class="form-group upload-image">
+                        <ion-icon name="image" (click)="pickImage()"></ion-icon>
+                        <p>{{'Upload Image'|translate}}</p>
+                        <span>{{'Identity'|translate}}</span>
+                    </div>
+                </ion-col>
+
+                <ion-col>
+                    <div class="form-group upload-image">
+                        <ion-icon name="image" (click)="pickImage('certificate')"></ion-icon>
+                        <p>{{'Upload Image'|translate}}</p>
+                        <span>{{'الاستمارة'|translate}}</span>
+                    </div>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </section>
+
+    <section class="car-info-container">
+        <p class="section-title">
+            {{'Car'|translate}}
+        </p>
+        <ion-grid>
+            <ion-row>
+
+                <ion-col *ngIf="localUser&&!localUser.back_id_img">
+                    <div class="form-group upload-image">
+                        <ion-icon name="image" (click)="pickImage('back_id_img')"></ion-icon>
+                        <p>{{'Upload Image'|translate}}</p>
+                        <span>السيارة من الخلف</span>
+                    </div>
+                </ion-col>
+                <ion-col *ngIf="localUser?.back_id_img">
+                    <div class="form-group upload-image">
+                        <img [src]="'http://app-silla.com/public/uploads/users/'+ localUser.back_id_img" alt="">
+                        <div class="cover">
+                            <span>السيارة من الخلف</span>&nbsp;
+                            <ion-icon name="md-checkmark-circle" color="secure"></ion-icon>
+                        </div>
+                    </div>
+                </ion-col>
+                <ion-col *ngIf="localUser&&!localUser.front_id_img">
+                    <div class="form-group upload-image">
+                        <ion-icon name="image" (click)="pickImage('front_id_img')"></ion-icon>
+                        <p>{{'Upload Image'|translate}}</p>
+                        <span>السيارة من الأمام</span></div>
+
+                </ion-col>
+                <ion-col *ngIf="localUser?.front_id_img">
+                    <div class="form-group upload-image">
+                        <img [src]="'http://app-silla.com/public/uploads/users/'+ localUser.front_id_img" alt="">
+                        <div class="cover">
+                            <span>السيارة من الأمام</span>&nbsp;
+                            <ion-icon name="md-checkmark-circle" color="secure"></ion-icon>
+                        </div>
+                    </div>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <div class="form-group upload-image">
+                        <ion-icon name="image" (click)="pickImage('license')"></ion-icon>
+                        <p>{{'Upload Image'|translate}}</p>
+                        <span>الرخصة</span>
+                    </div>
+                </ion-col>
+
+            </ion-row>
+        </ion-grid>
+        <section class="car-data">
+            <div class="car-type" (click)="toggleCarSelect()">
+                <p>{{'Car Type'| translate}}</p>
+                <p>{{selectedCar?.name}}</p>
+            </div>
+        </section>
+        <div class="form-submit" text-center margin-top>
+            <button ion-button color="secondary" type="button" (click)="save()">
+                {{'Save'|translate}}
+            </button>
         </div>
-      </ion-col>
-    <ion-col>
-      <div class="form-group upload-image" >
-        <ion-icon name="image" (click)="pickImage()"></ion-icon>
-        <p>{{'Upload Image'|translate}}</p>
-        <span>السيارة</span>
-      </div>
-    </ion-col>
-    </ion-row>
-  </ion-grid>
+    </section>
+
+
 </ion-content>
+<sella-select *ngIf="showCarsList" [List]="carTypes" (OnSelect)="selectCarType($event)"></sella-select>

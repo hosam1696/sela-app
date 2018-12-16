@@ -1,5 +1,8 @@
 page-contactus {
     ion-content {
+      .page-info {
+        color: #666;
+      }
       form {
         .form-group {
           background-color: #fff;
@@ -32,10 +35,10 @@ page-contactus {
           }
         }
         .form-submit {
-          button {
-            border-radius: 10px;
-            padding: 2rem 3.5rem;
-          }
+          //button {
+          //  border-radius: 10px;
+          //  padding: 2rem 3.5rem;
+          //}
         }
         ion-textarea {
           background-color: #fff;

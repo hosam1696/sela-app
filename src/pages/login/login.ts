@@ -62,9 +62,9 @@ export class LoginPage {
   onSubmit() {
     console.log(this.loginForm.get('saveLogin').value);
     if (this.loginForm.controls.emailorphone.hasError("required")) {
-      this.appUtils.AppToast("يرجى ادخال برديك الالكترونى أو رقم الهاتف");
+      this.appUtils.appToast("يرجى ادخال برديك الالكترونى أو رقم الهاتف");
     } else if (this.loginForm.controls.password.hasError("required")) {
-      this.appUtils.AppToast("الرجاء إدخال  كلمة المرور");
+      this.appUtils.appToast("الرجاء إدخال  كلمة المرور");
     } else {
       const saveLogin = this.loginForm.get('saveLogin').value;
       const loginData: any = {};
@@ -79,12 +79,12 @@ export class LoginPage {
       this.usersproviders.userLogin(loginData).subscribe(
         res => {
           if (res.error) {
-            this.appUtils.AppToast("البيانات غير متطابقة");
+            this.appUtils.appToast("البيانات غير متطابقة");
           } else {
             console.log(res); // TODO: DEV Only reminder to be removed
             let self = this;
             saveLogin&&this.appStorage.saveToken(res.token);
-            this.appUtils.AppToast(this.translate.instant('تم الدخول بنجاح. التحويل للصفحة الرئيسية'), {position: 'top'});
+            this.appUtils.appToast(this.translate.instant('تم الدخول بنجاح. التحويل للصفحة الرئيسية'), {position: 'top'});
             this.usersproviders.getUserData(res.token).subscribe((data:UserData|any) => {
               console.log('get user data from view user',data); // TODO: DEV Only reminder to be removed
               self.loader = false;
@@ -115,7 +115,7 @@ export class LoginPage {
                 `body was: ${err.error.body}`
             );
             this.loader = false;
-            this.appUtils.AppToast("خطأ فى السيرفر");
+            this.appUtils.appToast(" خطأ فى السيرفر الرجاء المحاولة مرة أخرى");
           }
         }, () => {
           this.loader = false;
@@ -154,7 +154,8 @@ export class LoginPage {
               text: this.translate.instant('Choose'),
               handler: lang => {
               console.log("selected Language", lang);
-              this.events.publish('changeLang', lang)
+              this.events.publish('changeLang', lang);
+              this.translate.setDefaultLang(lang)
               }
           }]
     });

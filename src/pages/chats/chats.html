@@ -7,13 +7,17 @@
 
 <ion-content no-padding>
 
+  <div class="loading">
+
     <p text-center *ngIf="!loader&&!allChats?.length">
+      <ion-icon name="ios-mail"></ion-icon>
       لا يوجد رسائل
     </p>
 
     <p text-center *ngIf="loader">
       <ion-spinner></ion-spinner>
     </p>
+  </div>
 
     <ion-list *ngIf="localUser">
 

@@ -27,8 +27,8 @@ export class HomePage {
   activeRestaurants: any[];
   localUser: UserData;
   map: any;
-  defaultRadius: number = 500;
-  defaultSearchPlaces: string[] = ['restaurants', 'overall'];
+  defaultRadius: number = 800;
+  defaultSearchPlaces: string[] = ['restaurants'];
   constructor(public navCtrl: NavController,
               public appUtils: AppUtilFunctions,
               public userProvider: UsersProviders,
@@ -175,7 +175,7 @@ export class HomePage {
     this.getNearByServices(service);
   }
 
-  private getNearByServices(service: any, radius: number = this.defaultRadius, type: any = this.defaultSearchPlaces) {
+  private getNearByServices(service: any, radius: number = this.defaultRadius, type: any = 'restaurant') {
     const request = { location: new google.maps.LatLng(this.userLocation.lat, this.userLocation.lng), radius, type };
     service.nearbySearch(request, (results, status) => {
       console.info(status);

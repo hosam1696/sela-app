@@ -1,17 +1,21 @@
 {
   "name": "sela",
-  "app_id": "",
-  "type": "ionic-angular",
   "integrations": {
     "cordova": {}
   },
+  "type": "ionic-angular",
   "proxies": [
     {
       "path": "/api/",
-      "proxyUrl": "http://192.254.222.156/~darsyapp/"
-    },{
-      "path": "/~darsyapp/",
-      "proxyUrl": "http://192.254.222.156/"
+      "proxyUrl": "http://app-sila.com/"
+    },
+    {
+      "path": "/api",
+      "proxyUrl": "http://app-sila.com"
+    },
+    {
+      "path": "/maps/",
+      "proxyUrl": "http://maps.google.com"
     }
   ]
 }

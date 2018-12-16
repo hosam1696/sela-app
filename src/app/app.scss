@@ -141,3 +141,24 @@ ion-header {
 .header-bg {
   background: linear-gradient(to right, #3BBCF0, #3BBCF0) !important;
 }
+
+.toast-sm {
+
+  .toast-wrapper {
+    background-color: transparent;
+    width: 80%;
+    max-width: 250px;
+    border-radius: 8px;
+  }
+  .toast-message {
+    border-radius: 20px;
+    text-align: center;
+    width: 90%;
+    padding: 8px !important;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    color: $light;
+    background: rgba(0, 0, 0, 0.95);
+    font-size: 1.2rem;
+  }
+}

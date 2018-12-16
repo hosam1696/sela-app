@@ -1,0 +1,69 @@
+sella-select {
+
+  width: 100vw;
+  height:100vh;
+  z-index: 99999;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  ion-list {
+    button {
+      ion-label {
+        display: flex;
+        ion-icon {
+          margin: 0 16px;
+          font-size: 4.6rem;
+        }
+        ion-avatar {
+          margin: 0 12px !important;
+          img {
+            border-radius: 0 !important;
+          }
+        }
+        .item-container {
+          p {
+            &:first-of-type {
+              font-weight: bold;
+              font-size: 1.5rem;
+            }
+            &:last-of-type {
+              color: #888
+            }
+          }
+        }
+      }
+    }
+  }
+  ion-backdrop {
+    z-index: 99999 !important;
+  }
+  #select-items {
+    background-color:#fff;
+    border-top: 1px solid #f3f3f3;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform: translateY(100%);
+    transition: transform linear 250ms;
+    width: 100vw;
+    max-height: 40vh;
+    height: 30vh;
+    overflow-y: scroll;
+    z-index: 9999999;
+    &.present {
+      transform: translateY(0%);
+    }
+    button {
+      margin: 0 !important
+    }
+    .emoji__title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between
+    }
+  }
+
+
+}

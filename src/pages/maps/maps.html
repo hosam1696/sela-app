@@ -11,6 +11,8 @@
 </ion-header>
 
 <ion-content>
+  <input #searchInput id="places-search" [hidden]="loader" type="text" (ionFocus)="searchInput.placeholder=''" placeholder="{{'search by places'|translate}}">
+
   <div [hidden]="!loader" class="loader"><p></p></div>
   <div #map id="map" style="height:100%;"></div>
   <ion-slides dir="rtl" class="order-links" initialSlide="1">
@@ -81,5 +83,5 @@
 </ion-content>
 
 <ion-footer no-margin>
-  <button full ion-button no-margin color="secondary" (click)="requestOrder()">{{'Add Order'|translate}}</button>
+  <button full ion-button no-margin color="secondary" large (click)="requestOrder()">{{'Add Order'|translate}}</button>
 </ion-footer>

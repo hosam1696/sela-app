@@ -48,14 +48,14 @@ export class ContactusPage {
       this.userProvider.contactAdmins({...this.contactForm.value, token: this.token}, endpoint)
         .subscribe(response=>{
            if (response.status) {
-             this.appUtils.AppToast('تم ارسال رسالتك بنجاح');
+             this.appUtils.appToast('تم ارسال رسالتك بنجاح');
              this.navCtrl.pop()
            } else {
-             this.appUtils.AppToast('خطأ فى الخادم')
+             this.appUtils.appToast('خطأ فى الخادم')
            }
         })
     } else {
-      this.appUtils.AppToast('يرجى ملىء البيانات')
+      this.appUtils.appToast('يرجى ملىء البيانات')
     }
   }
 

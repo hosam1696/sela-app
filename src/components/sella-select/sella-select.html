@@ -1,0 +1,17 @@
+<ion-backdrop [style.opacity]="opacityChange" role="presentation" tappable disable-activated></ion-backdrop>
+
+<section id="select-items">
+    <!--<button ion-button full color="lightDiffer"><ion-icon color="dark" name="ios-arrow-down"></ion-icon></button>-->
+    <ion-list >
+      <button ion-item *ngFor="let item of List" no-lines (click)="selectItem(item)">
+        <ion-avatar *ngIf="item.id != 1">
+          <img [src]="item.icon" alt="">
+        </ion-avatar>
+        <ion-icon *ngIf="item.id == 1" color="secondary" name="md-car"></ion-icon>
+        <div class="item-container">
+          <p>{{item.name}}</p>
+          <p>{{item.description}}</p>
+        </div>
+      </button>
+    </ion-list>
+</section>

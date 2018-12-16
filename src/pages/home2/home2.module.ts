@@ -4,6 +4,8 @@ import { Home2Page } from './home2';
 import { AppstorageProvider } from '../../providers/appstorage/appstorage';
 import { UsersProviders } from '../../providers/users';
 import { TranslateModule } from '@ngx-translate/core';
+import { AppUtilFunctions } from '../../providers/utilfuns';
+import {ComponentsModule} from "../../components/components.module";
 
 @NgModule({
   declarations: [
@@ -11,11 +13,13 @@ import { TranslateModule } from '@ngx-translate/core';
   ],
   imports: [
     IonicPageModule.forChild(Home2Page),
-    TranslateModule
+    TranslateModule,
+    ComponentsModule
   ],
   providers: [
     AppstorageProvider,
-    UsersProviders
+    UsersProviders,
+    AppUtilFunctions
   ]
 })
 export class Home2PageModule {}

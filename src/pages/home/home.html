@@ -33,11 +33,69 @@
       </ion-item>
     </ion-list>
   </section>
+  <section class="places-container">
+    <div class="places-id">
+      <span class="place-category">
+        {{'Near Places'|translate}}
+      </span>
+    </div>
+    <ion-slides slidesPerView="3">
+      <ion-slide class="places-slides" >
+        <ion-item [dir]="platform.dir()" margin-bottom *ngFor="let restaurant of nearbyRestaurants.featured;trackBy: trackByFn"
+                  (click)="openPage('MapsPage', {pageData:restaurant})">
+          <ion-avatar>
+            <img [src]="'assets/imgs/place-placeholder.png'" alt="">
+          </ion-avatar>
+          <div class="result-actions">
+            <p><b>{{restaurant.title}}</b></p>
+            <p [hidden]="!restaurant.address">{{restaurant.address}}</p>
+            <p class="est-loc">
+              {{restaurant.distance | number:'.0-0'}} {{'metre'|translate}}
+            </p>
+          </div>
+        </ion-item>
+      </ion-slide>
+    </ion-slides>
+  </section>
+
+  <section class="places-container">
+    <div class="places-id">
+      <span class="place-category color-blue">
+        {{'All'|translate}}
+      </span>
+    </div>
+    <ion-list class="places-list">
+        <ng-template [ngIf]="nearbyRestaurants.locnear.length<1">
+            <ion-item margin-bottom *ngFor="let i of [1,2,3]" >
+              <ion-avatar class="loading">
+                <img src="" alt="">
+              </ion-avatar>
+              <div class="result-actions loading">
+                <p></p>
+                <p></p>
+              </div>
+            </ion-item>
+          </ng-template>
+        <ion-item [dir]="platform.dir()" margin-bottom *ngFor="let restaurant of nearbyRestaurants.locnear;trackBy: trackByFn"
+                  (click)="openPage('MapsPage', {pageData:restaurant})">
+          <ion-avatar>
+            <img [src]="'assets/imgs/place-placeholder.png'" alt="">
+          </ion-avatar>
+          <div class="result-actions">
+            <p>{{restaurant.title}}</p>
+            <p [hidden]="!restaurant.address">{{restaurant.address}}</p>
+            <p class="est-loc">
+              {{restaurant.distance | number:'.0-0'}} {{'metre'|translate}}
+            </p>
+          </div>
+        </ion-item>
+    </ion-list>
+  </section>
   <section class="hero" hidden>
     <img class="hero-img" src="assets/imgs/hero-img.png" alt="">
   </section>
 
-  <section class="home-segments">
+  <section class="home-segments" hidden>
     <h1>{{'Areas'|translate}}</h1>
 
     <div class="cat-segments">
@@ -60,7 +118,7 @@
     لا يوجد مطاعم حاليا
   </p>
 
-  <ion-slides [dir]="platform.dir()">
+  <ion-slides [dir]="platform.dir()" hidden>
     <!-- Nearest slide-->
     <ion-slide>
       <ion-list no-lines margin-horizontal>
@@ -74,7 +132,7 @@
             <p [hidden]="!restaurant.address">{{restaurant.address}}</p>
             <p class="est-loc">
               <ion-icon name="pin" color="primary"></ion-icon>
-              {{restaurant.distance | number:'.0-0'}} متر
+              {{restaurant.distance | number:'.0-0'}} {{'metre'|translate}}
             </p>
           </div>
         </ion-item>
@@ -101,7 +159,7 @@
             <p [hidden]="!restaurant.address">{{restaurant.address}}</p>
             <p class="est-loc">
               <ion-icon name="pin" color="primary"></ion-icon>
-              {{restaurant.distance | number:'.0-0'}} متر
+              {{restaurant.distance | number:'.0-0'}} {{'metre'|translate}}
             </p>
           </div>
         </ion-item>
@@ -131,7 +189,7 @@
             <p>{{restaurant.title}}</p>
             <p class="est-loc">
               <ion-icon name="pin" color="primary"></ion-icon>
-                {{restaurant.distance | number:'.0-0'}} متر
+                {{restaurant.distance | number:'.0-0'}} {{'metre'|translate}}
             </p>
           </div>
         </ion-item>

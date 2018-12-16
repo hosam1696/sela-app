@@ -9,7 +9,7 @@ export class Place {
   public type: string;
   constructor(id,location, title, type, vicinity= '',rating=4) {
     Object.assign(this, {id,location,title, type, vicinity, rating});
-    this.icon = `assets/imgs/${type}-pin.png`
+    this.icon = `assets/imgs/delegate-pin.png`
   }
 
   public getPlaceInfo(location = this.location):any {

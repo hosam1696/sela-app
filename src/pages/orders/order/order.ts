@@ -65,7 +65,7 @@ export class OrderPage {
       .subscribe(result=>{
         console.log(result);
         if (result.status == status) {
-          this.appUtils.AppToast('تم التغيير بنجاح', { position: 'middle', duration: 1500 }, () => {
+          this.appUtils.appToast('تم التغيير بنجاح', { position: 'middle', duration: 1500 }, () => {
             this.navCtrl.pop();
           })
         }

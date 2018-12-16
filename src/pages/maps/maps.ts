@@ -141,6 +141,7 @@ export class MapsPage {
       ]
     };
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+    this.addPlacesSearchInput();
     this.directionsService = new google.maps.DirectionsService,
       this.directionsDisplay = new google.maps.DirectionsRenderer({
         map: this.map
@@ -171,6 +172,36 @@ export class MapsPage {
 
   }
 
+  private addPlacesSearchInput() {
+    // Create the search box and link it to the UI element.
+    const searchInput = document.getElementById('places-search');
+    let searchBox = new google.maps.places.SearchBox(searchInput);
+    this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(searchInput);
+    searchBox.addListener('places_changed', () => {
+      let places = searchBox.getPlaces();
+
+      if (places.length == 0) {
+        return;
+      }
+      //this.removeMarkers();
+      // For each place, get the icon, name and location.
+      let bounds = new google.maps.LatLngBounds();
+      places.forEach((place) => {
+        if (!place.geometry) {
+          console.log("Returned place contains no geometry");
+          return;
+        }
+        if (place.geometry.viewport) {
+          // Only geocodes have viewport.
+          bounds.union(place.geometry.viewport);
+        } else {
+          bounds.extend(place.geometry.location);
+        }
+      });
+      this.map.fitBounds(bounds);
+    });
+  }
+
   private getGoogleServices(radius: number = 500, type: string = 'overall') {
     const request = {
       location: new google.maps.LatLng((<any>this.userlatlng).lat, (<any>this.userlatlng).lng),
@@ -188,6 +219,7 @@ export class MapsPage {
             map: this.map,
             position: placeLoc,
             animation: google.maps.Animation.DROP,
+            icon: 'assets/imgs/delegate-pin.png'
           });
           google.maps.event.addListener(marker, 'click', () => {
             console.log('marker clicked', marker, place);
@@ -217,15 +249,23 @@ export class MapsPage {
 
     let latLng = !Array.isArray(place.location) ? place.location : new google.maps.LatLng(...place.location); // Cairo;
     console.log('marker location', latLng);
+    const [sizeX, sizeY] = [25, 25];
+    const icon = {
+      url: 'assets/imgs/delegate-pin.png',
+      size: new google.maps.Size(sizeX, sizeY),
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(sizeX/2, sizeY/2)
+    };
     let markerOptions: any = {
       position: latLng,
       map: map,
       animation: google.maps.Animation.DROP,
-      title: place.title
+      title: place.title,
+      icon
     };
-    if (place.type) {
-      markerOptions.icon = 'assets/imgs/' + place.type + '-pin.png';
-    }
+    // if (place.type) {
+    //   markerOptions.icon = 'assets/imgs/' + place.type + '-pin.png';
+    // }
     let marker = new google.maps.Marker(markerOptions);
 
     if (myMarkers) {
@@ -280,9 +320,9 @@ export class MapsPage {
   requestOrder() {
     if (this.userLogged) {
       if (!this.orderDestination.restaurant) {
-        this.appUtils.AppToast('يرجى اختيار المكان اولاً', { position: 'middle', cssClass: 'centered' })
+        this.appUtils.appToast('يرجى اختيار المكان اولاً', { position: 'middle', cssClass: 'centered' })
       } else if (!this.orderDestination.delegate) {
-        this.appUtils.AppToast('يرجى اختيار المندوب اولا', { position: 'middle', cssClass: 'centered' })
+        this.appUtils.appToast('يرجى اختيار المندوب اولا', { position: 'middle', cssClass: 'centered' })
       } else {
         this.openPage('RequestOrderPage', { pageData: this.orderDestination, userLocation: this.userlatlng })
       }

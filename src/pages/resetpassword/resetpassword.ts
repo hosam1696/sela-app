@@ -42,7 +42,7 @@ export class ResetpasswordPage implements AfterViewInit{
       .subscribe(data=>{
         console.log(data);
         if (data.status == 0) {
-          this.appUtils.AppToast(this.activeSlide?'البريد الالكترونى غير صحيح':'رقم الهاتف غير صحيح')
+          this.appUtils.appToast(this.activeSlide?'البريد الالكترونى غير صحيح':'رقم الهاتف غير صحيح')
         } else {
           console.log(data)
         }

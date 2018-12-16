@@ -81,6 +81,9 @@ export class UsersProviders {
     return this.api.get('notification/' + id);
   }
 
+  uploadImage(imgData, id) {
+    return this.api.post('uploadUserIDs', {...imgData, id})
+  }
 
 }
 

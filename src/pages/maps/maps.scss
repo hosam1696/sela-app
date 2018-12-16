@@ -8,6 +8,16 @@ page-maps {
       height: 100% !important;
       width: 100%;
     }
+    #places-search {
+      border: none;
+      padding: 12px;
+      width: 100%;
+      left: 0 !important;
+      top: 0 !important;
+      position: absolute;
+      z-index: 99;
+      font-size: 1.4rem;
+    }
     .order-links {
       position: absolute;
       bottom: 0;

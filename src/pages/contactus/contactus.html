@@ -10,7 +10,10 @@
 
 <ion-content padding>
 
-  <h4 margin class="contact-title">{{'Contact Us'| translate}}</h4>
+  <!--<h4 margin class="contact-title">{{'Contact Us'| translate}}</h4>-->
+  <p class="page-info">
+     يسعدنا تلقى استفساراتكم واقتراحاتكم فى كل ما يخص التطبيق. كل رسائلكم سوف تصل للادارة
+  </p>
   <form [formGroup]="contactForm" (ngSubmit)="submitContact()">
 
     <div class="form-group">
@@ -24,7 +27,7 @@
       <ion-input [dir]="platform.isRTL?'rtl':'ltr'" formControlName="phone" type="tel" placeholder="{{'Phone'|translate}}" autocomplete="true" name="form_phone"></ion-input>
     </div>
     <ion-textarea [dir]="platform.isRTL?'rtl':'ltr'" formControlName="message" rows="10" placeholder="{{'Your Message..'|translate}}"></ion-textarea>
-    <div class="form-submit" text-center margin-top>
+    <div  text-center margin-top>
       <button ion-button color="secondary" type="submit">{{'send'|translate}}</button>
     </div>
   </form>
