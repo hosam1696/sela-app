@@ -43,7 +43,6 @@
     "angularfire2": "^5.0.0-rc.5-next",
     "call-number": "^1.0.1",
     "cordova-android": "7.0.0",
-    "cordova-android-support-gradle-release": "^1.4.4",
     "cordova-plugin-camera": "^4.0.3",
     "cordova-plugin-camera-preview": "^0.9.0",
     "cordova-plugin-device": "^2.0.2",
@@ -86,13 +85,8 @@
       "cordova-plugin-filepath": {},
       "cordova-sqlite-storage": {},
       "mx.ferreyra.callnumber": {},
-      "call-number": {},
-      "cordova-android-support-gradle-release": {
-        "ANDROID_SUPPORT_VERSION": "27.+"
-      }
+      "call-number": {}
     },
-    "platforms": [
-      "android"
-    ]
+    "platforms": []
   }
 }

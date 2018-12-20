@@ -28,6 +28,7 @@ export class Home2Page {
                 public userProvider: UsersProviders,
                 public translate: TranslateService,
                 public platform: Platform,
+                public appUtils: AppUtilFunctions,
                 public camera: Camera,
                 private utils: AppUtilFunctions,
                 public geoLocation: Geolocation,
@@ -120,7 +121,14 @@ export class Home2Page {
     save() {
         const carData = {
             vehicle_type: this.selectedCar.vehicle_type,
-            id: this.localUser.id
+            user_id: this.localUser.id,
+            vehcile_name: ''
+        }
+        if (carData.vehicle_type) {
+            this.appUtils.showLoader({content: this.selectedCar.description});
+            setTimeout(()=>{
+                this.appUtils.loader.dismiss();
+            }, 2000)
         }
     }
     
@@ -144,6 +152,7 @@ export class Home2Page {
         this.camera
             .getPicture(cameraOptions)
             .then(imageData => {
+                this.appUtils.showLoader({content: this.translate.instant('uploading image...')});
                 this.userProvider.uploadImage({[imgId]: imageData}, this.localUser.id)
                     .subscribe(d => {
                         this.utils.appToast(JSON.stringify(d), {duration: 100000, showCloseButton: true});

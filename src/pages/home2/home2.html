@@ -66,14 +66,14 @@
                     <div class="form-group upload-image">
                         <ion-icon name="image" (click)="pickImage('back_id_img')"></ion-icon>
                         <p>{{'Upload Image'|translate}}</p>
-                        <span>السيارة من الخلف</span>
+                        <span>{{'Bach Car' | translate}}</span>
                     </div>
                 </ion-col>
                 <ion-col *ngIf="localUser?.back_id_img">
                     <div class="form-group upload-image">
                         <img [src]="'http://app-silla.com/public/uploads/users/'+ localUser.back_id_img" alt="">
                         <div class="cover">
-                            <span>السيارة من الخلف</span>&nbsp;
+                            <span>{{'Back Car' | translate}}</span>&nbsp;
                             <ion-icon name="md-checkmark-circle" color="secure"></ion-icon>
                         </div>
                     </div>
@@ -82,28 +82,36 @@
                     <div class="form-group upload-image">
                         <ion-icon name="image" (click)="pickImage('front_id_img')"></ion-icon>
                         <p>{{'Upload Image'|translate}}</p>
-                        <span>السيارة من الأمام</span></div>
-
+                        <span>{{'Front Car' |translate}}</span>
+                    </div>
                 </ion-col>
                 <ion-col *ngIf="localUser?.front_id_img">
                     <div class="form-group upload-image">
                         <img [src]="'http://app-silla.com/public/uploads/users/'+ localUser.front_id_img" alt="">
                         <div class="cover">
-                            <span>السيارة من الأمام</span>&nbsp;
+                            <span>{{'Front Car' |translate}}</span>&nbsp;
                             <ion-icon name="md-checkmark-circle" color="secure"></ion-icon>
                         </div>
                     </div>
                 </ion-col>
             </ion-row>
             <ion-row>
-                <ion-col>
+                <ion-col *ngIf="localUser&&!localUser.driving_license_img">
                     <div class="form-group upload-image">
-                        <ion-icon name="image" (click)="pickImage('license')"></ion-icon>
+                        <ion-icon name="image" (click)="pickImage('driving_license_img')"></ion-icon>
                         <p>{{'Upload Image'|translate}}</p>
-                        <span>الرخصة</span>
+                        <span>{{'License'|translate}}</span>
                     </div>
                 </ion-col>
-
+                <ion-col *ngIf="localUser?.driving_license_img">
+                    <div class="form-group upload-image">
+                        <img [src]="'http://app-silla.com/public/uploads/users/'+ localUser.driving_license_img" alt="">
+                        <div class="cover">
+                            <span>{{'License'|translate}}</span>&nbsp;
+                            <ion-icon name="md-checkmark-circle" color="secure"></ion-icon>
+                        </div>
+                    </div>
+                </ion-col>
             </ion-row>
         </ion-grid>
         <section class="car-data">

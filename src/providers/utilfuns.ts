@@ -1,19 +1,30 @@
 import {Injectable} from '@angular/core';
-import { ToastController, ToastOptions, Platform, AlertController } from 'ionic-angular';
+import {
+    ToastController,
+    ToastOptions,
+    Platform,
+    AlertController,
+    LoadingController,
+    LoadingOptions, Loading
+} from 'ionic-angular';
 import "rxjs/add/operator/toPromise";
 import { TranslateService } from '@ngx-translate/core';
 @Injectable()
 
 export class AppUtilFunctions {
-
+    loader:Loading;
     constructor(
         public toastCtrl: ToastController,
         public translate: TranslateService,
         public platform: Platform,
-        private alertCtrl: AlertController
+        private alertCtrl: AlertController,
+        private loadingCtrl: LoadingController
     ){}
 
-
+    showLoader(options?:LoadingOptions) {
+        this.loader =  this.loadingCtrl.create({dismissOnPageChange: true, ...options});
+        this.loader.present();
+    }
     showLoginAlert(cb) {
         let alert = this.alertCtrl.create({
             title: this.translate.instant('Login is Required'),

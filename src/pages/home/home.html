@@ -23,6 +23,9 @@
 </ion-header>
 
 <ion-content no-padding>
+    <ion-refresher (ionRefresh)="refreshPage($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
   <section class="notifications" [class.ltr]="platform.dir()=='ltr'" [hidden]="hideNotification" clickOutside (clickOutsideEvent)="fireEvent()">
     <ion-list no-lines>
       <!-- Notification is Static for now-->

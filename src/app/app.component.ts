@@ -73,7 +73,7 @@ export class MyApp {
     this.platform.ready()
       .then(() => {
         this.configPage();
-        this.statusBar.backgroundColorByHexString('#f4f4f4');
+        this.statusBar.backgroundColorByHexString('#0B79AA');
         this.splashScreen.hide();
         this.handleDeviceNotifications()
       });

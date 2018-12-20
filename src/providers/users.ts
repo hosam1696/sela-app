@@ -49,6 +49,10 @@ export class UsersProviders {
     return this.api.get('refresh', {token})
   }
 
+  registerCar(carData) {
+      return this.api.post('addCar', carData)
+  }
+
   updateUserInfo(userData:any) {
     let id = userData.id;
     delete userData.id;
